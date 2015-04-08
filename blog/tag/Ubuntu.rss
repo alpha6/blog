@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>My Statocles Site</title>
+        <title>Just another blog</title>
         <link>http://alpha6.ru/blog/tag/Ubuntu</link>
         <atom:link href="http://alpha6.ru/blog/tag/Ubuntu.rss" rel="self" type="application/rss+xml" />
-        <description>Blog feed of My Statocles Site</description>
+        <description>Blog feed of Just another blog</description>
         <generator>Statocles 0.042</generator>
         <item>
             <title>Ubuntu LC_ALL = (unset)</title>
