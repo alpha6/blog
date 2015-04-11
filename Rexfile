@@ -9,6 +9,5 @@ group myservers => "alpha6.ru";
 
 desc "Deploy the blog on alpha6.ru";
 task "deploy", group => "myservers", sub {
-   my $output = run "cd /srv/www/alpha6.ru && git pull origin gh-pages";
-
+   run "cd /srv/www/alpha6.ru && git pull origin gh-pages";
 };
