@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>Just another blog</title>
-        <link>http://alpha6.ru</link>
-        <atom:link href="http://alpha6.ru/blog/index.rss" rel="self" type="application/rss+xml" />
-        <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.042</generator>
-        <item>
-            <title>Starting with Rex</title>
-            <link>http://alpha6.ru/blog/2015/04/11/starting-with-rex</link>
-            <guid>http://alpha6.ru/blog/2015/04/11/starting-with-rex</guid>
-            <description><![CDATA[
-                <p>В жизни каждого человека настает момент когда ему становится лениво делать одно и то же на удаленных серверах и хочется автоматизации.</p>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/Automation</id>
+    <title>Just another blog</title>
+    <updated>2015-04-11T23:46:10Z</updated>
+    <link rel="self" href="http://alpha6.ru/blog/tag/Automation.atom"/>
+    <link rel="alternate" href="http://alpha6.ru/blog/tag/Automation"/>
+    <generator version="0.042">Statocles</generator>
+    <entry>
+        <id>http://alpha6.ru/blog/2015/04/11/starting-with-rex</id>
+        <title>Starting with Rex</title>
+        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/11/starting-with-rex" />
+        <content type="html"><![CDATA[
+            <p>В жизни каждого человека настает момент когда ему становится лениво делать одно и то же на удаленных серверах и хочется автоматизации.</p>
 
 <p>В решении этой тяжелой жизненной проблемы нам поможет <a href="http://www.rexify.org">R(?)ex</a>.</p>
 
@@ -79,46 +79,17 @@
 
 <p>А те кому не хочется ждать - могут почитать <a href="http://www.rexify.org/howtos/index.html#howtos">официальную документацию</a>, она весьма подробная и с хорошими примерами.</p>
 
-                    <p><a href="http://alpha6.ru/blog/2015/04/11/starting-with-rex#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="/blog/tag/Rex">Rex</a>
-                    <a href="/blog/tag/Perl">Perl</a>
-                    <a href="/blog/tag/Automation">Automation</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sat, 11 Apr 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Ubuntu LC_ALL = (unset)</title>
-            <link>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)</link>
-            <guid>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)</guid>
-            <description><![CDATA[
-                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
-
-<pre><code>LANGUAGE = (unset)
-LC_ALL = (unset)
-</code></pre>
-
-<p>Для исправления делаем:</p>
-
-<pre><code># echo LC_ALL="ru_RU.UTF-8" &gt;&gt; /etc/environment
-# locale-gen ru_RU.UTF-8
-</code></pre>
-
-<p>И перелегониваемся.</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="/blog/tag/Ubuntu">Ubuntu</a>
-                    <a href="/blog/tag/LC_ALL">LC_ALL</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Thu, 09 Apr 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-    </channel>
-</rss>
+                <p><a href="http://alpha6.ru/blog/2015/04/11/starting-with-rex#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="/blog/tag/Rex">Rex</a>
+                <a href="/blog/tag/Perl">Perl</a>
+                <a href="/blog/tag/Automation">Automation</a>
+            </p>
+        ]]></content>
+        <updated>2015-04-11T00:00:00Z</updated>
+        <category term="Rex" />
+        <category term="Perl" />
+        <category term="Automation" />
+    </entry>
+</feed>
 
