@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/bugs</id>
+    <title>Just another blog</title>
+    <updated>2015-04-23T11:05:13Z</updated>
+    <link rel="self" href="http://alpha6.ru/blog/tag/bugs.atom"/>
+    <link rel="alternate" href="http://alpha6.ru/blog/tag/bugs"/>
+    <generator version="0.044">Statocles</generator>
+    <entry>
+        <id>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman</id>
+        <title>Ubuntu 14.04 + Gearman</title>
+        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman" />
+        <content type="html"><![CDATA[
+            <p>В базовой установке Gearman в ubuntu 14.04 есть баг - инит-скрипт написан не правильно и в результате Gearman  не реагирует наличие конфиг файла и запускается с настойками по умолчанию. Причем, на одном из серверов у меня проблемма после обновления усугубилась и он перестал запускаться даже с настройками по умолчанию.</p>
+
+<p>Есть два варианта решения проблемы:</p>
+
+<ol>
+<li>Пропатчить инит-скрипт, как это сделать можно прочитать <a href="http://jeremykendall.net/2014/09/04/ubuntu-14-dot-04-gearman-config-bug/">здесь</a></li>
+<li>Запускать его из под supervisord.</li>
+</ol>
+
+<p>У меня все приложения крутятся под supervisor, так что я пошел этим путем. </p>
+
+<p>Минимальный конфиг файл для супервизора:</p>
+
+<pre><code>[program:gearmand]
+command=/usr/sbin/gearmand -L 127.0.0.1 --user=gearman --log-file=stderr
+autorestart=true
+autostart=true
+</code></pre>
+
+<p><code>-L 127.0.0.1</code> указано, во первых, что-бы gearman не биндился на внешние интерфейсы (там все закрыто фаирволом, но все же). Во вторых - если на машине включен ipv6, но не настроен, то gearman будет пытаться забиндиться и на ipv6 и падать.</p>
+
+<p>З.Ы. инит для supervisord в 14.04 тоже кривой, но это уже другая история.</p>
+
+                <p><a href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="/blog/tag/ubuntu">ubuntu</a>
+                <a href="/blog/tag/gearman">gearman</a>
+                <a href="/blog/tag/bugs">bugs</a>
+            </p>
+        ]]></content>
+        <updated>2015-04-23T00:00:00Z</updated>
+        <category term="ubuntu" />
+        <category term="gearman" />
+        <category term="bugs" />
+    </entry>
+</feed>
+
