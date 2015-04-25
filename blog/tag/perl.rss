@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/tag/perl</link>
+        <atom:link href="http://alpha6.ru/blog/tag/perl.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.044</generator>
+        <item>
+            <title>stdout autoflush</title>
+            <link>http://alpha6.ru/blog/2015/04/25/stdout-autoflush</link>
+            <guid>http://alpha6.ru/blog/2015/04/25/stdout-autoflush</guid>
+            <description><![CDATA[
+                <p>Классический метод:</p>
+
+<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
+</code></pre>
+
+<p>ООП:</p>
+
+<pre><code>use IO::Handle;
+STDERR-&gt;autoflush(1);
+</code></pre>
+
+                    <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="/blog/tag/snippet">snippet</a>
+                    <a href="/blog/tag/perl">perl</a>
+                    <a href="/blog/tag/io">io</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sat, 25 Apr 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

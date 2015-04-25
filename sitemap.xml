@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
+        <loc>http://alpha6.ru/blog/tag/io</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-25</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/2015/04/25/stdout-autoflush</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-04-25</lastmod>
+    </url>
+    <url>
         <loc>http://alpha6.ru/blog/tag/ubuntu</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2015-04-23</lastmod>
     </url>
     <url>
-        <loc>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman</loc>
+        <loc>http://alpha6.ru/blog/2015/04/11/starting-with-rex</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
+        <lastmod>2015-04-11</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/gearman</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
         <lastmod>2015-04-23</lastmod>
     </url>
     <url>
@@ -19,10 +37,46 @@
         <lastmod>2015-04-09</lastmod>
     </url>
     <url>
+        <loc>http://alpha6.ru/blog/tag/Ubuntu</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-09</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-25</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/snippet</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-25</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/bugs</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-23</lastmod>
+    </url>
+    <url>
         <loc>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
         <lastmod>2015-04-09</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/Rex</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-11</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/perl</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-25</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/Automation</loc>
@@ -37,40 +91,10 @@
         <lastmod>2015-04-11</lastmod>
     </url>
     <url>
-        <loc>http://alpha6.ru/blog/2015/04/11/starting-with-rex</loc>
+        <loc>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2015-04-11</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
         <lastmod>2015-04-23</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/Rex</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-11</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/gearman</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-23</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/bugs</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-23</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/Ubuntu</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-09</lastmod>
     </url>
 </urlset>
 

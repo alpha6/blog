@@ -6,8 +6,8 @@
         <link rel="stylesheet" href="/theme/css/skeleton.css" />
         <link rel="stylesheet" href="/theme/css/statocles-default.css" />
         <title>Just another blog</title>
-        <link rel="alternate" href="/blog/tag/LC_ALL.atom" type="application/atom+xml" />
-        <link rel="alternate" href="/blog/tag/LC_ALL.rss" type="application/rss+xml" />
+        <link rel="alternate" href="/blog/tag/perl.atom" type="application/atom+xml" />
+        <link rel="alternate" href="/blog/tag/perl.rss" type="application/rss+xml" />
         
     </head>
     <body>
@@ -33,35 +33,33 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)">Ubuntu LC_ALL = (unset)</a></h1>
+                    <h1><a href="/blog/2015/04/25/stdout-autoflush">stdout autoflush</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/Ubuntu" rel="tag">Ubuntu</a>
-                        <a href="/blog/tag/LC_ALL" rel="tag">LC_ALL</a>
+                        <a href="/blog/tag/snippet" rel="tag">snippet</a>
+                        <a href="/blog/tag/perl" rel="tag">perl</a>
+                        <a href="/blog/tag/io" rel="tag">io</a>
                     </p>
 
                     <aside>
-                        <p><time datetime="2015-04-09">
-                            Posted on 2015-04-09
+                        <p><time datetime="2015-04-25">
+                            Posted on 2015-04-25
                         </time>
                         </p>
                     </aside>
 
                 </header>
 
-                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
+                <p>Классический метод:</p>
 
-<pre><code>LANGUAGE = (unset)
-LC_ALL = (unset)
+<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
 </code></pre>
 
-<p>Для исправления делаем:</p>
+<p>ООП:</p>
 
-<pre><code># echo LC_ALL="ru_RU.UTF-8" &gt;&gt; /etc/environment
-# locale-gen ru_RU.UTF-8
+<pre><code>use IO::Handle;
+STDERR-&gt;autoflush(1);
 </code></pre>
-
-<p>И перелегониваемся.</p>
 
 
 
@@ -106,12 +104,12 @@ LC_ALL = (unset)
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/LC_ALL.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/perl.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/LC_ALL.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/perl.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>
