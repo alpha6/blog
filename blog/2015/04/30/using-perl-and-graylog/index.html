@@ -6,8 +6,6 @@
         <link rel="stylesheet" href="/theme/css/skeleton.css" />
         <link rel="stylesheet" href="/theme/css/statocles-default.css" />
         <title>Just another blog</title>
-        <link rel="alternate" href="/blog/tag/perl.atom" type="application/atom+xml" />
-        <link rel="alternate" href="/blog/tag/perl.rss" type="application/rss+xml" />
         
     </head>
     <body>
@@ -25,30 +23,24 @@
             
         </header>
         <div class="main container">
-            
-<div class="row">
+            <div class="row">
 
     <div class="nine columns">
         <main>
-
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/04/30/using-perl-and-graylog">Используем Graylog с Perl</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl" rel="tag">perl</a>
-                        <a href="/blog/tag/graylog" rel="tag">graylog</a>
+            <header>
+                <h1>Используем Graylog с Perl</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/perl" rel="tag">perl</a>
+                    <a href="/blog/tag/graylog" rel="tag">graylog</a>
+                </p>
+                <aside>
+                    <p><time datetime="2015-04-30">
+                        Posted on 2015-04-30
+                    </time>
                     </p>
-
-                    <aside>
-                        <p><time datetime="2015-04-30">
-                            Posted on 2015-04-30
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
+                </aside>
+            </header>
+            <section id="section-1">
                 <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
 
 <p>! На момент написания статьи в VM идет версия Graylog-web с багом - при создании dashboard на нее нельзя добавить виджет т.к. JS-скрипт ответственный за разблокировку dashboard падает с ошибкой. Что-бы что-то сделать с дэшбордом на него надо добавить любой виджет с любой страницы. Это делается по клику на иконку возле названия виджета и выбором нужного дэшборда.</p>
@@ -111,95 +103,31 @@ $logger-&gt;info('Тестовое сообщение UTF8');
 
 <p>Подменить фунцию на лету у меня не получилось, скорее всего из-за хитрой архитектуры Log4perl. А лезть патчить в рантайм - овчинка выделки не стоит. Так что пока пользуюсь патченым модулем и коплю силы на создание полноценного патча для оригинального модуля.</p>
 
-
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/04/25/stdout-autoflush">stdout autoflush</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/snippet" rel="tag">snippet</a>
-                        <a href="/blog/tag/perl" rel="tag">perl</a>
-                        <a href="/blog/tag/io" rel="tag">io</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-04-25">
-                            Posted on 2015-04-25
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Классический метод:</p>
-
-<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
-</code></pre>
-
-<p>ООП:</p>
-
-<pre><code>use IO::Handle;
-STDERR-&gt;autoflush(1);
-</code></pre>
-
-
-
-            </article>
+            </section>
         </main>
-
-        <ul class="pager">
-            <li class="prev">
-                <a class="button disabled"
-                    rel="next" href=""
-                >
-                    &larr; Older
-                </a>
-            </li>
-            <li class="next">
-                <a class="button disabled"
-                    rel="prev" href=""
-                >
-                    Newer &rarr;
-                </a>
-            </li>
-        </ul>
-
     </div>
 
     <div class="three columns sidebar">
         
-        <h1>Tags</h1>
-        <ul class="list-inline">
-            <li><a href="/blog/tag/Automation">Automation</a></li>
-            <li><a href="/blog/tag/LC_ALL">LC_ALL</a></li>
-            <li><a href="/blog/tag/Perl">Perl</a></li>
-            <li><a href="/blog/tag/Rex">Rex</a></li>
-            <li><a href="/blog/tag/Ubuntu">Ubuntu</a></li>
-            <li><a href="/blog/tag/bugs">bugs</a></li>
-            <li><a href="/blog/tag/elasticsearch">elasticsearch</a></li>
-            <li><a href="/blog/tag/gearman">gearman</a></li>
-            <li><a href="/blog/tag/graylog">graylog</a></li>
-            <li><a href="/blog/tag/graylog2">graylog2</a></li>
-            <li><a href="/blog/tag/io">io</a></li>
-            <li><a href="/blog/tag/perl">perl</a></li>
-            <li><a href="/blog/tag/snippet">snippet</a></li>
-            <li><a href="/blog/tag/ubuntu">ubuntu</a></li>
-        </ul>
-        <h1>Feeds</h1>
-        <ul class="list-inline">
-            <li>
-                <a href="/blog/tag/perl.atom" rel="alternate" type="application/atom+xml">
-                    Atom
-                </a>
-            </li>
-            <li>
-                <a href="/blog/tag/perl.rss" rel="alternate" type="application/rss+xml">
-                    RSS
-                </a>
-            </li>
-        </ul>
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/Automation">Automation</a></li>
+                <li><a href="/blog/tag/LC_ALL">LC_ALL</a></li>
+                <li><a href="/blog/tag/Perl">Perl</a></li>
+                <li><a href="/blog/tag/Rex">Rex</a></li>
+                <li><a href="/blog/tag/Ubuntu">Ubuntu</a></li>
+                <li><a href="/blog/tag/bugs">bugs</a></li>
+                <li><a href="/blog/tag/elasticsearch">elasticsearch</a></li>
+                <li><a href="/blog/tag/gearman">gearman</a></li>
+                <li><a href="/blog/tag/graylog">graylog</a></li>
+                <li><a href="/blog/tag/graylog2">graylog2</a></li>
+                <li><a href="/blog/tag/io">io</a></li>
+                <li><a href="/blog/tag/perl">perl</a></li>
+                <li><a href="/blog/tag/snippet">snippet</a></li>
+                <li><a href="/blog/tag/ubuntu">ubuntu</a></li>
+            </ul>
+        </nav>
     </div>
 
 </div>

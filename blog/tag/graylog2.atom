@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/graylog2</id>
+    <title>Just another blog</title>
+    <updated>2015-05-17T22:12:14Z</updated>
+    <link rel="self" href="http://alpha6.ru/blog/tag/graylog2.atom"/>
+    <link rel="alternate" href="http://alpha6.ru/blog/tag/graylog2"/>
+    <generator version="0.045">Statocles</generator>
+    <entry>
+        <id>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages</id>
+        <title>Remove messages from Graylog2</title>
+        <link rel="alternate" href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages" />
+        <content type="html"><![CDATA[
+            <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
+
+<p>curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"match": { "message" : "SearchPattern"}}}'</p>
+
+<p>remove exact pattern:
+curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"term": { "message" : "ExactText"}}}'</p>
+
+                <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="/blog/tag/graylog2">graylog2</a>
+                <a href="/blog/tag/elasticsearch">elasticsearch</a>
+            </p>
+        ]]></content>
+        <updated>2015-05-02T00:00:00Z</updated>
+        <category term="graylog2" />
+        <category term="elasticsearch" />
+    </entry>
+</feed>
+

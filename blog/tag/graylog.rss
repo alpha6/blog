@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/perl</id>
-    <title>Just another blog</title>
-    <updated>2015-05-17T22:12:14Z</updated>
-    <link rel="self" href="http://alpha6.ru/blog/tag/perl.atom"/>
-    <link rel="alternate" href="http://alpha6.ru/blog/tag/perl"/>
-    <generator version="0.045">Statocles</generator>
-    <entry>
-        <id>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog</id>
-        <title>Используем Graylog с Perl</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog" />
-        <content type="html"><![CDATA[
-            <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/tag/graylog</link>
+        <atom:link href="http://alpha6.ru/blog/tag/graylog.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.045</generator>
+        <item>
+            <title>Используем Graylog с Perl</title>
+            <link>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog</link>
+            <guid>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog</guid>
+            <description><![CDATA[
+                <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
 
 <p>! На момент написания статьи в VM идет версия Graylog-web с багом - при создании dashboard на нее нельзя добавить виджет т.к. JS-скрипт ответственный за разблокировку dashboard падает с ошибкой. Что-бы что-то сделать с дэшбордом на него надо добавить любой виджет с любой страницы. Это делается по клику на иконку возле названия виджета и выбором нужного дэшборда.</p>
 
@@ -73,43 +73,16 @@ $logger-&gt;info('Тестовое сообщение UTF8');
 
 <p>Подменить фунцию на лету у меня не получилось, скорее всего из-за хитрой архитектуры Log4perl. А лезть патчить в рантайм - овчинка выделки не стоит. Так что пока пользуюсь патченым модулем и коплю силы на создание полноценного патча для оригинального модуля.</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="/blog/tag/perl">perl</a>
-                <a href="/blog/tag/graylog">graylog</a>
-            </p>
-        ]]></content>
-        <updated>2015-04-30T00:00:00Z</updated>
-        <category term="perl" />
-        <category term="graylog" />
-    </entry>
-    <entry>
-        <id>http://alpha6.ru/blog/2015/04/25/stdout-autoflush</id>
-        <title>stdout autoflush</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush" />
-        <content type="html"><![CDATA[
-            <p>Классический метод:</p>
-
-<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
-</code></pre>
-
-<p>ООП:</p>
-
-<pre><code>use IO::Handle;
-STDERR-&gt;autoflush(1);
-</code></pre>
-
-                <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="/blog/tag/snippet">snippet</a>
-                <a href="/blog/tag/perl">perl</a>
-                <a href="/blog/tag/io">io</a>
-            </p>
-        ]]></content>
-        <updated>2015-04-25T00:00:00Z</updated>
-        <category term="snippet" />
-        <category term="perl" />
-        <category term="io" />
-    </entry>
-</feed>
+                    <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="/blog/tag/perl">perl</a>
+                    <a href="/blog/tag/graylog">graylog</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Thu, 30 Apr 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
 

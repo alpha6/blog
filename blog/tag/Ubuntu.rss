@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/Ubuntu</link>
         <atom:link href="http://alpha6.ru/blog/tag/Ubuntu.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.044</generator>
+        <generator>Statocles 0.045</generator>
         <item>
             <title>Ubuntu LC_ALL = (unset)</title>
             <link>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)</link>

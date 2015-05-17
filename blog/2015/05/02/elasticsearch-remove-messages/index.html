@@ -28,30 +28,25 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>stdout autoflush</h1>
+                <h1>Remove messages from Graylog2</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/snippet" rel="tag">snippet</a>
-                    <a href="/blog/tag/perl" rel="tag">perl</a>
-                    <a href="/blog/tag/io" rel="tag">io</a>
+                    <a href="/blog/tag/graylog2" rel="tag">graylog2</a>
+                    <a href="/blog/tag/elasticsearch" rel="tag">elasticsearch</a>
                 </p>
                 <aside>
-                    <p><time datetime="2015-04-25">
-                        Posted on 2015-04-25
+                    <p><time datetime="2015-05-02">
+                        Posted on 2015-05-02
                     </time>
                     </p>
                 </aside>
             </header>
             <section id="section-1">
-                <p>Классический метод:</p>
+                <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
 
-<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
-</code></pre>
+<p>curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"match": { "message" : "SearchPattern"}}}'</p>
 
-<p>ООП:</p>
-
-<pre><code>use IO::Handle;
-STDERR-&gt;autoflush(1);
-</code></pre>
+<p>remove exact pattern:
+curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"term": { "message" : "ExactText"}}}'</p>
 
             </section>
         </main>

@@ -6,8 +6,8 @@
         <link rel="stylesheet" href="/theme/css/skeleton.css" />
         <link rel="stylesheet" href="/theme/css/statocles-default.css" />
         <title>Just another blog</title>
-        <link rel="alternate" href="/blog/tag/perl.atom" type="application/atom+xml" />
-        <link rel="alternate" href="/blog/tag/perl.rss" type="application/rss+xml" />
+        <link rel="alternate" href="/blog/tag/graylog.atom" type="application/atom+xml" />
+        <link rel="alternate" href="/blog/tag/graylog.rss" type="application/rss+xml" />
         
     </head>
     <body>
@@ -114,39 +114,6 @@ $logger-&gt;info('Тестовое сообщение UTF8');
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/04/25/stdout-autoflush">stdout autoflush</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/snippet" rel="tag">snippet</a>
-                        <a href="/blog/tag/perl" rel="tag">perl</a>
-                        <a href="/blog/tag/io" rel="tag">io</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-04-25">
-                            Posted on 2015-04-25
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Классический метод:</p>
-
-<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
-</code></pre>
-
-<p>ООП:</p>
-
-<pre><code>use IO::Handle;
-STDERR-&gt;autoflush(1);
-</code></pre>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -190,12 +157,12 @@ STDERR-&gt;autoflush(1);
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/perl.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/graylog.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/perl.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/graylog.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>

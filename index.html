@@ -33,6 +33,117 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2015/05/02/elasticsearch-remove-messages">Remove messages from Graylog2</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/graylog2" rel="tag">graylog2</a>
+                        <a href="/blog/tag/elasticsearch" rel="tag">elasticsearch</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-05-02">
+                            Posted on 2015-05-02
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
+
+<p>curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"match": { "message" : "SearchPattern"}}}'</p>
+
+<p>remove exact pattern:
+curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"term": { "message" : "ExactText"}}}'</p>
+
+
+
+            </article>
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/04/30/using-perl-and-graylog">Используем Graylog с Perl</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl" rel="tag">perl</a>
+                        <a href="/blog/tag/graylog" rel="tag">graylog</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-04-30">
+                            Posted on 2015-04-30
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
+
+<p>! На момент написания статьи в VM идет версия Graylog-web с багом - при создании dashboard на нее нельзя добавить виджет т.к. JS-скрипт ответственный за разблокировку dashboard падает с ошибкой. Что-бы что-то сделать с дэшбордом на него надо добавить любой виджет с любой страницы. Это делается по клику на иконку возле названия виджета и выбором нужного дэшборда.</p>
+
+<p>Первым делом надо создать Input для логов.
+Мы будем использовать GELF формат через Log::Log4perl.
+Идем System->Inputs в выпадающем списке выбираем GELF UDP и жмем Launch Input.
+В открывшемся окне выбираем ноды на которых будет работать этот инпут, описание, адрес на котором он будет слушать.
+Жмем launch, убеждаемся что он стартанул и на этом пока все работы с Graylog закончены.</p>
+
+<p>Теперь устанавливаем пакет <a href="https://metacpan.org/pod/Log::Log4perl::Layout::GELF">Log::Log4perl::Layout::GELF</a>.</p>
+
+<p>Создаем файл конфигурации логгера:</p>
+
+<pre><code>log4perl.logger.graylog                     = INFO, Screen, Graylog
+
+log4perl.appender.Screen                = Log::Log4perl::Appender::Screen
+log4perl.appender.Screen.stderr         = 0
+log4perl.appender.Screen.layout         = Log::Log4perl::Layout::PatternLayout
+log4perl.appender.Screen.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.Screen.utf8           = 1
+
+log4perl.appender.Graylog          = Log::Log4perl::Appender::Socket
+log4perl.appender.Graylog.PeerAddr = graylog.host
+log4perl.appender.Graylog.PeerPort = 12201
+log4perl.appender.Graylog.Proto    = udp
+log4perl.appender.Graylog.layout   = GELF
+</code></pre>
+
+<p>Создаем тестовый скрипт:</p>
+
+<pre><code>#!/usr/bin/env perl
+
+use utf8;
+use strict;
+use Log::Log4perl;
+
+#Загружаем конфигурацию 
+Log::Log4perl::init('logger.conf');
+
+#Получаем логгер
+my $logger = Log::Log4perl-&gt;get_logger('graylog');
+
+$logger-&gt;info('hello graylog');
+$logger-&gt;info('Тестовое сообщение UTF8');
+</code></pre>
+
+<p>В теории, этого достаточно для того что бы нужные логи вашего приложения начали идти в Graylog. Но, как обычно, есть нюанс - этот модуль совершенно не представляет что есть более чем однобайтные кодировки и при попытке что-то записать в лог что-то с utf8 мы получим ошибку <code>Wide character in IO::Compress::Gzip::write</code> и в Graylog сообщение не придет.</p>
+
+<p>Для обычных аппендеров, например Screen, эта проблема решается просто - дописываем в конфигурацию флаг включения utf8:</p>
+
+<pre><code>log4perl.appender.FileAppndr.utf8     = 1
+</code></pre>
+
+<p>Но в данном случае проблема на уровне layout и этот модуль не обрабатывает такую ситуацию.</p>
+
+<p>Для себя я эту проблему решил просто - сделал форк модуля с названием <a href="https://github.com/alpha6/Log-Log4perl-Layout-GELFUtf">GELFUtf</a> и использую его.</p>
+
+<p>Таким образом в конфиге вместо <code>log4perl.appender.Graylog.layout   = GELF</code> пишу <code>log4perl.appender.Graylog.layout   = GELFUtf</code>.</p>
+
+<p>Подменить фунцию на лету у меня не получилось, скорее всего из-за хитрой архитектуры Log4perl. А лезть патчить в рантайм - овчинка выделки не стоит. Так что пока пользуюсь патченым модулем и коплю силы на создание полноценного патча для оригинального модуля.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/04/25/stdout-autoflush">stdout autoflush</a></h1>
 
                     <p class="tags">Tags:
@@ -199,47 +310,12 @@ autostart=true
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)">Ubuntu LC_ALL = (unset)</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/Ubuntu" rel="tag">Ubuntu</a>
-                        <a href="/blog/tag/LC_ALL" rel="tag">LC_ALL</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-04-09">
-                            Posted on 2015-04-09
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
-
-<pre><code>LANGUAGE = (unset)
-LC_ALL = (unset)
-</code></pre>
-
-<p>Для исправления делаем:</p>
-
-<pre><code># echo LC_ALL="ru_RU.UTF-8" &gt;&gt; /etc/environment
-# locale-gen ru_RU.UTF-8
-</code></pre>
-
-<p>И перелегониваемся.</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
             <li class="prev">
-                <a class="button disabled"
-                    rel="next" href=""
+                <a class="button button-primary"
+                    rel="next" href="page/2"
                 >
                     &larr; Older
                 </a>
@@ -265,7 +341,10 @@ LC_ALL = (unset)
             <li><a href="/blog/tag/Rex">Rex</a></li>
             <li><a href="/blog/tag/Ubuntu">Ubuntu</a></li>
             <li><a href="/blog/tag/bugs">bugs</a></li>
+            <li><a href="/blog/tag/elasticsearch">elasticsearch</a></li>
             <li><a href="/blog/tag/gearman">gearman</a></li>
+            <li><a href="/blog/tag/graylog">graylog</a></li>
+            <li><a href="/blog/tag/graylog2">graylog2</a></li>
             <li><a href="/blog/tag/io">io</a></li>
             <li><a href="/blog/tag/perl">perl</a></li>
             <li><a href="/blog/tag/snippet">snippet</a></li>
