@@ -1,8 +1,8 @@
 use Rex -feature => ['1.0'];
 
 user "alpha6";
-private_key "/home/alpha6/.ssh/id_rsa";
-public_key "/home/alpha6/.ssh/id_rsa.pub";
+private_key "~/.ssh/id_rsa";
+public_key "~/.ssh/id_rsa.pub";
 key_auth;
 
 group myservers => "alpha6.ru";
