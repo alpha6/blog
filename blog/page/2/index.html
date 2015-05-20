@@ -33,6 +33,96 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2015/04/11/starting-with-rex">Starting with Rex</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/Rex" rel="tag">Rex</a>
+                        <a href="/blog/tag/Perl" rel="tag">Perl</a>
+                        <a href="/blog/tag/Automation" rel="tag">Automation</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-04-11">
+                            Posted on 2015-04-11
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>В жизни каждого человека настает момент когда ему становится лениво делать одно и то же на удаленных серверах и хочется автоматизации.</p>
+
+<p>В решении этой тяжелой жизненной проблемы нам поможет <a href="http://www.rexify.org">R(?)ex</a>.</p>
+
+<p><strong>Небольшой F.A.Q</strong></p>
+
+<p><strong><em>Что это?</em></strong></p>
+
+<p>Это приложение для управления удаленными(и не очень) серверами и приложениями.</p>
+
+<p><strong><em>Я могу просто написать bash/perl/pithon/ruby/etc-скрипт и он сделает то же самое.</em></strong></p>
+
+<p>Несомненно, но это будет очередное изобретение велосипеда с колесами разной степеньи квадратности. </p>
+
+<p><strong><em>Почему не Puppet/Ansible?</em></strong></p>
+
+<p>Потому что здесь про Perl, но сравнение Rex и Ansible я еще сделаю.</p>
+
+<p><strong>Поехали</strong></p>
+
+<p>Во первых, Rex можно использовать для простого запуска команд на удаленном сервере:</p>
+
+<p><code>rex -H "example.com example.ru" -e "say run 'uptime'"</code></p>
+
+<p>Задачи выполняются последовательно, так что придется подождать пока опросятся все сервера, особенно если их много.</p>
+
+<p>Запуск из консоли это вариант если надо что-то и единоразово посмотреть что там на серверах творится. Но постоянно набирать команды в консоли это решение для сильных духом и памятью.
+Мы же как, настоящие программисты, будем осваивать командные файлы.</p>
+
+<p>По умолчанию Rex использует файл под названием Rexfile (удивительное совпадение).</p>
+
+<p>Попробуем сделать что-то полезное.</p>
+
+<p>Создадим Rexfile который будет содержать команду <code>deploy</code>. По этой команде Rex пойдет на удаленный сервер и сделает там <code>git pull</code> для сайта. Простейшний вариант деплоя.</p>
+
+<pre><code> use Rex -feature =&gt; ['1.0'];
+
+ user "myuser";
+ private_key "/home/myuser/.ssh/id_rsa";
+ public_key "/home/myuser/.ssh/id_rsa.pub";
+ key_auth;
+
+ group myservers =&gt; "example.ru";
+
+ desc "Deploy the blog on example.ru";
+ task "deploy", group =&gt; "myservers", sub {
+   run "cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages";
+ };
+</code></pre>
+
+<p>Теперь можно сказать: <code>rex deploy</code></p>
+
+<p>Дальше Rex залогинится под пользователем "myuser" с использованием указанных ключей и выполнит команду указанную в опции run. Если пользователь на удаленном сервер совпадает с текущим - то первую секцию можно опустить. Будет использоваться текущий пользователь и его настройки ключей для ssh. Но если планируется использование команды через cron - то указывать надо обязательно, иначе ничего работать не будет.</p>
+
+<p>Так же можно обновлять конфигурацию копируя на хосты необходимые файлы (вы же не храните авторизационные данные в Git, правда?)
+приведем содержимое раздела task к виду:</p>
+
+<pre><code> run "cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages";
+ file "/srv/www/example.ru/test.conf",
+     source    =&gt; "files/test.conf";
+</code></pre>
+
+<p>Теперь при выполнении <code>rex deploy</code> будет выполнен <code>pull</code> из репозитория на удаленном сервере, а затем туда будет скопирован файл <code>files/test.conf</code>.</p>
+
+<p>В принципе, этого совершенно достаточно для деплоя простого сайта не требующего перезапуска сервисов. Таким скриптом деплоится этот блог. Пошаговый мануал о том, как сделать настройку сервера с нуля до продакшена одной командой будет в следующей статье.</p>
+
+<p>А те кому не хочется ждать - могут почитать <a href="http://www.rexify.org/howtos/index.html#howtos">официальную документацию</a>, она весьма подробная и с хорошими примерами.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)">Ubuntu LC_ALL = (unset)</a></h1>
 
                     <p class="tags">Tags:
@@ -96,13 +186,16 @@ LC_ALL = (unset)
             <li><a href="/blog/tag/Perl">Perl</a></li>
             <li><a href="/blog/tag/Rex">Rex</a></li>
             <li><a href="/blog/tag/Ubuntu">Ubuntu</a></li>
+            <li><a href="/blog/tag/airplay">airplay</a></li>
             <li><a href="/blog/tag/bugs">bugs</a></li>
             <li><a href="/blog/tag/elasticsearch">elasticsearch</a></li>
             <li><a href="/blog/tag/gearman">gearman</a></li>
             <li><a href="/blog/tag/graylog">graylog</a></li>
             <li><a href="/blog/tag/graylog2">graylog2</a></li>
             <li><a href="/blog/tag/io">io</a></li>
+            <li><a href="/blog/tag/linux">linux</a></li>
             <li><a href="/blog/tag/perl">perl</a></li>
+            <li><a href="/blog/tag/shairport">shairport</a></li>
             <li><a href="/blog/tag/snippet">snippet</a></li>
             <li><a href="/blog/tag/ubuntu">ubuntu</a></li>
         </ul>

@@ -7,6 +7,63 @@
         <description>Blog feed of Just another blog</description>
         <generator>Statocles 0.045</generator>
         <item>
+            <title>Превращаем Linux компьютер в AirPlay приемник</title>
+            <link>http://alpha6.ru/blog/2015/05/20/airport-linux</link>
+            <guid>http://alpha6.ru/blog/2015/05/20/airport-linux</guid>
+            <description><![CDATA[
+                <p>Захотелось мне как-то играть музыку с мака на колонки без проводов. Раньше для этого я пользовался AirPort Express, када были воткнуты колонки. Но сия халява кончилась и теперь надо что-то изобретать.</p>
+
+<p>Быстрый поиск по интернетам показал существование демона shairport, который предствляет собой AirPlay приемник для Linux. Проблема в том, что данный демон уже давно не поддерживается и автор прямо отказался от его поддержки. Но благодаря великой силе форков гитхаба был найден проект <a href="https://github.com/mikebrady/shairport-sync">shairport-sync</a>, который является форком shairport с допилами и поддерживается в настоящее время. То что надо!</p>
+
+<p>Итак, краткий мануал по установке. Я взял старый asus eee 900, на котором стоит xubuntu 14.04LTS. По совместительству он работает у меня домашним сервером.</p>
+
+<ul>
+<li>Клонируем к себе репозиторий <code>git clone https://github.com/mikebrady/shairport-sync.git</code></li>
+<li>Устанавливаем зависимости нужное для сборки <code>apt install build-essential autoconf checkinstall libtool libdaemon-dev libasound2-dev libpopt-dev</code></li>
+<li>Устанавливаем Avahi <code>apt install avahi-daemon libavahi-client-dev</code></li>
+<li>Устанавливаем зависимости для работы с SSL <code>apt install libssl-dev</code>. Демон умеет работать с OpenSSL или PolarSSL, но этот пакет нужен для обеих библиотек.</li>
+<li>Я использовал PolarSSL для сборки, но, в целом, никакой разницы нет. Устанавливаем PolarSSL <code>apt install libpolarssl-dev</code></li>
+<li>Запускаем autoconf <code>autoreconf -i -f</code> после этого будет сгенерирован файл configure.</li>
+<li><code>$ ./configure --with-alsa --with-avahi --with-ssl=polarssl</code></li>
+<li><code>make</code></li>
+<li><code>sudo checkinstall</code>. Checkinstall задаст несколько вопросов, на них можно ответить по умолчанию, единственное что надо задать поле <code>version</code> в виде числа. Т.к. по умолчанию туда попадает значение <code>sync</code> и checkinstall падает с ошибкой создания пакета.</li>
+</ul>
+
+<p>Почему вместо <code>make install</code> лучше использовать <code>checkinstall</code>? Эта утилита перехватит работу make, отследит куда ставятся все файлы приложения и создаст deb пакет для безопасной установки и удаления приложения.</p>
+
+<p>Конфигурируется демон через редактирования файла <code>/etc/init.d/shairport-sync</code>, я там поменял только название сервиса. Обычно больше ничего не требуется для работы.</p>
+
+<h3>Возможные проблемы</h3>
+
+<p>При загрузке компьютера может появляться сообщение:</p>
+
+<pre><code>Avahi detected that your currently configured local DNS server serves a domain .local. This is inherently incompatible with Avahi and thus Avahi disabled itself. If you want to use Avahi in this network, please contact your administrator and convince him to use a different DNS domain, since .local should be used exclusively for Zeroconf technology.
+</code></pre>
+
+<p>Работа Avahi будет останавливаться, соответственно и shairport не запустится. Обычно эта проблема связана с тем, что в DNS сервере есть записи для зоны local.</p>
+
+<p>Проверяется это командой: <code>host -t SOA local.</code> (обратите внимание на точку в конце!). В нормальной ситуации вывод должен быть около такого: </p>
+
+<pre><code>bash-3.2$ host -t SOA local.
+Host local. not found: 3(NXDOMAIN)
+</code></pre>
+
+<p>Если же в выводе написано: <code>local has SOA record XXX</code>, то ваш DNS транслирует зону local. Обычно это делают провайдеры для работы сервисов типа retracker.local. Если вы этим не пользуетесь - можно просто указать днс Yandex (77.88.8.8/77.88.8.1) или Google(8.8.8.8/8.8.4.4).</p>
+
+<p>После этих настроек и рестарта служб - все должно работать, а на устройствах Apple появится ваше устройство для вывода звука.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/05/20/airport-linux#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="/blog/tag/airplay">airplay</a>
+                    <a href="/blog/tag/linux">linux</a>
+                    <a href="/blog/tag/shairport">shairport</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Wed, 20 May 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Remove messages from Graylog2</title>
             <link>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages</link>
             <guid>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages</guid>
@@ -169,90 +226,6 @@ autostart=true
             ]]></description>
             <pubDate>
                 Thu, 23 Apr 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Starting with Rex</title>
-            <link>http://alpha6.ru/blog/2015/04/11/starting-with-rex</link>
-            <guid>http://alpha6.ru/blog/2015/04/11/starting-with-rex</guid>
-            <description><![CDATA[
-                <p>В жизни каждого человека настает момент когда ему становится лениво делать одно и то же на удаленных серверах и хочется автоматизации.</p>
-
-<p>В решении этой тяжелой жизненной проблемы нам поможет <a href="http://www.rexify.org">R(?)ex</a>.</p>
-
-<p><strong>Небольшой F.A.Q</strong></p>
-
-<p><strong><em>Что это?</em></strong></p>
-
-<p>Это приложение для управления удаленными(и не очень) серверами и приложениями.</p>
-
-<p><strong><em>Я могу просто написать bash/perl/pithon/ruby/etc-скрипт и он сделает то же самое.</em></strong></p>
-
-<p>Несомненно, но это будет очередное изобретение велосипеда с колесами разной степеньи квадратности. </p>
-
-<p><strong><em>Почему не Puppet/Ansible?</em></strong></p>
-
-<p>Потому что здесь про Perl, но сравнение Rex и Ansible я еще сделаю.</p>
-
-<p><strong>Поехали</strong></p>
-
-<p>Во первых, Rex можно использовать для простого запуска команд на удаленном сервере:</p>
-
-<p><code>rex -H "example.com example.ru" -e "say run 'uptime'"</code></p>
-
-<p>Задачи выполняются последовательно, так что придется подождать пока опросятся все сервера, особенно если их много.</p>
-
-<p>Запуск из консоли это вариант если надо что-то и единоразово посмотреть что там на серверах творится. Но постоянно набирать команды в консоли это решение для сильных духом и памятью.
-Мы же как, настоящие программисты, будем осваивать командные файлы.</p>
-
-<p>По умолчанию Rex использует файл под названием Rexfile (удивительное совпадение).</p>
-
-<p>Попробуем сделать что-то полезное.</p>
-
-<p>Создадим Rexfile который будет содержать команду <code>deploy</code>. По этой команде Rex пойдет на удаленный сервер и сделает там <code>git pull</code> для сайта. Простейшний вариант деплоя.</p>
-
-<pre><code> use Rex -feature =&gt; ['1.0'];
-
- user "myuser";
- private_key "/home/myuser/.ssh/id_rsa";
- public_key "/home/myuser/.ssh/id_rsa.pub";
- key_auth;
-
- group myservers =&gt; "example.ru";
-
- desc "Deploy the blog on example.ru";
- task "deploy", group =&gt; "myservers", sub {
-   run "cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages";
- };
-</code></pre>
-
-<p>Теперь можно сказать: <code>rex deploy</code></p>
-
-<p>Дальше Rex залогинится под пользователем "myuser" с использованием указанных ключей и выполнит команду указанную в опции run. Если пользователь на удаленном сервер совпадает с текущим - то первую секцию можно опустить. Будет использоваться текущий пользователь и его настройки ключей для ssh. Но если планируется использование команды через cron - то указывать надо обязательно, иначе ничего работать не будет.</p>
-
-<p>Так же можно обновлять конфигурацию копируя на хосты необходимые файлы (вы же не храните авторизационные данные в Git, правда?)
-приведем содержимое раздела task к виду:</p>
-
-<pre><code> run "cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages";
- file "/srv/www/example.ru/test.conf",
-     source    =&gt; "files/test.conf";
-</code></pre>
-
-<p>Теперь при выполнении <code>rex deploy</code> будет выполнен <code>pull</code> из репозитория на удаленном сервере, а затем туда будет скопирован файл <code>files/test.conf</code>.</p>
-
-<p>В принципе, этого совершенно достаточно для деплоя простого сайта не требующего перезапуска сервисов. Таким скриптом деплоится этот блог. Пошаговый мануал о том, как сделать настройку сервера с нуля до продакшена одной командой будет в следующей статье.</p>
-
-<p>А те кому не хочется ждать - могут почитать <a href="http://www.rexify.org/howtos/index.html#howtos">официальную документацию</a>, она весьма подробная и с хорошими примерами.</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/04/11/starting-with-rex#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="/blog/tag/Rex">Rex</a>
-                    <a href="/blog/tag/Perl">Perl</a>
-                    <a href="/blog/tag/Automation">Automation</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sat, 11 Apr 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>
