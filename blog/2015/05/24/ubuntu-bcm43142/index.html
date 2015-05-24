@@ -28,30 +28,45 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>stdout autoflush</h1>
+                <h1>ubuntu 15.04 и BCM43142</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/snippet" rel="tag">snippet</a>
-                    <a href="/blog/tag/perl" rel="tag">perl</a>
-                    <a href="/blog/tag/io" rel="tag">io</a>
+                    <a href="/blog/tag/Ubuntu" rel="tag">Ubuntu</a>
+                    <a href="/blog/tag/note" rel="tag">note</a>
                 </p>
                 <aside>
-                    <p><time datetime="2015-04-25">
-                        Posted on 2015-04-25
+                    <p><time datetime="2015-05-24">
+                        Posted on 2015-05-24
                     </time>
                     </p>
                 </aside>
             </header>
             <section id="section-1">
-                <p>Классический метод:</p>
+                <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова "совсем". И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
 
-<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
+<p>Симптомы:
+* в NetworkManager нет даже пункта про беспроводные подключения.
+* <code># lshw -c Network</code> говорит что-то вроде:</p>
+
+<pre><code>*-network UNCLAIMED     
+   description: Network controller
+   product: BCM43142 802.11b/g/n
+   vendor: Broadcom Corporation
+   physical id: 0
+   bus info: pci@0000:02:00.0
+   version: 01
+   width: 64 bits
+   clock: 33MHz
+   capabilities: bus_master cap_list
+   configuration: latency=0
+   resources: memory:90500000-90507fff
 </code></pre>
 
-<p>ООП:</p>
+<p>Как можно заметить - устройство карте не назначено. Значит надо доустановить пакет с прошивкой для карты. С 14.04 эта карта поддерживается в официальных драйверах, так что просто устанавливаем пакет руками:</p>
 
-<pre><code>use IO::Handle;
-STDERR-&gt;autoflush(1);
+<pre><code>sudo apt-get install bcmwl-kernel-source
 </code></pre>
+
+<p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
 
             </section>
         </main>

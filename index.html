@@ -33,6 +33,54 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2015/05/24/ubuntu-bcm43142">ubuntu 15.04 и BCM43142</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/Ubuntu" rel="tag">Ubuntu</a>
+                        <a href="/blog/tag/note" rel="tag">note</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-05-24">
+                            Posted on 2015-05-24
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова "совсем". И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
+
+<p>Симптомы:
+* в NetworkManager нет даже пункта про беспроводные подключения.
+* <code># lshw -c Network</code> говорит что-то вроде:</p>
+
+<pre><code>*-network UNCLAIMED     
+   description: Network controller
+   product: BCM43142 802.11b/g/n
+   vendor: Broadcom Corporation
+   physical id: 0
+   bus info: pci@0000:02:00.0
+   version: 01
+   width: 64 bits
+   clock: 33MHz
+   capabilities: bus_master cap_list
+   configuration: latency=0
+   resources: memory:90500000-90507fff
+</code></pre>
+
+<p>Как можно заметить - устройство карте не назначено. Значит надо доустановить пакет с прошивкой для карты. С 14.04 эта карта поддерживается в официальных драйверах, так что просто устанавливаем пакет руками:</p>
+
+<pre><code>sudo apt-get install bcmwl-kernel-source
+</code></pre>
+
+<p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/05/20/airport-linux">Превращаем Linux компьютер в AirPlay приемник</a></h1>
 
                     <p class="tags">Tags:
@@ -238,51 +286,6 @@ STDERR-&gt;autoflush(1);
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/04/23/ubuntu-14-04-gearman">Ubuntu 14.04 + Gearman</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/ubuntu" rel="tag">ubuntu</a>
-                        <a href="/blog/tag/gearman" rel="tag">gearman</a>
-                        <a href="/blog/tag/bugs" rel="tag">bugs</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-04-23">
-                            Posted on 2015-04-23
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>В базовой установке Gearman в ubuntu 14.04 есть баг - инит-скрипт написан не правильно и в результате Gearman  не реагирует наличие конфиг файла и запускается с настойками по умолчанию. Причем, на одном из серверов у меня проблемма после обновления усугубилась и он перестал запускаться даже с настройками по умолчанию.</p>
-
-<p>Есть два варианта решения проблемы:</p>
-
-<ol>
-<li>Пропатчить инит-скрипт, как это сделать можно прочитать <a href="http://jeremykendall.net/2014/09/04/ubuntu-14-dot-04-gearman-config-bug/">здесь</a></li>
-<li>Запускать его из под supervisord.</li>
-</ol>
-
-<p>У меня все приложения крутятся под supervisor, так что я пошел этим путем. </p>
-
-<p>Минимальный конфиг файл для супервизора:</p>
-
-<pre><code>[program:gearmand]
-command=/usr/sbin/gearmand -L 127.0.0.1 --user=gearman --log-file=stderr
-autorestart=true
-autostart=true
-</code></pre>
-
-<p><code>-L 127.0.0.1</code> указано, во первых, что-бы gearman не биндился на внешние интерфейсы (там все закрыто фаирволом, но все же). Во вторых - если на машине включен ipv6, но не настроен, то gearman будет пытаться забиндиться и на ipv6 и падать.</p>
-
-<p>З.Ы. инит для supervisord в 14.04 тоже кривой, но это уже другая история.</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -321,6 +324,7 @@ autostart=true
             <li><a href="/blog/tag/graylog2">graylog2</a></li>
             <li><a href="/blog/tag/io">io</a></li>
             <li><a href="/blog/tag/linux">linux</a></li>
+            <li><a href="/blog/tag/note">note</a></li>
             <li><a href="/blog/tag/perl">perl</a></li>
             <li><a href="/blog/tag/shairport">shairport</a></li>
             <li><a href="/blog/tag/snippet">snippet</a></li>
