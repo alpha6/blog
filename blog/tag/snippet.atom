@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/snippet</id>
+    <id>http://alpha6.ru/blog/tag/snippet/</id>
     <title>Just another blog</title>
-    <updated>2015-05-24T16:26:29Z</updated>
-    <link rel="self" href="http://alpha6.ru/blog/tag/snippet.atom"/>
-    <link rel="alternate" href="http://alpha6.ru/blog/tag/snippet"/>
-    <generator version="0.045">Statocles</generator>
+    <updated>2015-06-07T16:33:01Z</updated>
+    <link href="http://alpha6.ru/blog/tag/snippet.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/snippet/" rel="alternate" />
+    <generator version="0.047">Statocles</generator>
     <entry>
-        <id>http://alpha6.ru/blog/2015/04/25/stdout-autoflush</id>
+        <id>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</id>
         <title>stdout autoflush</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush" />
+        <link href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>Классический метод:</p>
 
@@ -22,11 +22,11 @@
 STDERR-&gt;autoflush(1);
 </code></pre>
 
-                <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/snippet">snippet</a>
-                <a href="/blog/tag/perl">perl</a>
-                <a href="/blog/tag/io">io</a>
+                <a href="/blog/tag/snippet/">snippet</a>
+                <a href="/blog/tag/perl/">perl</a>
+                <a href="/blog/tag/io/">io</a>
             </p>
         ]]></content>
         <updated>2015-04-25T00:00:00Z</updated>

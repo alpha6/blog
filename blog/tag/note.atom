@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/note</id>
+    <id>http://alpha6.ru/blog/tag/note/</id>
     <title>Just another blog</title>
-    <updated>2015-05-24T16:26:29Z</updated>
-    <link rel="self" href="http://alpha6.ru/blog/tag/note.atom"/>
-    <link rel="alternate" href="http://alpha6.ru/blog/tag/note"/>
-    <generator version="0.045">Statocles</generator>
+    <updated>2015-06-07T16:33:01Z</updated>
+    <link href="http://alpha6.ru/blog/tag/note.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/note/" rel="alternate" />
+    <generator version="0.047">Statocles</generator>
     <entry>
-        <id>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142</id>
+        <id>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</id>
         <title>ubuntu 15.04 и BCM43142</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142" />
+        <link href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова "совсем". И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
 
@@ -38,10 +38,10 @@
 
 <p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/Ubuntu">Ubuntu</a>
-                <a href="/blog/tag/note">note</a>
+                <a href="/blog/tag/Ubuntu/">Ubuntu</a>
+                <a href="/blog/tag/note/">note</a>
             </p>
         ]]></content>
         <updated>2015-05-24T00:00:00Z</updated>

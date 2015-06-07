@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta charset="utf-8" />
-        <link rel="stylesheet" href="/theme/css/normalize.css" />
-        <link rel="stylesheet" href="/theme/css/skeleton.css" />
-        <link rel="stylesheet" href="/theme/css/statocles-default.css" />
+	<meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <title>Just another blog</title>
-        <link rel="alternate" href="/blog/tag/perl.atom" type="application/atom+xml" />
-        <link rel="alternate" href="/blog/tag/perl.rss" type="application/rss+xml" />
+        <link href="/blog/tag/perl.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/perl.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -33,11 +33,11 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/04/30/using-perl-and-graylog">Используем Graylog с Perl</a></h1>
+                    <h1><a href="/blog/2015/04/30/using-perl-and-graylog/">Используем Graylog с Perl</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/perl" rel="tag">perl</a>
-                        <a href="/blog/tag/graylog" rel="tag">graylog</a>
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/graylog/" rel="tag">graylog</a>
                     </p>
 
                     <aside>
@@ -55,7 +55,7 @@
 
 <p>Первым делом надо создать Input для логов.
 Мы будем использовать GELF формат через Log::Log4perl.
-Идем System->Inputs в выпадающем списке выбираем GELF UDP и жмем Launch Input.
+Идем System-&gt;Inputs в выпадающем списке выбираем GELF UDP и жмем Launch Input.
 В открывшемся окне выбираем ноды на которых будет работать этот инпут, описание, адрес на котором он будет слушать.
 Жмем launch, убеждаемся что он стартанул и на этом пока все работы с Graylog закончены.</p>
 
@@ -87,13 +87,13 @@ use strict;
 use Log::Log4perl;
 
 #Загружаем конфигурацию 
-Log::Log4perl::init('logger.conf');
+Log::Log4perl::init(&#39;logger.conf&#39;);
 
 #Получаем логгер
-my $logger = Log::Log4perl-&gt;get_logger('graylog');
+my $logger = Log::Log4perl-&gt;get_logger(&#39;graylog&#39;);
 
-$logger-&gt;info('hello graylog');
-$logger-&gt;info('Тестовое сообщение UTF8');
+$logger-&gt;info(&#39;hello graylog&#39;);
+$logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
 </code></pre>
 
 <p>В теории, этого достаточно для того что бы нужные логи вашего приложения начали идти в Graylog. Но, как обычно, есть нюанс - этот модуль совершенно не представляет что есть более чем однобайтные кодировки и при попытке что-то записать в лог что-то с utf8 мы получим ошибку <code>Wide character in IO::Compress::Gzip::write</code> и в Graylog сообщение не придет.</p>
@@ -116,12 +116,12 @@ $logger-&gt;info('Тестовое сообщение UTF8');
             </article>
             <article>
                 <header>
-                    <h1><a href="/blog/2015/04/25/stdout-autoflush">stdout autoflush</a></h1>
+                    <h1><a href="/blog/2015/04/25/stdout-autoflush/">stdout autoflush</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/snippet" rel="tag">snippet</a>
-                        <a href="/blog/tag/perl" rel="tag">perl</a>
-                        <a href="/blog/tag/io" rel="tag">io</a>
+                        <a href="/blog/tag/snippet/" rel="tag">snippet</a>
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/io/" rel="tag">io</a>
                     </p>
 
                     <aside>
@@ -151,17 +151,13 @@ STDERR-&gt;autoflush(1);
 
         <ul class="pager">
             <li class="prev">
-                <a class="button disabled"
-                    rel="next" href=""
-                >
-                    &larr; Older
+                <a class="button disabled" href="" rel="next">
+                    ← Older
                 </a>
             </li>
             <li class="next">
-                <a class="button disabled"
-                    rel="prev" href=""
-                >
-                    Newer &rarr;
+                <a class="button disabled" href="" rel="prev">
+                    Newer →
                 </a>
             </li>
         </ul>
@@ -172,24 +168,24 @@ STDERR-&gt;autoflush(1);
         
         <h1>Tags</h1>
         <ul class="list-inline">
-            <li><a href="/blog/tag/Automation">Automation</a></li>
-            <li><a href="/blog/tag/LC_ALL">LC_ALL</a></li>
-            <li><a href="/blog/tag/Perl">Perl</a></li>
-            <li><a href="/blog/tag/Rex">Rex</a></li>
-            <li><a href="/blog/tag/Ubuntu">Ubuntu</a></li>
-            <li><a href="/blog/tag/airplay">airplay</a></li>
-            <li><a href="/blog/tag/bugs">bugs</a></li>
-            <li><a href="/blog/tag/elasticsearch">elasticsearch</a></li>
-            <li><a href="/blog/tag/gearman">gearman</a></li>
-            <li><a href="/blog/tag/graylog">graylog</a></li>
-            <li><a href="/blog/tag/graylog2">graylog2</a></li>
-            <li><a href="/blog/tag/io">io</a></li>
-            <li><a href="/blog/tag/linux">linux</a></li>
-            <li><a href="/blog/tag/note">note</a></li>
-            <li><a href="/blog/tag/perl">perl</a></li>
-            <li><a href="/blog/tag/shairport">shairport</a></li>
-            <li><a href="/blog/tag/snippet">snippet</a></li>
-            <li><a href="/blog/tag/ubuntu">ubuntu</a></li>
+            <li><a href="/blog/tag/Automation/">Automation</a></li>
+            <li><a href="/blog/tag/LC_ALL/">LC_ALL</a></li>
+            <li><a href="/blog/tag/Perl/">Perl</a></li>
+            <li><a href="/blog/tag/Rex/">Rex</a></li>
+            <li><a href="/blog/tag/Ubuntu/">Ubuntu</a></li>
+            <li><a href="/blog/tag/airplay/">airplay</a></li>
+            <li><a href="/blog/tag/bugs/">bugs</a></li>
+            <li><a href="/blog/tag/elasticsearch/">elasticsearch</a></li>
+            <li><a href="/blog/tag/gearman/">gearman</a></li>
+            <li><a href="/blog/tag/graylog/">graylog</a></li>
+            <li><a href="/blog/tag/graylog2/">graylog2</a></li>
+            <li><a href="/blog/tag/io/">io</a></li>
+            <li><a href="/blog/tag/linux/">linux</a></li>
+            <li><a href="/blog/tag/note/">note</a></li>
+            <li><a href="/blog/tag/perl/">perl</a></li>
+            <li><a href="/blog/tag/shairport/">shairport</a></li>
+            <li><a href="/blog/tag/snippet/">snippet</a></li>
+            <li><a href="/blog/tag/ubuntu/">ubuntu</a></li>
         </ul>
         <h1>Feeds</h1>
         <ul class="list-inline">
@@ -212,10 +208,10 @@ STDERR-&gt;autoflush(1);
         <footer>
             
             <div class="container tagline">
-                <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br/>
+                <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br>
                 <a href="http://www.perl.org">Powered by Perl</a>
             </div>
         </footer>
-	<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7948447 = new Ya.Metrika({id:7948447, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/7948447" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+	<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7948447 = new Ya.Metrika({id:7948447, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img alt="" src="//mc.yandex.ru/watch/7948447" style="position:absolute; left:-9999px;"></div></noscript><!-- /Yandex.Metrika counter -->
     </body>
 </html>

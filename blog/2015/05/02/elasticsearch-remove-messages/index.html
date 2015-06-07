@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta charset="utf-8" />
-        <link rel="stylesheet" href="/theme/css/normalize.css" />
-        <link rel="stylesheet" href="/theme/css/skeleton.css" />
-        <link rel="stylesheet" href="/theme/css/statocles-default.css" />
+	<meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <title>Just another blog</title>
         
     </head>
@@ -30,8 +30,8 @@
             <header>
                 <h1>Remove messages from Graylog2</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/graylog2" rel="tag">graylog2</a>
-                    <a href="/blog/tag/elasticsearch" rel="tag">elasticsearch</a>
+                    <a href="/blog/tag/graylog2/" rel="tag">graylog2</a>
+                    <a href="/blog/tag/elasticsearch/" rel="tag">elasticsearch</a>
                 </p>
                 <aside>
                     <p><time datetime="2015-05-02">
@@ -43,10 +43,10 @@
             <section id="section-1">
                 <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
 
-<p>curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"match": { "message" : "SearchPattern"}}}'</p>
+<p>curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;match&quot;: { &quot;message&quot; : &quot;SearchPattern&quot;}}}&#39;</p>
 
 <p>remove exact pattern:
-curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"term": { "message" : "ExactText"}}}'</p>
+curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;term&quot;: { &quot;message&quot; : &quot;ExactText&quot;}}}&#39;</p>
 
             </section>
         </main>
@@ -57,24 +57,24 @@ curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query"
         <nav id="tags">
             <h1>Tags</h1>
             <ul class="list-inline">
-                <li><a href="/blog/tag/Automation">Automation</a></li>
-                <li><a href="/blog/tag/LC_ALL">LC_ALL</a></li>
-                <li><a href="/blog/tag/Perl">Perl</a></li>
-                <li><a href="/blog/tag/Rex">Rex</a></li>
-                <li><a href="/blog/tag/Ubuntu">Ubuntu</a></li>
-                <li><a href="/blog/tag/airplay">airplay</a></li>
-                <li><a href="/blog/tag/bugs">bugs</a></li>
-                <li><a href="/blog/tag/elasticsearch">elasticsearch</a></li>
-                <li><a href="/blog/tag/gearman">gearman</a></li>
-                <li><a href="/blog/tag/graylog">graylog</a></li>
-                <li><a href="/blog/tag/graylog2">graylog2</a></li>
-                <li><a href="/blog/tag/io">io</a></li>
-                <li><a href="/blog/tag/linux">linux</a></li>
-                <li><a href="/blog/tag/note">note</a></li>
-                <li><a href="/blog/tag/perl">perl</a></li>
-                <li><a href="/blog/tag/shairport">shairport</a></li>
-                <li><a href="/blog/tag/snippet">snippet</a></li>
-                <li><a href="/blog/tag/ubuntu">ubuntu</a></li>
+                <li><a href="/blog/tag/Automation/">Automation</a></li>
+                <li><a href="/blog/tag/LC_ALL/">LC_ALL</a></li>
+                <li><a href="/blog/tag/Perl/">Perl</a></li>
+                <li><a href="/blog/tag/Rex/">Rex</a></li>
+                <li><a href="/blog/tag/Ubuntu/">Ubuntu</a></li>
+                <li><a href="/blog/tag/airplay/">airplay</a></li>
+                <li><a href="/blog/tag/bugs/">bugs</a></li>
+                <li><a href="/blog/tag/elasticsearch/">elasticsearch</a></li>
+                <li><a href="/blog/tag/gearman/">gearman</a></li>
+                <li><a href="/blog/tag/graylog/">graylog</a></li>
+                <li><a href="/blog/tag/graylog2/">graylog2</a></li>
+                <li><a href="/blog/tag/io/">io</a></li>
+                <li><a href="/blog/tag/linux/">linux</a></li>
+                <li><a href="/blog/tag/note/">note</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/shairport/">shairport</a></li>
+                <li><a href="/blog/tag/snippet/">snippet</a></li>
+                <li><a href="/blog/tag/ubuntu/">ubuntu</a></li>
             </ul>
         </nav>
     </div>
@@ -85,10 +85,10 @@ curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query"
         <footer>
             
             <div class="container tagline">
-                <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br/>
+                <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br>
                 <a href="http://www.perl.org">Powered by Perl</a>
             </div>
         </footer>
-	<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7948447 = new Ya.Metrika({id:7948447, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/7948447" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+	<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7948447 = new Ya.Metrika({id:7948447, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img alt="" src="//mc.yandex.ru/watch/7948447" style="position:absolute; left:-9999px;"></div></noscript><!-- /Yandex.Metrika counter -->
     </body>
 </html>

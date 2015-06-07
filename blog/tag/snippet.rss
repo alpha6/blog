@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/snippet</link>
+        <link>http://alpha6.ru/blog/tag/snippet/</link>
         <atom:link href="http://alpha6.ru/blog/tag/snippet.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.045</generator>
+        <generator>Statocles 0.047</generator>
         <item>
             <title>stdout autoflush</title>
-            <link>http://alpha6.ru/blog/2015/04/25/stdout-autoflush</link>
-            <guid>http://alpha6.ru/blog/2015/04/25/stdout-autoflush</guid>
+            <link>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</link>
+            <guid>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</guid>
             <description><![CDATA[
                 <p>Классический метод:</p>
 
@@ -22,11 +22,11 @@
 STDERR-&gt;autoflush(1);
 </code></pre>
 
-                    <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush#section-2">Continue reading...</a></p>
+                    <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/snippet">snippet</a>
-                    <a href="/blog/tag/perl">perl</a>
-                    <a href="/blog/tag/io">io</a>
+                    <a href="/blog/tag/snippet/">snippet</a>
+                    <a href="/blog/tag/perl/">perl</a>
+                    <a href="/blog/tag/io/">io</a>
                 </p>
             ]]></description>
             <pubDate>

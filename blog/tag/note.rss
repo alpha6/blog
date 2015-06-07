@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/note</link>
+        <link>http://alpha6.ru/blog/tag/note/</link>
         <atom:link href="http://alpha6.ru/blog/tag/note.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.045</generator>
+        <generator>Statocles 0.047</generator>
         <item>
             <title>ubuntu 15.04 и BCM43142</title>
-            <link>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142</link>
-            <guid>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142</guid>
+            <link>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</link>
+            <guid>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</guid>
             <description><![CDATA[
                 <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова "совсем". И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
 
@@ -38,10 +38,10 @@
 
 <p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
 
-                    <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142#section-2">Continue reading...</a></p>
+                    <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/Ubuntu">Ubuntu</a>
-                    <a href="/blog/tag/note">note</a>
+                    <a href="/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="/blog/tag/note/">note</a>
                 </p>
             ]]></description>
             <pubDate>

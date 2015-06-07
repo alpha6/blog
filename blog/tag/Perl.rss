@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/Perl</link>
+        <link>http://alpha6.ru/blog/tag/Perl/</link>
         <atom:link href="http://alpha6.ru/blog/tag/Perl.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.045</generator>
+        <generator>Statocles 0.047</generator>
         <item>
             <title>Starting with Rex</title>
-            <link>http://alpha6.ru/blog/2015/04/11/starting-with-rex</link>
-            <guid>http://alpha6.ru/blog/2015/04/11/starting-with-rex</guid>
+            <link>http://alpha6.ru/blog/2015/04/11/starting-with-rex/</link>
+            <guid>http://alpha6.ru/blog/2015/04/11/starting-with-rex/</guid>
             <description><![CDATA[
                 <p>В жизни каждого человека настает момент когда ему становится лениво делать одно и то же на удаленных серверах и хочется автоматизации.</p>
 
@@ -79,11 +79,11 @@
 
 <p>А те кому не хочется ждать - могут почитать <a href="http://www.rexify.org/howtos/index.html#howtos">официальную документацию</a>, она весьма подробная и с хорошими примерами.</p>
 
-                    <p><a href="http://alpha6.ru/blog/2015/04/11/starting-with-rex#section-2">Continue reading...</a></p>
+                    <p><a href="http://alpha6.ru/blog/2015/04/11/starting-with-rex/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/Rex">Rex</a>
-                    <a href="/blog/tag/Perl">Perl</a>
-                    <a href="/blog/tag/Automation">Automation</a>
+                    <a href="/blog/tag/Rex/">Rex</a>
+                    <a href="/blog/tag/Perl/">Perl</a>
+                    <a href="/blog/tag/Automation/">Automation</a>
                 </p>
             ]]></description>
             <pubDate>

@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/graylog</id>
+    <id>http://alpha6.ru/blog/tag/graylog/</id>
     <title>Just another blog</title>
-    <updated>2015-05-24T16:26:30Z</updated>
-    <link rel="self" href="http://alpha6.ru/blog/tag/graylog.atom"/>
-    <link rel="alternate" href="http://alpha6.ru/blog/tag/graylog"/>
-    <generator version="0.045">Statocles</generator>
+    <updated>2015-06-07T16:33:01Z</updated>
+    <link href="http://alpha6.ru/blog/tag/graylog.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/graylog/" rel="alternate" />
+    <generator version="0.047">Statocles</generator>
     <entry>
-        <id>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog</id>
+        <id>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</id>
         <title>Используем Graylog с Perl</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog" />
+        <link href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
 
@@ -73,10 +73,10 @@ $logger-&gt;info('Тестовое сообщение UTF8');
 
 <p>Подменить фунцию на лету у меня не получилось, скорее всего из-за хитрой архитектуры Log4perl. А лезть патчить в рантайм - овчинка выделки не стоит. Так что пока пользуюсь патченым модулем и коплю силы на создание полноценного патча для оригинального модуля.</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/perl">perl</a>
-                <a href="/blog/tag/graylog">graylog</a>
+                <a href="/blog/tag/perl/">perl</a>
+                <a href="/blog/tag/graylog/">graylog</a>
             </p>
         ]]></content>
         <updated>2015-04-30T00:00:00Z</updated>

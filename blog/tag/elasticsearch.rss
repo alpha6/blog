@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/elasticsearch</link>
+        <link>http://alpha6.ru/blog/tag/elasticsearch/</link>
         <atom:link href="http://alpha6.ru/blog/tag/elasticsearch.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.045</generator>
+        <generator>Statocles 0.047</generator>
         <item>
             <title>Remove messages from Graylog2</title>
-            <link>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages</link>
-            <guid>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages</guid>
+            <link>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</link>
+            <guid>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</guid>
             <description><![CDATA[
                 <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
 
@@ -18,10 +18,10 @@
 <p>remove exact pattern:
 curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"term": { "message" : "ExactText"}}}'</p>
 
-                    <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages#section-2">Continue reading...</a></p>
+                    <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/graylog2">graylog2</a>
-                    <a href="/blog/tag/elasticsearch">elasticsearch</a>
+                    <a href="/blog/tag/graylog2/">graylog2</a>
+                    <a href="/blog/tag/elasticsearch/">elasticsearch</a>
                 </p>
             ]]></description>
             <pubDate>

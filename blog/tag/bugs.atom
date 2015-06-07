@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/bugs</id>
+    <id>http://alpha6.ru/blog/tag/bugs/</id>
     <title>Just another blog</title>
-    <updated>2015-05-24T16:26:29Z</updated>
-    <link rel="self" href="http://alpha6.ru/blog/tag/bugs.atom"/>
-    <link rel="alternate" href="http://alpha6.ru/blog/tag/bugs"/>
-    <generator version="0.045">Statocles</generator>
+    <updated>2015-06-07T16:33:00Z</updated>
+    <link href="http://alpha6.ru/blog/tag/bugs.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/bugs/" rel="alternate" />
+    <generator version="0.047">Statocles</generator>
     <entry>
-        <id>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman</id>
+        <id>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/</id>
         <title>Ubuntu 14.04 + Gearman</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman" />
+        <link href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>В базовой установке Gearman в ubuntu 14.04 есть баг - инит-скрипт написан не правильно и в результате Gearman  не реагирует наличие конфиг файла и запускается с настойками по умолчанию. Причем, на одном из серверов у меня проблемма после обновления усугубилась и он перестал запускаться даже с настройками по умолчанию.</p>
 
@@ -34,11 +34,11 @@ autostart=true
 
 <p>З.Ы. инит для supervisord в 14.04 тоже кривой, но это уже другая история.</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/ubuntu">ubuntu</a>
-                <a href="/blog/tag/gearman">gearman</a>
-                <a href="/blog/tag/bugs">bugs</a>
+                <a href="/blog/tag/ubuntu/">ubuntu</a>
+                <a href="/blog/tag/gearman/">gearman</a>
+                <a href="/blog/tag/bugs/">bugs</a>
             </p>
         ]]></content>
         <updated>2015-04-23T00:00:00Z</updated>

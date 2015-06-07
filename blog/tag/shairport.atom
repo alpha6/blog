@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/shairport</id>
+    <id>http://alpha6.ru/blog/tag/shairport/</id>
     <title>Just another blog</title>
-    <updated>2015-05-24T16:26:29Z</updated>
-    <link rel="self" href="http://alpha6.ru/blog/tag/shairport.atom"/>
-    <link rel="alternate" href="http://alpha6.ru/blog/tag/shairport"/>
-    <generator version="0.045">Statocles</generator>
+    <updated>2015-06-07T16:33:00Z</updated>
+    <link href="http://alpha6.ru/blog/tag/shairport.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/shairport/" rel="alternate" />
+    <generator version="0.047">Statocles</generator>
     <entry>
-        <id>http://alpha6.ru/blog/2015/05/20/airport-linux</id>
+        <id>http://alpha6.ru/blog/2015/05/20/airport-linux/</id>
         <title>Превращаем Linux компьютер в AirPlay приемник</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/05/20/airport-linux" />
+        <link href="http://alpha6.ru/blog/2015/05/20/airport-linux/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>Захотелось мне как-то играть музыку с мака на колонки без проводов. Раньше для этого я пользовался AirPort Express, када были воткнуты колонки. Но сия халява кончилась и теперь надо что-то изобретать.</p>
 
@@ -52,11 +52,11 @@ Host local. not found: 3(NXDOMAIN)
 
 <p>После этих настроек и рестарта служб - все должно работать, а на устройствах Apple появится ваше устройство для вывода звука.</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/05/20/airport-linux#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/05/20/airport-linux/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/airplay">airplay</a>
-                <a href="/blog/tag/linux">linux</a>
-                <a href="/blog/tag/shairport">shairport</a>
+                <a href="/blog/tag/airplay/">airplay</a>
+                <a href="/blog/tag/linux/">linux</a>
+                <a href="/blog/tag/shairport/">shairport</a>
             </p>
         ]]></content>
         <updated>2015-05-20T00:00:00Z</updated>

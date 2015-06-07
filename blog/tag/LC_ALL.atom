@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/LC_ALL</id>
+    <id>http://alpha6.ru/blog/tag/LC_ALL/</id>
     <title>Just another blog</title>
-    <updated>2015-05-24T16:26:29Z</updated>
-    <link rel="self" href="http://alpha6.ru/blog/tag/LC_ALL.atom"/>
-    <link rel="alternate" href="http://alpha6.ru/blog/tag/LC_ALL"/>
-    <generator version="0.045">Statocles</generator>
+    <updated>2015-06-07T16:33:00Z</updated>
+    <link href="http://alpha6.ru/blog/tag/LC_ALL.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/LC_ALL/" rel="alternate" />
+    <generator version="0.047">Statocles</generator>
     <entry>
-        <id>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)</id>
+        <id>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</id>
         <title>Ubuntu LC_ALL = (unset)</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)" />
+        <link href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
 
@@ -25,10 +25,10 @@ LC_ALL = (unset)
 
 <p>И перелегониваемся.</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/Ubuntu">Ubuntu</a>
-                <a href="/blog/tag/LC_ALL">LC_ALL</a>
+                <a href="/blog/tag/Ubuntu/">Ubuntu</a>
+                <a href="/blog/tag/LC_ALL/">LC_ALL</a>
             </p>
         ]]></content>
         <updated>2015-04-09T00:00:00Z</updated>

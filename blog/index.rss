@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Just another blog</title>
-        <link>http://alpha6.ru</link>
+        <link>http://alpha6.ru/</link>
         <atom:link href="http://alpha6.ru/blog/index.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.045</generator>
+        <generator>Statocles 0.047</generator>
         <item>
             <title>ubuntu 15.04 и BCM43142</title>
-            <link>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142</link>
-            <guid>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142</guid>
+            <link>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</link>
+            <guid>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</guid>
             <description><![CDATA[
                 <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова "совсем". И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
 
@@ -38,10 +38,10 @@
 
 <p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
 
-                    <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142#section-2">Continue reading...</a></p>
+                    <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/Ubuntu">Ubuntu</a>
-                    <a href="/blog/tag/note">note</a>
+                    <a href="/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="/blog/tag/note/">note</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -50,8 +50,8 @@
         </item>
         <item>
             <title>Превращаем Linux компьютер в AirPlay приемник</title>
-            <link>http://alpha6.ru/blog/2015/05/20/airport-linux</link>
-            <guid>http://alpha6.ru/blog/2015/05/20/airport-linux</guid>
+            <link>http://alpha6.ru/blog/2015/05/20/airport-linux/</link>
+            <guid>http://alpha6.ru/blog/2015/05/20/airport-linux/</guid>
             <description><![CDATA[
                 <p>Захотелось мне как-то играть музыку с мака на колонки без проводов. Раньше для этого я пользовался AirPort Express, када были воткнуты колонки. Но сия халява кончилась и теперь надо что-то изобретать.</p>
 
@@ -94,11 +94,11 @@ Host local. not found: 3(NXDOMAIN)
 
 <p>После этих настроек и рестарта служб - все должно работать, а на устройствах Apple появится ваше устройство для вывода звука.</p>
 
-                    <p><a href="http://alpha6.ru/blog/2015/05/20/airport-linux#section-2">Continue reading...</a></p>
+                    <p><a href="http://alpha6.ru/blog/2015/05/20/airport-linux/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/airplay">airplay</a>
-                    <a href="/blog/tag/linux">linux</a>
-                    <a href="/blog/tag/shairport">shairport</a>
+                    <a href="/blog/tag/airplay/">airplay</a>
+                    <a href="/blog/tag/linux/">linux</a>
+                    <a href="/blog/tag/shairport/">shairport</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -107,8 +107,8 @@ Host local. not found: 3(NXDOMAIN)
         </item>
         <item>
             <title>Remove messages from Graylog2</title>
-            <link>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages</link>
-            <guid>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages</guid>
+            <link>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</link>
+            <guid>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</guid>
             <description><![CDATA[
                 <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
 
@@ -117,10 +117,10 @@ Host local. not found: 3(NXDOMAIN)
 <p>remove exact pattern:
 curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"term": { "message" : "ExactText"}}}'</p>
 
-                    <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages#section-2">Continue reading...</a></p>
+                    <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/graylog2">graylog2</a>
-                    <a href="/blog/tag/elasticsearch">elasticsearch</a>
+                    <a href="/blog/tag/graylog2/">graylog2</a>
+                    <a href="/blog/tag/elasticsearch/">elasticsearch</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -129,8 +129,8 @@ curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query"
         </item>
         <item>
             <title>Используем Graylog с Perl</title>
-            <link>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog</link>
-            <guid>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog</guid>
+            <link>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</link>
+            <guid>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</guid>
             <description><![CDATA[
                 <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
 
@@ -194,10 +194,10 @@ $logger-&gt;info('Тестовое сообщение UTF8');
 
 <p>Подменить фунцию на лету у меня не получилось, скорее всего из-за хитрой архитектуры Log4perl. А лезть патчить в рантайм - овчинка выделки не стоит. Так что пока пользуюсь патченым модулем и коплю силы на создание полноценного патча для оригинального модуля.</p>
 
-                    <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog#section-2">Continue reading...</a></p>
+                    <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/perl">perl</a>
-                    <a href="/blog/tag/graylog">graylog</a>
+                    <a href="/blog/tag/perl/">perl</a>
+                    <a href="/blog/tag/graylog/">graylog</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -206,8 +206,8 @@ $logger-&gt;info('Тестовое сообщение UTF8');
         </item>
         <item>
             <title>stdout autoflush</title>
-            <link>http://alpha6.ru/blog/2015/04/25/stdout-autoflush</link>
-            <guid>http://alpha6.ru/blog/2015/04/25/stdout-autoflush</guid>
+            <link>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</link>
+            <guid>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</guid>
             <description><![CDATA[
                 <p>Классический метод:</p>
 
@@ -220,11 +220,11 @@ $logger-&gt;info('Тестовое сообщение UTF8');
 STDERR-&gt;autoflush(1);
 </code></pre>
 
-                    <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush#section-2">Continue reading...</a></p>
+                    <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/snippet">snippet</a>
-                    <a href="/blog/tag/perl">perl</a>
-                    <a href="/blog/tag/io">io</a>
+                    <a href="/blog/tag/snippet/">snippet</a>
+                    <a href="/blog/tag/perl/">perl</a>
+                    <a href="/blog/tag/io/">io</a>
                 </p>
             ]]></description>
             <pubDate>

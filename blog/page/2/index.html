@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta charset="utf-8" />
-        <link rel="stylesheet" href="/theme/css/normalize.css" />
-        <link rel="stylesheet" href="/theme/css/skeleton.css" />
-        <link rel="stylesheet" href="/theme/css/statocles-default.css" />
+	<meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <title>Just another blog</title>
-        <link rel="alternate" href="/blog/index.atom" type="application/atom+xml" />
-        <link rel="alternate" href="/blog/index.rss" type="application/rss+xml" />
+        <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -33,12 +33,12 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/04/23/ubuntu-14-04-gearman">Ubuntu 14.04 + Gearman</a></h1>
+                    <h1><a href="/blog/2015/04/23/ubuntu-14-04-gearman/">Ubuntu 14.04 + Gearman</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/ubuntu" rel="tag">ubuntu</a>
-                        <a href="/blog/tag/gearman" rel="tag">gearman</a>
-                        <a href="/blog/tag/bugs" rel="tag">bugs</a>
+                        <a href="/blog/tag/ubuntu/" rel="tag">ubuntu</a>
+                        <a href="/blog/tag/gearman/" rel="tag">gearman</a>
+                        <a href="/blog/tag/bugs/" rel="tag">bugs</a>
                     </p>
 
                     <aside>
@@ -78,12 +78,12 @@ autostart=true
             </article>
             <article>
                 <header>
-                    <h1><a href="/blog/2015/04/11/starting-with-rex">Starting with Rex</a></h1>
+                    <h1><a href="/blog/2015/04/11/starting-with-rex/">Starting with Rex</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/Rex" rel="tag">Rex</a>
-                        <a href="/blog/tag/Perl" rel="tag">Perl</a>
-                        <a href="/blog/tag/Automation" rel="tag">Automation</a>
+                        <a href="/blog/tag/Rex/" rel="tag">Rex</a>
+                        <a href="/blog/tag/Perl/" rel="tag">Perl</a>
+                        <a href="/blog/tag/Automation/" rel="tag">Automation</a>
                     </p>
 
                     <aside>
@@ -117,7 +117,7 @@ autostart=true
 
 <p>Во первых, Rex можно использовать для простого запуска команд на удаленном сервере:</p>
 
-<p><code>rex -H "example.com example.ru" -e "say run 'uptime'"</code></p>
+<p><code>rex -H &quot;example.com example.ru&quot; -e &quot;say run &#39;uptime&#39;&quot;</code></p>
 
 <p>Задачи выполняются последовательно, так что придется подождать пока опросятся все сервера, особенно если их много.</p>
 
@@ -130,31 +130,31 @@ autostart=true
 
 <p>Создадим Rexfile который будет содержать команду <code>deploy</code>. По этой команде Rex пойдет на удаленный сервер и сделает там <code>git pull</code> для сайта. Простейшний вариант деплоя.</p>
 
-<pre><code> use Rex -feature =&gt; ['1.0'];
+<pre><code> use Rex -feature =&gt; [&#39;1.0&#39;];
 
- user "myuser";
- private_key "/home/myuser/.ssh/id_rsa";
- public_key "/home/myuser/.ssh/id_rsa.pub";
+ user &quot;myuser&quot;;
+ private_key &quot;/home/myuser/.ssh/id_rsa&quot;;
+ public_key &quot;/home/myuser/.ssh/id_rsa.pub&quot;;
  key_auth;
 
- group myservers =&gt; "example.ru";
+ group myservers =&gt; &quot;example.ru&quot;;
 
- desc "Deploy the blog on example.ru";
- task "deploy", group =&gt; "myservers", sub {
-   run "cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages";
+ desc &quot;Deploy the blog on example.ru&quot;;
+ task &quot;deploy&quot;, group =&gt; &quot;myservers&quot;, sub {
+   run &quot;cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages&quot;;
  };
 </code></pre>
 
 <p>Теперь можно сказать: <code>rex deploy</code></p>
 
-<p>Дальше Rex залогинится под пользователем "myuser" с использованием указанных ключей и выполнит команду указанную в опции run. Если пользователь на удаленном сервер совпадает с текущим - то первую секцию можно опустить. Будет использоваться текущий пользователь и его настройки ключей для ssh. Но если планируется использование команды через cron - то указывать надо обязательно, иначе ничего работать не будет.</p>
+<p>Дальше Rex залогинится под пользователем &quot;myuser&quot; с использованием указанных ключей и выполнит команду указанную в опции run. Если пользователь на удаленном сервер совпадает с текущим - то первую секцию можно опустить. Будет использоваться текущий пользователь и его настройки ключей для ssh. Но если планируется использование команды через cron - то указывать надо обязательно, иначе ничего работать не будет.</p>
 
 <p>Так же можно обновлять конфигурацию копируя на хосты необходимые файлы (вы же не храните авторизационные данные в Git, правда?)
 приведем содержимое раздела task к виду:</p>
 
-<pre><code> run "cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages";
- file "/srv/www/example.ru/test.conf",
-     source    =&gt; "files/test.conf";
+<pre><code> run &quot;cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages&quot;;
+ file &quot;/srv/www/example.ru/test.conf&quot;,
+     source    =&gt; &quot;files/test.conf&quot;;
 </code></pre>
 
 <p>Теперь при выполнении <code>rex deploy</code> будет выполнен <code>pull</code> из репозитория на удаленном сервере, а затем туда будет скопирован файл <code>files/test.conf</code>.</p>
@@ -168,11 +168,11 @@ autostart=true
             </article>
             <article>
                 <header>
-                    <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)">Ubuntu LC_ALL = (unset)</a></h1>
+                    <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)/">Ubuntu LC_ALL = (unset)</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/Ubuntu" rel="tag">Ubuntu</a>
-                        <a href="/blog/tag/LC_ALL" rel="tag">LC_ALL</a>
+                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
+                        <a href="/blog/tag/LC_ALL/" rel="tag">LC_ALL</a>
                     </p>
 
                     <aside>
@@ -192,7 +192,7 @@ LC_ALL = (unset)
 
 <p>Для исправления делаем:</p>
 
-<pre><code># echo LC_ALL="ru_RU.UTF-8" &gt;&gt; /etc/environment
+<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
 # locale-gen ru_RU.UTF-8
 </code></pre>
 
@@ -205,17 +205,13 @@ LC_ALL = (unset)
 
         <ul class="pager">
             <li class="prev">
-                <a class="button disabled"
-                    rel="next" href=""
-                >
-                    &larr; Older
+                <a class="button disabled" href="" rel="next">
+                    ← Older
                 </a>
             </li>
             <li class="next">
-                <a class="button button-primary"
-                    rel="prev" href="index.html"
-                >
-                    Newer &rarr;
+                <a class="button button-primary" href="/" rel="prev">
+                    Newer →
                 </a>
             </li>
         </ul>
@@ -226,24 +222,24 @@ LC_ALL = (unset)
         
         <h1>Tags</h1>
         <ul class="list-inline">
-            <li><a href="/blog/tag/Automation">Automation</a></li>
-            <li><a href="/blog/tag/LC_ALL">LC_ALL</a></li>
-            <li><a href="/blog/tag/Perl">Perl</a></li>
-            <li><a href="/blog/tag/Rex">Rex</a></li>
-            <li><a href="/blog/tag/Ubuntu">Ubuntu</a></li>
-            <li><a href="/blog/tag/airplay">airplay</a></li>
-            <li><a href="/blog/tag/bugs">bugs</a></li>
-            <li><a href="/blog/tag/elasticsearch">elasticsearch</a></li>
-            <li><a href="/blog/tag/gearman">gearman</a></li>
-            <li><a href="/blog/tag/graylog">graylog</a></li>
-            <li><a href="/blog/tag/graylog2">graylog2</a></li>
-            <li><a href="/blog/tag/io">io</a></li>
-            <li><a href="/blog/tag/linux">linux</a></li>
-            <li><a href="/blog/tag/note">note</a></li>
-            <li><a href="/blog/tag/perl">perl</a></li>
-            <li><a href="/blog/tag/shairport">shairport</a></li>
-            <li><a href="/blog/tag/snippet">snippet</a></li>
-            <li><a href="/blog/tag/ubuntu">ubuntu</a></li>
+            <li><a href="/blog/tag/Automation/">Automation</a></li>
+            <li><a href="/blog/tag/LC_ALL/">LC_ALL</a></li>
+            <li><a href="/blog/tag/Perl/">Perl</a></li>
+            <li><a href="/blog/tag/Rex/">Rex</a></li>
+            <li><a href="/blog/tag/Ubuntu/">Ubuntu</a></li>
+            <li><a href="/blog/tag/airplay/">airplay</a></li>
+            <li><a href="/blog/tag/bugs/">bugs</a></li>
+            <li><a href="/blog/tag/elasticsearch/">elasticsearch</a></li>
+            <li><a href="/blog/tag/gearman/">gearman</a></li>
+            <li><a href="/blog/tag/graylog/">graylog</a></li>
+            <li><a href="/blog/tag/graylog2/">graylog2</a></li>
+            <li><a href="/blog/tag/io/">io</a></li>
+            <li><a href="/blog/tag/linux/">linux</a></li>
+            <li><a href="/blog/tag/note/">note</a></li>
+            <li><a href="/blog/tag/perl/">perl</a></li>
+            <li><a href="/blog/tag/shairport/">shairport</a></li>
+            <li><a href="/blog/tag/snippet/">snippet</a></li>
+            <li><a href="/blog/tag/ubuntu/">ubuntu</a></li>
         </ul>
         <h1>Feeds</h1>
         <ul class="list-inline">
@@ -266,10 +262,10 @@ LC_ALL = (unset)
         <footer>
             
             <div class="container tagline">
-                <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br/>
+                <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br>
                 <a href="http://www.perl.org">Powered by Perl</a>
             </div>
         </footer>
-	<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7948447 = new Ya.Metrika({id:7948447, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/7948447" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+	<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7948447 = new Ya.Metrika({id:7948447, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img alt="" src="//mc.yandex.ru/watch/7948447" style="position:absolute; left:-9999px;"></div></noscript><!-- /Yandex.Metrika counter -->
     </body>
 </html>

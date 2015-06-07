@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru</id>
+    <id>http://alpha6.ru/</id>
     <title>Just another blog</title>
-    <updated>2015-05-24T16:26:29Z</updated>
-    <link rel="self" href="http://alpha6.ru/blog/index.atom"/>
-    <link rel="alternate" href="http://alpha6.ru"/>
-    <generator version="0.045">Statocles</generator>
+    <updated>2015-06-07T16:33:01Z</updated>
+    <link href="http://alpha6.ru/blog/index.atom" rel="self" />
+    <link href="http://alpha6.ru/" rel="alternate" />
+    <generator version="0.047">Statocles</generator>
     <entry>
-        <id>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142</id>
+        <id>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</id>
         <title>ubuntu 15.04 и BCM43142</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142" />
+        <link href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова "совсем". И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
 
@@ -38,10 +38,10 @@
 
 <p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/Ubuntu">Ubuntu</a>
-                <a href="/blog/tag/note">note</a>
+                <a href="/blog/tag/Ubuntu/">Ubuntu</a>
+                <a href="/blog/tag/note/">note</a>
             </p>
         ]]></content>
         <updated>2015-05-24T00:00:00Z</updated>
@@ -49,9 +49,9 @@
         <category term="note" />
     </entry>
     <entry>
-        <id>http://alpha6.ru/blog/2015/05/20/airport-linux</id>
+        <id>http://alpha6.ru/blog/2015/05/20/airport-linux/</id>
         <title>Превращаем Linux компьютер в AirPlay приемник</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/05/20/airport-linux" />
+        <link href="http://alpha6.ru/blog/2015/05/20/airport-linux/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>Захотелось мне как-то играть музыку с мака на колонки без проводов. Раньше для этого я пользовался AirPort Express, када были воткнуты колонки. Но сия халява кончилась и теперь надо что-то изобретать.</p>
 
@@ -94,11 +94,11 @@ Host local. not found: 3(NXDOMAIN)
 
 <p>После этих настроек и рестарта служб - все должно работать, а на устройствах Apple появится ваше устройство для вывода звука.</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/05/20/airport-linux#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/05/20/airport-linux/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/airplay">airplay</a>
-                <a href="/blog/tag/linux">linux</a>
-                <a href="/blog/tag/shairport">shairport</a>
+                <a href="/blog/tag/airplay/">airplay</a>
+                <a href="/blog/tag/linux/">linux</a>
+                <a href="/blog/tag/shairport/">shairport</a>
             </p>
         ]]></content>
         <updated>2015-05-20T00:00:00Z</updated>
@@ -107,9 +107,9 @@ Host local. not found: 3(NXDOMAIN)
         <category term="shairport" />
     </entry>
     <entry>
-        <id>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages</id>
+        <id>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</id>
         <title>Remove messages from Graylog2</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages" />
+        <link href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
 
@@ -118,10 +118,10 @@ Host local. not found: 3(NXDOMAIN)
 <p>remove exact pattern:
 curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"term": { "message" : "ExactText"}}}'</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/graylog2">graylog2</a>
-                <a href="/blog/tag/elasticsearch">elasticsearch</a>
+                <a href="/blog/tag/graylog2/">graylog2</a>
+                <a href="/blog/tag/elasticsearch/">elasticsearch</a>
             </p>
         ]]></content>
         <updated>2015-05-02T00:00:00Z</updated>
@@ -129,9 +129,9 @@ curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query"
         <category term="elasticsearch" />
     </entry>
     <entry>
-        <id>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog</id>
+        <id>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</id>
         <title>Используем Graylog с Perl</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog" />
+        <link href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
 
@@ -195,10 +195,10 @@ $logger-&gt;info('Тестовое сообщение UTF8');
 
 <p>Подменить фунцию на лету у меня не получилось, скорее всего из-за хитрой архитектуры Log4perl. А лезть патчить в рантайм - овчинка выделки не стоит. Так что пока пользуюсь патченым модулем и коплю силы на создание полноценного патча для оригинального модуля.</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/perl">perl</a>
-                <a href="/blog/tag/graylog">graylog</a>
+                <a href="/blog/tag/perl/">perl</a>
+                <a href="/blog/tag/graylog/">graylog</a>
             </p>
         ]]></content>
         <updated>2015-04-30T00:00:00Z</updated>
@@ -206,9 +206,9 @@ $logger-&gt;info('Тестовое сообщение UTF8');
         <category term="graylog" />
     </entry>
     <entry>
-        <id>http://alpha6.ru/blog/2015/04/25/stdout-autoflush</id>
+        <id>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</id>
         <title>stdout autoflush</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush" />
+        <link href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush/" rel="alternate" />
         <content type="html"><![CDATA[
             <p>Классический метод:</p>
 
@@ -221,11 +221,11 @@ $logger-&gt;info('Тестовое сообщение UTF8');
 STDERR-&gt;autoflush(1);
 </code></pre>
 
-                <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/snippet">snippet</a>
-                <a href="/blog/tag/perl">perl</a>
-                <a href="/blog/tag/io">io</a>
+                <a href="/blog/tag/snippet/">snippet</a>
+                <a href="/blog/tag/perl/">perl</a>
+                <a href="/blog/tag/io/">io</a>
             </p>
         ]]></content>
         <updated>2015-04-25T00:00:00Z</updated>
