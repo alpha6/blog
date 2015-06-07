@@ -1,81 +1,50 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/Ubuntu</id>
+    <id>http://alpha6.ru/blog/tag/ubuntu/</id>
     <title>Just another blog</title>
-    <updated>2015-05-24T16:25:48Z</updated>
-    <link rel="self" href="http://alpha6.ru/blog/tag/Ubuntu.atom"/>
-    <link rel="alternate" href="http://alpha6.ru/blog/tag/Ubuntu"/>
-    <generator version="0.045">Statocles</generator>
+    <updated>2015-06-07T16:33:01Z</updated>
+    <link href="http://alpha6.ru/blog/tag/ubuntu.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/ubuntu/" rel="alternate" />
+    <generator version="0.047">Statocles</generator>
     <entry>
-        <id>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142</id>
-        <title>ubuntu 15.04 и BCM43142</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142" />
+        <id>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/</id>
+        <title>Ubuntu 14.04 + Gearman</title>
+        <link href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/" rel="alternate" />
         <content type="html"><![CDATA[
-            <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова "совсем". И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
+            <p>В базовой установке Gearman в ubuntu 14.04 есть баг - инит-скрипт написан не правильно и в результате Gearman  не реагирует наличие конфиг файла и запускается с настойками по умолчанию. Причем, на одном из серверов у меня проблемма после обновления усугубилась и он перестал запускаться даже с настройками по умолчанию.</p>
 
-<p>Симптомы:
-* в NetworkManager нет даже пункта про беспроводные подключения.
-* <code># lshw -c Network</code> говорит что-то вроде:</p>
+<p>Есть два варианта решения проблемы:</p>
 
-<pre><code>*-network UNCLAIMED     
-   description: Network controller
-   product: BCM43142 802.11b/g/n
-   vendor: Broadcom Corporation
-   physical id: 0
-   bus info: pci@0000:02:00.0
-   version: 01
-   width: 64 bits
-   clock: 33MHz
-   capabilities: bus_master cap_list
-   configuration: latency=0
-   resources: memory:90500000-90507fff
+<ol>
+<li>Пропатчить инит-скрипт, как это сделать можно прочитать <a href="http://jeremykendall.net/2014/09/04/ubuntu-14-dot-04-gearman-config-bug/">здесь</a></li>
+<li>Запускать его из под supervisord.</li>
+</ol>
+
+<p>У меня все приложения крутятся под supervisor, так что я пошел этим путем. </p>
+
+<p>Минимальный конфиг файл для супервизора:</p>
+
+<pre><code>[program:gearmand]
+command=/usr/sbin/gearmand -L 127.0.0.1 --user=gearman --log-file=stderr
+autorestart=true
+autostart=true
 </code></pre>
 
-<p>Как можно заметить - устройство карте не назначено. Значит надо доустановить пакет с прошивкой для карты. С 14.04 эта карта поддерживается в официальных драйверах, так что просто устанавливаем пакет руками:</p>
+<p><code>-L 127.0.0.1</code> указано, во первых, что-бы gearman не биндился на внешние интерфейсы (там все закрыто фаирволом, но все же). Во вторых - если на машине включен ipv6, но не настроен, то gearman будет пытаться забиндиться и на ipv6 и падать.</p>
 
-<pre><code>sudo apt-get install bcmwl-kernel-source
-</code></pre>
+<p>З.Ы. инит для supervisord в 14.04 тоже кривой, но это уже другая история.</p>
 
-<p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
-
-                <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142#section-2">Continue reading...</a></p>
+                <p><a href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/Ubuntu">Ubuntu</a>
-                <a href="/blog/tag/note">note</a>
+                <a href="/blog/tag/ubuntu/">ubuntu</a>
+                <a href="/blog/tag/gearman/">gearman</a>
+                <a href="/blog/tag/bugs/">bugs</a>
             </p>
         ]]></content>
-        <updated>2015-05-24T00:00:00Z</updated>
-        <category term="Ubuntu" />
-        <category term="note" />
-    </entry>
-    <entry>
-        <id>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)</id>
-        <title>Ubuntu LC_ALL = (unset)</title>
-        <link rel="alternate" href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)" />
-        <content type="html"><![CDATA[
-            <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
-
-<pre><code>LANGUAGE = (unset)
-LC_ALL = (unset)
-</code></pre>
-
-<p>Для исправления делаем:</p>
-
-<pre><code># echo LC_ALL="ru_RU.UTF-8" &gt;&gt; /etc/environment
-# locale-gen ru_RU.UTF-8
-</code></pre>
-
-<p>И перелегониваемся.</p>
-
-                <p><a href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="/blog/tag/Ubuntu">Ubuntu</a>
-                <a href="/blog/tag/LC_ALL">LC_ALL</a>
-            </p>
-        ]]></content>
-        <updated>2015-04-09T00:00:00Z</updated>
-        <category term="Ubuntu" />
-        <category term="LC_ALL" />
+        <updated>2015-04-23T00:00:00Z</updated>
+        <category term="ubuntu" />
+        <category term="gearman" />
+        <category term="bugs" />
     </entry>
 </feed>
 
