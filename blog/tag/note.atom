@@ -2,10 +2,43 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/note/</id>
     <title>Just another blog</title>
-    <updated>2015-06-07T16:33:01Z</updated>
+    <updated>2015-09-14T23:18:44Z</updated>
     <link href="http://alpha6.ru/blog/tag/note.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/note/" rel="alternate" />
     <generator version="0.047">Statocles</generator>
+    <entry>
+        <id>http://alpha6.ru/blog/2015/09/14/get-package-methods/</id>
+        <title>Получение методов пакета</title>
+        <link href="http://alpha6.ru/blog/2015/09/14/get-package-methods/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Для получения методов пакета Foo::Bar делаем:</p>
+
+<p>print Dumper(\%Foo::Bar::);</p>
+
+<p>Для проверки существования метода:</p>
+
+<p>if (Foo::Bar::.$method_name) {
+   #some stuff
+ }</p>
+
+<p>Для получения методов текущего пакета:</p>
+
+<p>print Dumper(\%main::)</p>
+
+<p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
+
+                <p><a href="http://alpha6.ru/blog/2015/09/14/get-package-methods/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="/blog/tag/perl/">perl</a>
+                <a href="/blog/tag/note/">note</a>
+                <a href="/blog/tag/package/">package</a>
+            </p>
+        ]]></content>
+        <updated>2015-09-14T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="note" />
+        <category term="package" />
+    </entry>
     <entry>
         <id>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</id>
         <title>ubuntu 15.04 и BCM43142</title>

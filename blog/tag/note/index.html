@@ -33,6 +33,44 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2015/09/14/get-package-methods/">Получение методов пакета</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/note/" rel="tag">note</a>
+                        <a href="/blog/tag/package/" rel="tag">package</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-09-14">
+                            Posted on 2015-09-14
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Для получения методов пакета Foo::Bar делаем:</p>
+
+<p>print Dumper(\%Foo::Bar::);</p>
+
+<p>Для проверки существования метода:</p>
+
+<p>if (Foo::Bar::.$method_name) {
+   #some stuff
+ }</p>
+
+<p>Для получения методов текущего пакета:</p>
+
+<p>print Dumper(\%main::)</p>
+
+<p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/05/24/ubuntu-bcm43142/">ubuntu 15.04 и BCM43142</a></h1>
 
                     <p class="tags">Tags:
@@ -114,6 +152,7 @@
             <li><a href="/blog/tag/io/">io</a></li>
             <li><a href="/blog/tag/linux/">linux</a></li>
             <li><a href="/blog/tag/note/">note</a></li>
+            <li><a href="/blog/tag/package/">package</a></li>
             <li><a href="/blog/tag/perl/">perl</a></li>
             <li><a href="/blog/tag/shairport/">shairport</a></li>
             <li><a href="/blog/tag/snippet/">snippet</a></li>

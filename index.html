@@ -33,6 +33,44 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2015/09/14/get-package-methods/">Получение методов пакета</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/note/" rel="tag">note</a>
+                        <a href="/blog/tag/package/" rel="tag">package</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-09-14">
+                            Posted on 2015-09-14
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Для получения методов пакета Foo::Bar делаем:</p>
+
+<p>print Dumper(\%Foo::Bar::);</p>
+
+<p>Для проверки существования метода:</p>
+
+<p>if (Foo::Bar::.$method_name) {
+   #some stuff
+ }</p>
+
+<p>Для получения методов текущего пакета:</p>
+
+<p>print Dumper(\%main::)</p>
+
+<p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/05/24/ubuntu-bcm43142/">ubuntu 15.04 и BCM43142</a></h1>
 
                     <p class="tags">Tags:
@@ -253,39 +291,6 @@ $logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/04/25/stdout-autoflush/">stdout autoflush</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/snippet/" rel="tag">snippet</a>
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/io/" rel="tag">io</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-04-25">
-                            Posted on 2015-04-25
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Классический метод:</p>
-
-<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
-</code></pre>
-
-<p>ООП:</p>
-
-<pre><code>use IO::Handle;
-STDERR-&gt;autoflush(1);
-</code></pre>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -321,6 +326,7 @@ STDERR-&gt;autoflush(1);
             <li><a href="/blog/tag/io/">io</a></li>
             <li><a href="/blog/tag/linux/">linux</a></li>
             <li><a href="/blog/tag/note/">note</a></li>
+            <li><a href="/blog/tag/package/">package</a></li>
             <li><a href="/blog/tag/perl/">perl</a></li>
             <li><a href="/blog/tag/shairport/">shairport</a></li>
             <li><a href="/blog/tag/snippet/">snippet</a></li>

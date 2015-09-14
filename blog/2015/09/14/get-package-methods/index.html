@@ -28,32 +28,35 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>Ubuntu LC_ALL = (unset)</h1>
+                <h1>Получение методов пакета</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
-                    <a href="/blog/tag/LC_ALL/" rel="tag">LC_ALL</a>
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    <a href="/blog/tag/note/" rel="tag">note</a>
+                    <a href="/blog/tag/package/" rel="tag">package</a>
                 </p>
                 <aside>
-                    <p><time datetime="2015-04-09">
-                        Posted on 2015-04-09
+                    <p><time datetime="2015-09-14">
+                        Posted on 2015-09-14
                     </time>
                     </p>
                 </aside>
             </header>
             <section id="section-1">
-                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
+                <p>Для получения методов пакета Foo::Bar делаем:</p>
 
-<pre><code>LANGUAGE = (unset)
-LC_ALL = (unset)
-</code></pre>
+<p>print Dumper(\%Foo::Bar::);</p>
 
-<p>Для исправления делаем:</p>
+<p>Для проверки существования метода:</p>
 
-<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
-# locale-gen ru_RU.UTF-8
-</code></pre>
+<p>if (Foo::Bar::.$method_name) {
+   #some stuff
+ }</p>
 
-<p>И перелегониваемся.</p>
+<p>Для получения методов текущего пакета:</p>
+
+<p>print Dumper(\%main::)</p>
+
+<p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
 
             </section>
         </main>
