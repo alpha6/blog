@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/package/</id>
     <title>Just another blog</title>
-    <updated>2015-09-14T23:18:43Z</updated>
+    <updated>2015-09-15T09:52:34Z</updated>
     <link href="http://alpha6.ru/blog/tag/package.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/package/" rel="alternate" />
     <generator version="0.047">Statocles</generator>
@@ -13,17 +13,20 @@
         <content type="html"><![CDATA[
             <p>Для получения методов пакета Foo::Bar делаем:</p>
 
-<p>print Dumper(\%Foo::Bar::);</p>
+<pre><code>print Dumper(\%Foo::Bar::);
+</code></pre>
 
 <p>Для проверки существования метода:</p>
 
-<p>if (Foo::Bar::.$method_name) {
-   #some stuff
- }</p>
+<pre><code>if (Foo::Bar::.$method_name) {
+    #some stuff
+}
+</code></pre>
 
 <p>Для получения методов текущего пакета:</p>
 
-<p>print Dumper(\%main::)</p>
+<pre><code>print Dumper(\%main::)
+</code></pre>
 
 <p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
 

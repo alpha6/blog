@@ -44,17 +44,20 @@
             <section id="section-1">
                 <p>Для получения методов пакета Foo::Bar делаем:</p>
 
-<p>print Dumper(\%Foo::Bar::);</p>
+<pre><code>print Dumper(\%Foo::Bar::);
+</code></pre>
 
 <p>Для проверки существования метода:</p>
 
-<p>if (Foo::Bar::.$method_name) {
-   #some stuff
- }</p>
+<pre><code>if (Foo::Bar::.$method_name) {
+    #some stuff
+}
+</code></pre>
 
 <p>Для получения методов текущего пакета:</p>
 
-<p>print Dumper(\%main::)</p>
+<pre><code>print Dumper(\%main::)
+</code></pre>
 
 <p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
 
