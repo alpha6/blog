@@ -30,6 +30,8 @@
 
 <p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
 
+<p><a href="http://perldoc.perl.org/perlmod.html#Symbol-Tables">Подробнее в документации</a></p>
+
                     <p><a href="http://alpha6.ru/blog/2015/09/14/get-package-methods/#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="/blog/tag/perl/">perl</a>
