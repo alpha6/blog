@@ -33,6 +33,35 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2015/09/19/dbd-pg-install/">DBD::Pg install</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
+                        <a href="/blog/tag/Postgresql/" rel="tag">Postgresql</a>
+                        <a href="/blog/tag/Perl/" rel="tag">Perl</a>
+                        <a href="/blog/tag/DBD::Pg/" rel="tag">DBD::Pg</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-09-19">
+                            Posted on 2015-09-19
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Markdown content goes here.</p>
+
+<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code>.</p>
+
+<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/09/14/get-package-methods/">Получение методов пакета</a></h1>
 
                     <p class="tags">Tags:
@@ -213,89 +242,6 @@ curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/04/30/using-perl-and-graylog/">Используем Graylog с Perl</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/graylog/" rel="tag">graylog</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-04-30">
-                            Posted on 2015-04-30
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
-
-<p>! На момент написания статьи в VM идет версия Graylog-web с багом - при создании dashboard на нее нельзя добавить виджет т.к. JS-скрипт ответственный за разблокировку dashboard падает с ошибкой. Что-бы что-то сделать с дэшбордом на него надо добавить любой виджет с любой страницы. Это делается по клику на иконку возле названия виджета и выбором нужного дэшборда.</p>
-
-<p>Первым делом надо создать Input для логов.
-Мы будем использовать GELF формат через Log::Log4perl.
-Идем System-&gt;Inputs в выпадающем списке выбираем GELF UDP и жмем Launch Input.
-В открывшемся окне выбираем ноды на которых будет работать этот инпут, описание, адрес на котором он будет слушать.
-Жмем launch, убеждаемся что он стартанул и на этом пока все работы с Graylog закончены.</p>
-
-<p>Теперь устанавливаем пакет <a href="https://metacpan.org/pod/Log::Log4perl::Layout::GELF">Log::Log4perl::Layout::GELF</a>.</p>
-
-<p>Создаем файл конфигурации логгера:</p>
-
-<pre><code>log4perl.logger.graylog                     = INFO, Screen, Graylog
-
-log4perl.appender.Screen                = Log::Log4perl::Appender::Screen
-log4perl.appender.Screen.stderr         = 0
-log4perl.appender.Screen.layout         = Log::Log4perl::Layout::PatternLayout
-log4perl.appender.Screen.layout.ConversionPattern = [%d] [%p] %m%n
-log4perl.appender.Screen.utf8           = 1
-
-log4perl.appender.Graylog          = Log::Log4perl::Appender::Socket
-log4perl.appender.Graylog.PeerAddr = graylog.host
-log4perl.appender.Graylog.PeerPort = 12201
-log4perl.appender.Graylog.Proto    = udp
-log4perl.appender.Graylog.layout   = GELF
-</code></pre>
-
-<p>Создаем тестовый скрипт:</p>
-
-<pre><code>#!/usr/bin/env perl
-
-use utf8;
-use strict;
-use Log::Log4perl;
-
-#Загружаем конфигурацию 
-Log::Log4perl::init(&#39;logger.conf&#39;);
-
-#Получаем логгер
-my $logger = Log::Log4perl-&gt;get_logger(&#39;graylog&#39;);
-
-$logger-&gt;info(&#39;hello graylog&#39;);
-$logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
-</code></pre>
-
-<p>В теории, этого достаточно для того что бы нужные логи вашего приложения начали идти в Graylog. Но, как обычно, есть нюанс - этот модуль совершенно не представляет что есть более чем однобайтные кодировки и при попытке что-то записать в лог что-то с utf8 мы получим ошибку <code>Wide character in IO::Compress::Gzip::write</code> и в Graylog сообщение не придет.</p>
-
-<p>Для обычных аппендеров, например Screen, эта проблема решается просто - дописываем в конфигурацию флаг включения utf8:</p>
-
-<pre><code>log4perl.appender.FileAppndr.utf8     = 1
-</code></pre>
-
-<p>Но в данном случае проблема на уровне layout и этот модуль не обрабатывает такую ситуацию.</p>
-
-<p>Для себя я эту проблему решил просто - сделал форк модуля с названием <a href="https://github.com/alpha6/Log-Log4perl-Layout-GELFUtf">GELFUtf</a> и использую его.</p>
-
-<p>Таким образом в конфиге вместо <code>log4perl.appender.Graylog.layout   = GELF</code> пишу <code>log4perl.appender.Graylog.layout   = GELFUtf</code>.</p>
-
-<p>Подменить фунцию на лету у меня не получилось, скорее всего из-за хитрой архитектуры Log4perl. А лезть патчить в рантайм - овчинка выделки не стоит. Так что пока пользуюсь патченым модулем и коплю силы на создание полноценного патча для оригинального модуля.</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -318,8 +264,10 @@ $logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
         <h1>Tags</h1>
         <ul class="list-inline">
             <li><a href="/blog/tag/Automation/">Automation</a></li>
+            <li><a href="/blog/tag/DBD::Pg/">DBD::Pg</a></li>
             <li><a href="/blog/tag/LC_ALL/">LC_ALL</a></li>
             <li><a href="/blog/tag/Perl/">Perl</a></li>
+            <li><a href="/blog/tag/Postgresql/">Postgresql</a></li>
             <li><a href="/blog/tag/Rex/">Rex</a></li>
             <li><a href="/blog/tag/Ubuntu/">Ubuntu</a></li>
             <li><a href="/blog/tag/airplay/">airplay</a></li>

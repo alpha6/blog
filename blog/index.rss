@@ -7,6 +7,29 @@
         <description>Blog feed of Just another blog</description>
         <generator>Statocles 0.047</generator>
         <item>
+            <title>DBD::Pg install</title>
+            <link>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</link>
+            <guid>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</guid>
+            <description><![CDATA[
+                <p>Markdown content goes here.</p>
+
+<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code>.</p>
+
+<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="/blog/tag/Postgresql/">Postgresql</a>
+                    <a href="/blog/tag/Perl/">Perl</a>
+                    <a href="/blog/tag/DBD::Pg/">DBD::Pg</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sat, 19 Sep 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Получение методов пакета</title>
             <link>http://alpha6.ru/blog/2015/09/14/get-package-methods/</link>
             <guid>http://alpha6.ru/blog/2015/09/14/get-package-methods/</guid>
@@ -162,83 +185,6 @@ curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query"
             ]]></description>
             <pubDate>
                 Sat, 02 May 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Используем Graylog с Perl</title>
-            <link>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</link>
-            <guid>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</guid>
-            <description><![CDATA[
-                <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
-
-<p>! На момент написания статьи в VM идет версия Graylog-web с багом - при создании dashboard на нее нельзя добавить виджет т.к. JS-скрипт ответственный за разблокировку dashboard падает с ошибкой. Что-бы что-то сделать с дэшбордом на него надо добавить любой виджет с любой страницы. Это делается по клику на иконку возле названия виджета и выбором нужного дэшборда.</p>
-
-<p>Первым делом надо создать Input для логов.
-Мы будем использовать GELF формат через Log::Log4perl.
-Идем System->Inputs в выпадающем списке выбираем GELF UDP и жмем Launch Input.
-В открывшемся окне выбираем ноды на которых будет работать этот инпут, описание, адрес на котором он будет слушать.
-Жмем launch, убеждаемся что он стартанул и на этом пока все работы с Graylog закончены.</p>
-
-<p>Теперь устанавливаем пакет <a href="https://metacpan.org/pod/Log::Log4perl::Layout::GELF">Log::Log4perl::Layout::GELF</a>.</p>
-
-<p>Создаем файл конфигурации логгера:</p>
-
-<pre><code>log4perl.logger.graylog                     = INFO, Screen, Graylog
-
-log4perl.appender.Screen                = Log::Log4perl::Appender::Screen
-log4perl.appender.Screen.stderr         = 0
-log4perl.appender.Screen.layout         = Log::Log4perl::Layout::PatternLayout
-log4perl.appender.Screen.layout.ConversionPattern = [%d] [%p] %m%n
-log4perl.appender.Screen.utf8           = 1
-
-log4perl.appender.Graylog          = Log::Log4perl::Appender::Socket
-log4perl.appender.Graylog.PeerAddr = graylog.host
-log4perl.appender.Graylog.PeerPort = 12201
-log4perl.appender.Graylog.Proto    = udp
-log4perl.appender.Graylog.layout   = GELF
-</code></pre>
-
-<p>Создаем тестовый скрипт:</p>
-
-<pre><code>#!/usr/bin/env perl
-
-use utf8;
-use strict;
-use Log::Log4perl;
-
-#Загружаем конфигурацию 
-Log::Log4perl::init('logger.conf');
-
-#Получаем логгер
-my $logger = Log::Log4perl-&gt;get_logger('graylog');
-
-$logger-&gt;info('hello graylog');
-$logger-&gt;info('Тестовое сообщение UTF8');
-</code></pre>
-
-<p>В теории, этого достаточно для того что бы нужные логи вашего приложения начали идти в Graylog. Но, как обычно, есть нюанс - этот модуль совершенно не представляет что есть более чем однобайтные кодировки и при попытке что-то записать в лог что-то с utf8 мы получим ошибку <code>Wide character in IO::Compress::Gzip::write</code> и в Graylog сообщение не придет.</p>
-
-<p>Для обычных аппендеров, например Screen, эта проблема решается просто - дописываем в конфигурацию флаг включения utf8:</p>
-
-<pre><code>log4perl.appender.FileAppndr.utf8     = 1
-</code></pre>
-
-<p>Но в данном случае проблема на уровне layout и этот модуль не обрабатывает такую ситуацию.</p>
-
-<p>Для себя я эту проблему решил просто - сделал форк модуля с названием <a href="https://github.com/alpha6/Log-Log4perl-Layout-GELFUtf">GELFUtf</a> и использую его.</p>
-
-<p>Таким образом в конфиге вместо <code>log4perl.appender.Graylog.layout   = GELF</code> пишу <code>log4perl.appender.Graylog.layout   = GELFUtf</code>.</p>
-
-<p>Подменить фунцию на лету у меня не получилось, скорее всего из-за хитрой архитектуры Log4perl. А лезть патчить в рантайм - овчинка выделки не стоит. Так что пока пользуюсь патченым модулем и коплю силы на создание полноценного патча для оригинального модуля.</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/graylog/">graylog</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Thu, 30 Apr 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

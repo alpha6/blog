@@ -28,32 +28,26 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>Ubuntu LC_ALL = (unset)</h1>
+                <h1>DBD::Pg install</h1>
                 <p class="tags">Tags:
                     <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
-                    <a href="/blog/tag/LC_ALL/" rel="tag">LC_ALL</a>
+                    <a href="/blog/tag/Postgresql/" rel="tag">Postgresql</a>
+                    <a href="/blog/tag/Perl/" rel="tag">Perl</a>
+                    <a href="/blog/tag/DBD::Pg/" rel="tag">DBD::Pg</a>
                 </p>
                 <aside>
-                    <p><time datetime="2015-04-09">
-                        Posted on 2015-04-09
+                    <p><time datetime="2015-09-19">
+                        Posted on 2015-09-19
                     </time>
                     </p>
                 </aside>
             </header>
             <section id="section-1">
-                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
+                <p>Markdown content goes here.</p>
 
-<pre><code>LANGUAGE = (unset)
-LC_ALL = (unset)
-</code></pre>
+<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code>.</p>
 
-<p>Для исправления делаем:</p>
-
-<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
-# locale-gen ru_RU.UTF-8
-</code></pre>
-
-<p>И перелегониваемся.</p>
+<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
 
             </section>
         </main>

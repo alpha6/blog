@@ -6,8 +6,8 @@
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <title>Just another blog</title>
-        <link href="/blog/tag/graylog2.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/tag/graylog2.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/tag/DBD::Pg.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/DBD::Pg.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -33,28 +33,29 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/05/02/elasticsearch-remove-messages/">Remove messages from Graylog2</a></h1>
+                    <h1><a href="/blog/2015/09/19/dbd-pg-install/">DBD::Pg install</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/graylog2/" rel="tag">graylog2</a>
-                        <a href="/blog/tag/elasticsearch/" rel="tag">elasticsearch</a>
+                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
+                        <a href="/blog/tag/Postgresql/" rel="tag">Postgresql</a>
+                        <a href="/blog/tag/Perl/" rel="tag">Perl</a>
+                        <a href="/blog/tag/DBD::Pg/" rel="tag">DBD::Pg</a>
                     </p>
 
                     <aside>
-                        <p><time datetime="2015-05-02">
-                            Posted on 2015-05-02
+                        <p><time datetime="2015-09-19">
+                            Posted on 2015-09-19
                         </time>
                         </p>
                     </aside>
 
                 </header>
 
-                <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
+                <p>Markdown content goes here.</p>
 
-<p>curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;match&quot;: { &quot;message&quot; : &quot;SearchPattern&quot;}}}&#39;</p>
+<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code>.</p>
 
-<p>remove exact pattern:
-curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;term&quot;: { &quot;message&quot; : &quot;ExactText&quot;}}}&#39;</p>
+<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
 
 
 
@@ -105,12 +106,12 @@ curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/graylog2.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/DBD::Pg.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/graylog2.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/DBD::Pg.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>
