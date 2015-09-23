@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/</id>
     <title>Just another blog</title>
-    <updated>2015-09-19T19:21:25Z</updated>
+    <updated>2015-09-23T09:22:31Z</updated>
     <link href="http://alpha6.ru/blog/index.atom" rel="self" />
     <link href="http://alpha6.ru/" rel="alternate" />
     <generator version="0.047">Statocles</generator>
@@ -13,7 +13,7 @@
         <content type="html"><![CDATA[
             <p>Markdown content goes here.</p>
 
-<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code>.</p>
+<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
 
 <p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
 
