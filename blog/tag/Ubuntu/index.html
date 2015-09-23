@@ -6,8 +6,8 @@
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <title>Just another blog</title>
-        <link href="/blog/tag/ubuntu.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/tag/ubuntu.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/tag/Ubuntu.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/Ubuntu.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -33,45 +33,112 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/04/23/ubuntu-14-04-gearman/">Ubuntu 14.04 + Gearman</a></h1>
+                    <h1><a href="/blog/2015/09/19/dbd-pg-install/">DBD::Pg install</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/ubuntu/" rel="tag">ubuntu</a>
-                        <a href="/blog/tag/gearman/" rel="tag">gearman</a>
-                        <a href="/blog/tag/bugs/" rel="tag">bugs</a>
+                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
+                        <a href="/blog/tag/Postgresql/" rel="tag">Postgresql</a>
+                        <a href="/blog/tag/Perl/" rel="tag">Perl</a>
+                        <a href="/blog/tag/DBD::Pg/" rel="tag">DBD::Pg</a>
                     </p>
 
                     <aside>
-                        <p><time datetime="2015-04-23">
-                            Posted on 2015-04-23
+                        <p><time datetime="2015-09-19">
+                            Posted on 2015-09-19
                         </time>
                         </p>
                     </aside>
 
                 </header>
 
-                <p>В базовой установке Gearman в ubuntu 14.04 есть баг - инит-скрипт написан не правильно и в результате Gearman  не реагирует наличие конфиг файла и запускается с настойками по умолчанию. Причем, на одном из серверов у меня проблемма после обновления усугубилась и он перестал запускаться даже с настройками по умолчанию.</p>
+                <p>Markdown content goes here.</p>
 
-<p>Есть два варианта решения проблемы:</p>
+<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
 
-<ol>
-<li>Пропатчить инит-скрипт, как это сделать можно прочитать <a href="http://jeremykendall.net/2014/09/04/ubuntu-14-dot-04-gearman-config-bug/">здесь</a></li>
-<li>Запускать его из под supervisord.</li>
-</ol>
+<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
 
-<p>У меня все приложения крутятся под supervisor, так что я пошел этим путем. </p>
 
-<p>Минимальный конфиг файл для супервизора:</p>
 
-<pre><code>[program:gearmand]
-command=/usr/sbin/gearmand -L 127.0.0.1 --user=gearman --log-file=stderr
-autorestart=true
-autostart=true
+            </article>
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/05/24/ubuntu-bcm43142/">ubuntu 15.04 и BCM43142</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
+                        <a href="/blog/tag/note/" rel="tag">note</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-05-24">
+                            Posted on 2015-05-24
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова &quot;совсем&quot;. И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
+
+<p>Симптомы:
+* в NetworkManager нет даже пункта про беспроводные подключения.
+* <code># lshw -c Network</code> говорит что-то вроде:</p>
+
+<pre><code>*-network UNCLAIMED     
+   description: Network controller
+   product: BCM43142 802.11b/g/n
+   vendor: Broadcom Corporation
+   physical id: 0
+   bus info: pci@0000:02:00.0
+   version: 01
+   width: 64 bits
+   clock: 33MHz
+   capabilities: bus_master cap_list
+   configuration: latency=0
+   resources: memory:90500000-90507fff
 </code></pre>
 
-<p><code>-L 127.0.0.1</code> указано, во первых, что-бы gearman не биндился на внешние интерфейсы (там все закрыто фаирволом, но все же). Во вторых - если на машине включен ipv6, но не настроен, то gearman будет пытаться забиндиться и на ipv6 и падать.</p>
+<p>Как можно заметить - устройство карте не назначено. Значит надо доустановить пакет с прошивкой для карты. С 14.04 эта карта поддерживается в официальных драйверах, так что просто устанавливаем пакет руками:</p>
 
-<p>З.Ы. инит для supervisord в 14.04 тоже кривой, но это уже другая история.</p>
+<pre><code>sudo apt-get install bcmwl-kernel-source
+</code></pre>
+
+<p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
+
+
+
+            </article>
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)/">Ubuntu LC_ALL = (unset)</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
+                        <a href="/blog/tag/LC_ALL/" rel="tag">LC_ALL</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-04-09">
+                            Posted on 2015-04-09
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
+
+<pre><code>LANGUAGE = (unset)
+LC_ALL = (unset)
+</code></pre>
+
+<p>Для исправления делаем:</p>
+
+<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
+# locale-gen ru_RU.UTF-8
+</code></pre>
+
+<p>И перелегониваемся.</p>
 
 
 
@@ -122,12 +189,12 @@ autostart=true
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/ubuntu.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/Ubuntu.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/ubuntu.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/Ubuntu.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>
