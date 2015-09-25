@@ -37,33 +37,6 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/09/25/first-post/">First Post</a></h1>
-
-                    <p class="tags">Tags:
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-09-25">
-                            Posted on 2015-09-25
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <h1>Welcome To Your Blog</h1>
-
-<p>This is your first post. To edit this post, open up /blog/2015/09/25/first-post/index.markdown
-in your text editor.</p>
-
-<p><a href="http://preaction.github.io/Statocles/pod/Statocles/Help/Content.html">Check the documentation for how to write Statocles
-content</a></p>
-
-
-
-            </article>
-            <article>
-                <header>
                     <h1><a href="/blog/2015/09/19/dbd-pg-install/">DBD::Pg install</a></h1>
 
                     <p class="tags">Tags:
@@ -241,6 +214,34 @@ Host local. not found: 3(NXDOMAIN)
 <p>Если же в выводе написано: <code>local has SOA record XXX</code>, то ваш DNS транслирует зону local. Обычно это делают провайдеры для работы сервисов типа retracker.local. Если вы этим не пользуетесь - можно просто указать днс Yandex (77.88.8.8/77.88.8.1) или Google(8.8.8.8/8.8.4.4).</p>
 
 <p>После этих настроек и рестарта служб - все должно работать, а на устройствах Apple появится ваше устройство для вывода звука.</p>
+
+
+
+            </article>
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/05/02/elasticsearch-remove-messages/">Remove messages from Graylog2</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/graylog2/" rel="tag">graylog2</a>
+                        <a href="/blog/tag/elasticsearch/" rel="tag">elasticsearch</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-05-02">
+                            Posted on 2015-05-02
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
+
+<p>curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;match&quot;: { &quot;message&quot; : &quot;SearchPattern&quot;}}}&#39;</p>
+
+<p>remove exact pattern:
+curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;term&quot;: { &quot;message&quot; : &quot;ExactText&quot;}}}&#39;</p>
 
 
 

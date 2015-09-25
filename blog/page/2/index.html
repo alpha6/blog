@@ -37,34 +37,6 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/05/02/elasticsearch-remove-messages/">Remove messages from Graylog2</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/graylog2/" rel="tag">graylog2</a>
-                        <a href="/blog/tag/elasticsearch/" rel="tag">elasticsearch</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-05-02">
-                            Posted on 2015-05-02
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
-
-<p>curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;match&quot;: { &quot;message&quot; : &quot;SearchPattern&quot;}}}&#39;</p>
-
-<p>remove exact pattern:
-curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;term&quot;: { &quot;message&quot; : &quot;ExactText&quot;}}}&#39;</p>
-
-
-
-            </article>
-            <article>
-                <header>
                     <h1><a href="/blog/2015/04/30/using-perl-and-graylog/">Используем Graylog с Perl</a></h1>
 
                     <p class="tags">Tags:
@@ -314,11 +286,47 @@ autostart=true
 
 
             </article>
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)/">Ubuntu LC_ALL = (unset)</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
+                        <a href="/blog/tag/LC_ALL/" rel="tag">LC_ALL</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-04-09">
+                            Posted on 2015-04-09
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
+
+<pre><code>LANGUAGE = (unset)
+LC_ALL = (unset)
+</code></pre>
+
+<p>Для исправления делаем:</p>
+
+<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
+# echo LC_CTYPE=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
+# locale-gen ru_RU.UTF-8
+</code></pre>
+
+<p>И перелегониваемся.</p>
+
+
+
+            </article>
         </main>
 
         <ul class="pager">
             <li class="prev">
-                <a class="button button-primary" href="/blog/page/3" rel="next">
+                <a class="button disabled" href="" rel="next">
                     ← Older
                 </a>
             </li>

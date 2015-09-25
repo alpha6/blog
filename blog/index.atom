@@ -2,29 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/</id>
     <title>Just another blog</title>
-    <updated>2015-09-25T09:48:22Z</updated>
+    <updated>2015-09-25T09:49:55Z</updated>
     <link href="http://alpha6.ru/blog/index.atom" rel="self" />
     <link href="http://alpha6.ru/blog/" rel="alternate" />
     <generator version="0.055">Statocles</generator>
-    <entry>
-        <id>http://alpha6.ru/blog/2015/09/25/first-post/</id>
-        <title>First Post</title>
-        <link href="http://alpha6.ru/blog/2015/09/25/first-post/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <h1>Welcome To Your Blog</h1>
-
-<p>This is your first post. To edit this post, open up /blog/2015/09/25/first-post/index.markdown
-in your text editor.</p>
-
-<p><a href="http://preaction.github.io/Statocles/pod/Statocles/Help/Content.html">Check the documentation for how to write Statocles
-content</a></p>
-
-                <p><a href="http://alpha6.ru/blog/2015/09/25/first-post/#section-2">Continue reading...</a></p>
-            <p>Tags:
-            </p>
-        ]]></content>
-        <updated>2015-09-25T00:00:00Z</updated>
-    </entry>
     <entry>
         <id>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</id>
         <title>DBD::Pg install</title>
@@ -187,6 +168,28 @@ Host local. not found: 3(NXDOMAIN)
         <category term="airplay" />
         <category term="linux" />
         <category term="shairport" />
+    </entry>
+    <entry>
+        <id>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</id>
+        <title>Remove messages from Graylog2</title>
+        <link href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
+
+<p>curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;match&quot;: { &quot;message&quot; : &quot;SearchPattern&quot;}}}&#39;</p>
+
+<p>remove exact pattern:
+curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;term&quot;: { &quot;message&quot; : &quot;ExactText&quot;}}}&#39;</p>
+
+                <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://alpha6.ru/blog/tag/graylog2/">graylog2</a>
+                <a href="http://alpha6.ru/blog/tag/elasticsearch/">elasticsearch</a>
+            </p>
+        ]]></content>
+        <updated>2015-05-02T00:00:00Z</updated>
+        <category term="graylog2" />
+        <category term="elasticsearch" />
     </entry>
 </feed>
 
