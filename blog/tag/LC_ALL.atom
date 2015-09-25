@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/LC_ALL/</id>
-    <title>Just another blog</title>
-    <updated>2015-09-23T09:22:31Z</updated>
+    <title>My Statocles Site</title>
+    <updated>2015-09-25T09:34:20Z</updated>
     <link href="http://alpha6.ru/blog/tag/LC_ALL.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/LC_ALL/" rel="alternate" />
-    <generator version="0.047">Statocles</generator>
+    <generator version="0.055">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</id>
         <title>Ubuntu LC_ALL = (unset)</title>
@@ -19,7 +19,8 @@ LC_ALL = (unset)
 
 <p>Для исправления делаем:</p>
 
-<pre><code># echo LC_ALL="ru_RU.UTF-8" &gt;&gt; /etc/environment
+<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
+# echo LC_CTYPE=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
 # locale-gen ru_RU.UTF-8
 </code></pre>
 
@@ -27,8 +28,8 @@ LC_ALL = (unset)
 
                 <p><a href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/Ubuntu/">Ubuntu</a>
-                <a href="/blog/tag/LC_ALL/">LC_ALL</a>
+                <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                <a href="http://alpha6.ru/blog/tag/LC_ALL/">LC_ALL</a>
             </p>
         ]]></content>
         <updated>2015-04-09T00:00:00Z</updated>

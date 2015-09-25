@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/airplay/</id>
-    <title>Just another blog</title>
-    <updated>2015-09-23T09:22:32Z</updated>
+    <title>My Statocles Site</title>
+    <updated>2015-09-25T09:34:20Z</updated>
     <link href="http://alpha6.ru/blog/tag/airplay.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/airplay/" rel="alternate" />
-    <generator version="0.047">Statocles</generator>
+    <generator version="0.055">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/05/20/airport-linux/</id>
         <title>Превращаем Linux компьютер в AirPlay приемник</title>
@@ -54,9 +54,9 @@ Host local. not found: 3(NXDOMAIN)
 
                 <p><a href="http://alpha6.ru/blog/2015/05/20/airport-linux/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/airplay/">airplay</a>
-                <a href="/blog/tag/linux/">linux</a>
-                <a href="/blog/tag/shairport/">shairport</a>
+                <a href="http://alpha6.ru/blog/tag/airplay/">airplay</a>
+                <a href="http://alpha6.ru/blog/tag/linux/">linux</a>
+                <a href="http://alpha6.ru/blog/tag/shairport/">shairport</a>
             </p>
         ]]></content>
         <updated>2015-05-20T00:00:00Z</updated>

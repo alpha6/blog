@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/normalize.css" />
         <link rel="stylesheet" href="/theme/css/skeleton.css" />
         <link rel="stylesheet" href="/theme/css/statocles-default.css" />
-        <title><%= $site->title %></title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <title><%= $self->title ? $self->title . ' - ' : '' %><%= $site->title %></title>
+        <meta name="generator" content="Statocles <%= $Statocles::VERSION %>" />
         % for my $link ( $self->links( 'feed' ) ) {
         <link rel="alternate" href="<%= $link->href %>" type="<%= $link->type %>" />
         % }
         %= include 'site/head_after.html.ep'
+        % for my $link ( $self->links( 'stylesheet' ) ) {
+        <link rel="stylesheet" href="<%= $link->href %>" type="<%= $link->type || 'text/css' %>" />
+        % }
+        % for my $link ( $self->links( 'script' ) ) {
+        <script src="<%= $link->href %>"></script>
+        % }
     </head>
     <body>
         <header>
@@ -25,6 +32,7 @@
                         % }
                     </ul>
                     % }
+                    %= include 'site/navbar_extra.html.ep'
                 </div>
             </nav>
             %= include 'site/header_after.html.ep'
@@ -39,6 +47,5 @@
                 <a href="http://www.perl.org">Powered by Perl</a>
             </div>
         </footer>
-	<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7948447 = new Ya.Metrika({id:7948447, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/7948447" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
     </body>
 </html>

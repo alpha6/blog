@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/graylog2/</id>
-    <title>Just another blog</title>
-    <updated>2015-09-23T09:22:30Z</updated>
+    <title>My Statocles Site</title>
+    <updated>2015-09-25T09:34:19Z</updated>
     <link href="http://alpha6.ru/blog/tag/graylog2.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/graylog2/" rel="alternate" />
-    <generator version="0.047">Statocles</generator>
+    <generator version="0.055">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</id>
         <title>Remove messages from Graylog2</title>
@@ -13,15 +13,15 @@
         <content type="html"><![CDATA[
             <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
 
-<p>curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"match": { "message" : "SearchPattern"}}}'</p>
+<p>curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;match&quot;: { &quot;message&quot; : &quot;SearchPattern&quot;}}}&#39;</p>
 
 <p>remove exact pattern:
-curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"term": { "message" : "ExactText"}}}'</p>
+curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;term&quot;: { &quot;message&quot; : &quot;ExactText&quot;}}}&#39;</p>
 
                 <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/graylog2/">graylog2</a>
-                <a href="/blog/tag/elasticsearch/">elasticsearch</a>
+                <a href="http://alpha6.ru/blog/tag/graylog2/">graylog2</a>
+                <a href="http://alpha6.ru/blog/tag/elasticsearch/">elasticsearch</a>
             </p>
         ]]></content>
         <updated>2015-05-02T00:00:00Z</updated>

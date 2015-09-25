@@ -1,11 +1,32 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Just another blog</title>
-        <link>http://alpha6.ru/</link>
+        <title>My Statocles Site</title>
+        <link>http://alpha6.ru/blog/</link>
         <atom:link href="http://alpha6.ru/blog/index.rss" rel="self" type="application/rss+xml" />
-        <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.047</generator>
+        <description>Blog feed of My Statocles Site</description>
+        <generator>Statocles 0.055</generator>
+        <item>
+            <title>First Post</title>
+            <link>http://alpha6.ru/blog/2015/09/25/first-post/</link>
+            <guid>http://alpha6.ru/blog/2015/09/25/first-post/</guid>
+            <description><![CDATA[
+                <h1>Welcome To Your Blog</h1>
+
+<p>This is your first post. To edit this post, open up /blog/2015/09/25/first-post/index.markdown
+in your text editor.</p>
+
+<p><a href="http://preaction.github.io/Statocles/pod/Statocles/Help/Content.html">Check the documentation for how to write Statocles
+content</a></p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/09/25/first-post/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                </p>
+            ]]></description>
+            <pubDate>
+                Fri, 25 Sep 2015 00:00:00 +0000
+            </pubDate>
+        </item>
         <item>
             <title>DBD::Pg install</title>
             <link>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</link>
@@ -19,10 +40,10 @@
 
                     <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/Ubuntu/">Ubuntu</a>
-                    <a href="/blog/tag/Postgresql/">Postgresql</a>
-                    <a href="/blog/tag/Perl/">Perl</a>
-                    <a href="/blog/tag/DBD::Pg/">DBD::Pg</a>
+                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
+                    <a href="http://alpha6.ru/blog/tag/DBD::Pg/">DBD::Pg</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -57,9 +78,9 @@
 
                     <p><a href="http://alpha6.ru/blog/2015/09/14/get-package-methods/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/note/">note</a>
-                    <a href="/blog/tag/package/">package</a>
+                    <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                    <a href="http://alpha6.ru/blog/tag/note/">note</a>
+                    <a href="http://alpha6.ru/blog/tag/package/">package</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -71,7 +92,7 @@
             <link>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</link>
             <guid>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</guid>
             <description><![CDATA[
-                <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова "совсем". И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
+                <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова &quot;совсем&quot;. И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
 
 <p>Симптомы:
 * в NetworkManager нет даже пункта про беспроводные подключения.
@@ -100,8 +121,8 @@
 
                     <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/Ubuntu/">Ubuntu</a>
-                    <a href="/blog/tag/note/">note</a>
+                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/note/">note</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -156,35 +177,13 @@ Host local. not found: 3(NXDOMAIN)
 
                     <p><a href="http://alpha6.ru/blog/2015/05/20/airport-linux/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/airplay/">airplay</a>
-                    <a href="/blog/tag/linux/">linux</a>
-                    <a href="/blog/tag/shairport/">shairport</a>
+                    <a href="http://alpha6.ru/blog/tag/airplay/">airplay</a>
+                    <a href="http://alpha6.ru/blog/tag/linux/">linux</a>
+                    <a href="http://alpha6.ru/blog/tag/shairport/">shairport</a>
                 </p>
             ]]></description>
             <pubDate>
                 Wed, 20 May 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Remove messages from Graylog2</title>
-            <link>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</link>
-            <guid>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</guid>
-            <description><![CDATA[
-                <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
-
-<p>curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"match": { "message" : "SearchPattern"}}}'</p>
-
-<p>remove exact pattern:
-curl -XDELETE 'http://graylog.example:9200/graylog_*/message/_query' -d'{"query" : {"term": { "message" : "ExactText"}}}'</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="/blog/tag/graylog2/">graylog2</a>
-                    <a href="/blog/tag/elasticsearch/">elasticsearch</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sat, 02 May 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

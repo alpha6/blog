@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Just another blog</title>
+        <title>My Statocles Site</title>
         <link>http://alpha6.ru/blog/tag/Postgresql/</link>
         <atom:link href="http://alpha6.ru/blog/tag/Postgresql.rss" rel="self" type="application/rss+xml" />
-        <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.047</generator>
+        <description>Blog feed of My Statocles Site</description>
+        <generator>Statocles 0.055</generator>
         <item>
             <title>DBD::Pg install</title>
             <link>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</link>
@@ -19,10 +19,10 @@
 
                     <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/Ubuntu/">Ubuntu</a>
-                    <a href="/blog/tag/Postgresql/">Postgresql</a>
-                    <a href="/blog/tag/Perl/">Perl</a>
-                    <a href="/blog/tag/DBD::Pg/">DBD::Pg</a>
+                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
+                    <a href="http://alpha6.ru/blog/tag/DBD::Pg/">DBD::Pg</a>
                 </p>
             ]]></description>
             <pubDate>

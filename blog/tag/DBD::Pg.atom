@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/DBD::Pg/</id>
-    <title>Just another blog</title>
-    <updated>2015-09-23T09:22:32Z</updated>
+    <title>My Statocles Site</title>
+    <updated>2015-09-25T09:34:21Z</updated>
     <link href="http://alpha6.ru/blog/tag/DBD::Pg.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/DBD::Pg/" rel="alternate" />
-    <generator version="0.047">Statocles</generator>
+    <generator version="0.055">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</id>
         <title>DBD::Pg install</title>
@@ -19,10 +19,10 @@
 
                 <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/Ubuntu/">Ubuntu</a>
-                <a href="/blog/tag/Postgresql/">Postgresql</a>
-                <a href="/blog/tag/Perl/">Perl</a>
-                <a href="/blog/tag/DBD::Pg/">DBD::Pg</a>
+                <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
+                <a href="http://alpha6.ru/blog/tag/DBD::Pg/">DBD::Pg</a>
             </p>
         ]]></content>
         <updated>2015-09-19T00:00:00Z</updated>

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/note/</id>
-    <title>Just another blog</title>
-    <updated>2015-09-23T09:22:30Z</updated>
+    <title>My Statocles Site</title>
+    <updated>2015-09-25T09:34:19Z</updated>
     <link href="http://alpha6.ru/blog/tag/note.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/note/" rel="alternate" />
-    <generator version="0.047">Statocles</generator>
+    <generator version="0.055">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/09/14/get-package-methods/</id>
         <title>Получение методов пакета</title>
@@ -34,9 +34,9 @@
 
                 <p><a href="http://alpha6.ru/blog/2015/09/14/get-package-methods/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/perl/">perl</a>
-                <a href="/blog/tag/note/">note</a>
-                <a href="/blog/tag/package/">package</a>
+                <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                <a href="http://alpha6.ru/blog/tag/note/">note</a>
+                <a href="http://alpha6.ru/blog/tag/package/">package</a>
             </p>
         ]]></content>
         <updated>2015-09-14T00:00:00Z</updated>
@@ -49,7 +49,7 @@
         <title>ubuntu 15.04 и BCM43142</title>
         <link href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/" rel="alternate" />
         <content type="html"><![CDATA[
-            <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова "совсем". И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
+            <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова &quot;совсем&quot;. И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
 
 <p>Симптомы:
 * в NetworkManager нет даже пункта про беспроводные подключения.
@@ -78,8 +78,8 @@
 
                 <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/Ubuntu/">Ubuntu</a>
-                <a href="/blog/tag/note/">note</a>
+                <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                <a href="http://alpha6.ru/blog/tag/note/">note</a>
             </p>
         ]]></content>
         <updated>2015-05-24T00:00:00Z</updated>

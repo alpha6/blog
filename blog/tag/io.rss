@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Just another blog</title>
+        <title>My Statocles Site</title>
         <link>http://alpha6.ru/blog/tag/io/</link>
         <atom:link href="http://alpha6.ru/blog/tag/io.rss" rel="self" type="application/rss+xml" />
-        <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.047</generator>
+        <description>Blog feed of My Statocles Site</description>
+        <generator>Statocles 0.055</generator>
         <item>
             <title>stdout autoflush</title>
             <link>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</link>
@@ -24,9 +24,9 @@ STDERR-&gt;autoflush(1);
 
                     <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/snippet/">snippet</a>
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/io/">io</a>
+                    <a href="http://alpha6.ru/blog/tag/snippet/">snippet</a>
+                    <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                    <a href="http://alpha6.ru/blog/tag/io/">io</a>
                 </p>
             ]]></description>
             <pubDate>

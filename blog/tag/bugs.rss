@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Just another blog</title>
+        <title>My Statocles Site</title>
         <link>http://alpha6.ru/blog/tag/bugs/</link>
         <atom:link href="http://alpha6.ru/blog/tag/bugs.rss" rel="self" type="application/rss+xml" />
-        <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.047</generator>
+        <description>Blog feed of My Statocles Site</description>
+        <generator>Statocles 0.055</generator>
         <item>
             <title>Ubuntu 14.04 + Gearman</title>
             <link>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/</link>
@@ -36,9 +36,9 @@ autostart=true
 
                     <p><a href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/ubuntu/">ubuntu</a>
-                    <a href="/blog/tag/gearman/">gearman</a>
-                    <a href="/blog/tag/bugs/">bugs</a>
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/gearman/">gearman</a>
+                    <a href="http://alpha6.ru/blog/tag/bugs/">bugs</a>
                 </p>
             ]]></description>
             <pubDate>

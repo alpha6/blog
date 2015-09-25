@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/Automation/</id>
-    <title>Just another blog</title>
-    <updated>2015-09-23T09:22:32Z</updated>
+    <title>My Statocles Site</title>
+    <updated>2015-09-25T09:34:20Z</updated>
     <link href="http://alpha6.ru/blog/tag/Automation.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/Automation/" rel="alternate" />
-    <generator version="0.047">Statocles</generator>
+    <generator version="0.055">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/04/11/starting-with-rex/</id>
         <title>Starting with Rex</title>
@@ -33,7 +33,7 @@
 
 <p>Во первых, Rex можно использовать для простого запуска команд на удаленном сервере:</p>
 
-<p><code>rex -H "example.com example.ru" -e "say run 'uptime'"</code></p>
+<p><code>rex -H &quot;example.com example.ru&quot; -e &quot;say run &#39;uptime&#39;&quot;</code></p>
 
 <p>Задачи выполняются последовательно, так что придется подождать пока опросятся все сервера, особенно если их много.</p>
 
@@ -46,31 +46,31 @@
 
 <p>Создадим Rexfile который будет содержать команду <code>deploy</code>. По этой команде Rex пойдет на удаленный сервер и сделает там <code>git pull</code> для сайта. Простейшний вариант деплоя.</p>
 
-<pre><code> use Rex -feature =&gt; ['1.0'];
+<pre><code> use Rex -feature =&gt; [&#39;1.0&#39;];
 
- user "myuser";
- private_key "/home/myuser/.ssh/id_rsa";
- public_key "/home/myuser/.ssh/id_rsa.pub";
+ user &quot;myuser&quot;;
+ private_key &quot;/home/myuser/.ssh/id_rsa&quot;;
+ public_key &quot;/home/myuser/.ssh/id_rsa.pub&quot;;
  key_auth;
 
- group myservers =&gt; "example.ru";
+ group myservers =&gt; &quot;example.ru&quot;;
 
- desc "Deploy the blog on example.ru";
- task "deploy", group =&gt; "myservers", sub {
-   run "cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages";
+ desc &quot;Deploy the blog on example.ru&quot;;
+ task &quot;deploy&quot;, group =&gt; &quot;myservers&quot;, sub {
+   run &quot;cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages&quot;;
  };
 </code></pre>
 
 <p>Теперь можно сказать: <code>rex deploy</code></p>
 
-<p>Дальше Rex залогинится под пользователем "myuser" с использованием указанных ключей и выполнит команду указанную в опции run. Если пользователь на удаленном сервер совпадает с текущим - то первую секцию можно опустить. Будет использоваться текущий пользователь и его настройки ключей для ssh. Но если планируется использование команды через cron - то указывать надо обязательно, иначе ничего работать не будет.</p>
+<p>Дальше Rex залогинится под пользователем &quot;myuser&quot; с использованием указанных ключей и выполнит команду указанную в опции run. Если пользователь на удаленном сервер совпадает с текущим - то первую секцию можно опустить. Будет использоваться текущий пользователь и его настройки ключей для ssh. Но если планируется использование команды через cron - то указывать надо обязательно, иначе ничего работать не будет.</p>
 
 <p>Так же можно обновлять конфигурацию копируя на хосты необходимые файлы (вы же не храните авторизационные данные в Git, правда?)
 приведем содержимое раздела task к виду:</p>
 
-<pre><code> run "cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages";
- file "/srv/www/example.ru/test.conf",
-     source    =&gt; "files/test.conf";
+<pre><code> run &quot;cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages&quot;;
+ file &quot;/srv/www/example.ru/test.conf&quot;,
+     source    =&gt; &quot;files/test.conf&quot;;
 </code></pre>
 
 <p>Теперь при выполнении <code>rex deploy</code> будет выполнен <code>pull</code> из репозитория на удаленном сервере, а затем туда будет скопирован файл <code>files/test.conf</code>.</p>
@@ -81,9 +81,9 @@
 
                 <p><a href="http://alpha6.ru/blog/2015/04/11/starting-with-rex/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/Rex/">Rex</a>
-                <a href="/blog/tag/Perl/">Perl</a>
-                <a href="/blog/tag/Automation/">Automation</a>
+                <a href="http://alpha6.ru/blog/tag/Rex/">Rex</a>
+                <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
+                <a href="http://alpha6.ru/blog/tag/Automation/">Automation</a>
             </p>
         ]]></content>
         <updated>2015-04-11T00:00:00Z</updated>

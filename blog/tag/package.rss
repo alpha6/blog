@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Just another blog</title>
+        <title>My Statocles Site</title>
         <link>http://alpha6.ru/blog/tag/package/</link>
         <atom:link href="http://alpha6.ru/blog/tag/package.rss" rel="self" type="application/rss+xml" />
-        <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.047</generator>
+        <description>Blog feed of My Statocles Site</description>
+        <generator>Statocles 0.055</generator>
         <item>
             <title>Получение методов пакета</title>
             <link>http://alpha6.ru/blog/2015/09/14/get-package-methods/</link>
@@ -34,9 +34,9 @@
 
                     <p><a href="http://alpha6.ru/blog/2015/09/14/get-package-methods/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/note/">note</a>
-                    <a href="/blog/tag/package/">package</a>
+                    <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                    <a href="http://alpha6.ru/blog/tag/note/">note</a>
+                    <a href="http://alpha6.ru/blog/tag/package/">package</a>
                 </p>
             ]]></description>
             <pubDate>

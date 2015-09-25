@@ -1,48 +1,104 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/ubuntu/</link>
-        <atom:link href="http://alpha6.ru/blog/tag/ubuntu.rss" rel="self" type="application/rss+xml" />
-        <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.047</generator>
+        <title>My Statocles Site</title>
+        <link>http://alpha6.ru/blog/tag/Ubuntu/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/Ubuntu.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of My Statocles Site</description>
+        <generator>Statocles 0.055</generator>
         <item>
-            <title>Ubuntu 14.04 + Gearman</title>
-            <link>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/</link>
-            <guid>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/</guid>
+            <title>DBD::Pg install</title>
+            <link>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</link>
+            <guid>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</guid>
             <description><![CDATA[
-                <p>В базовой установке Gearman в ubuntu 14.04 есть баг - инит-скрипт написан не правильно и в результате Gearman  не реагирует наличие конфиг файла и запускается с настойками по умолчанию. Причем, на одном из серверов у меня проблемма после обновления усугубилась и он перестал запускаться даже с настройками по умолчанию.</p>
+                <p>Markdown content goes here.</p>
 
-<p>Есть два варианта решения проблемы:</p>
+<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
 
-<ol>
-<li>Пропатчить инит-скрипт, как это сделать можно прочитать <a href="http://jeremykendall.net/2014/09/04/ubuntu-14-dot-04-gearman-config-bug/">здесь</a></li>
-<li>Запускать его из под supervisord.</li>
-</ol>
+<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
 
-<p>У меня все приложения крутятся под supervisor, так что я пошел этим путем. </p>
-
-<p>Минимальный конфиг файл для супервизора:</p>
-
-<pre><code>[program:gearmand]
-command=/usr/sbin/gearmand -L 127.0.0.1 --user=gearman --log-file=stderr
-autorestart=true
-autostart=true
-</code></pre>
-
-<p><code>-L 127.0.0.1</code> указано, во первых, что-бы gearman не биндился на внешние интерфейсы (там все закрыто фаирволом, но все же). Во вторых - если на машине включен ipv6, но не настроен, то gearman будет пытаться забиндиться и на ipv6 и падать.</p>
-
-<p>З.Ы. инит для supervisord в 14.04 тоже кривой, но это уже другая история.</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/#section-2">Continue reading...</a></p>
+                    <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/ubuntu/">ubuntu</a>
-                    <a href="/blog/tag/gearman/">gearman</a>
-                    <a href="/blog/tag/bugs/">bugs</a>
+                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
+                    <a href="http://alpha6.ru/blog/tag/DBD::Pg/">DBD::Pg</a>
                 </p>
             ]]></description>
             <pubDate>
-                Thu, 23 Apr 2015 00:00:00 +0000
+                Sat, 19 Sep 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>ubuntu 15.04 и BCM43142</title>
+            <link>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</link>
+            <guid>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</guid>
+            <description><![CDATA[
+                <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова &quot;совсем&quot;. И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
+
+<p>Симптомы:
+* в NetworkManager нет даже пункта про беспроводные подключения.
+* <code># lshw -c Network</code> говорит что-то вроде:</p>
+
+<pre><code>*-network UNCLAIMED     
+   description: Network controller
+   product: BCM43142 802.11b/g/n
+   vendor: Broadcom Corporation
+   physical id: 0
+   bus info: pci@0000:02:00.0
+   version: 01
+   width: 64 bits
+   clock: 33MHz
+   capabilities: bus_master cap_list
+   configuration: latency=0
+   resources: memory:90500000-90507fff
+</code></pre>
+
+<p>Как можно заметить - устройство карте не назначено. Значит надо доустановить пакет с прошивкой для карты. С 14.04 эта карта поддерживается в официальных драйверах, так что просто устанавливаем пакет руками:</p>
+
+<pre><code>sudo apt-get install bcmwl-kernel-source
+</code></pre>
+
+<p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/note/">note</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sun, 24 May 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Ubuntu LC_ALL = (unset)</title>
+            <link>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</link>
+            <guid>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</guid>
+            <description><![CDATA[
+                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
+
+<pre><code>LANGUAGE = (unset)
+LC_ALL = (unset)
+</code></pre>
+
+<p>Для исправления делаем:</p>
+
+<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
+# echo LC_CTYPE=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
+# locale-gen ru_RU.UTF-8
+</code></pre>
+
+<p>И перелегониваемся.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/LC_ALL/">LC_ALL</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Thu, 09 Apr 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

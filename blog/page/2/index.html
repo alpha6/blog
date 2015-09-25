@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta charset="utf-8">
         <link href="/theme/css/normalize.css" rel="stylesheet">
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
-        <title>Just another blog</title>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>My Statocles Site</title>
+        <meta content="Statocles 0.055" name="generator">
         <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
         <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
@@ -14,12 +15,13 @@
         <header>
             <nav class="navbar">
                 <div class="container">
-                    <a class="brand" href="/">Just another blog</a>
+                    <a class="brand" href="/">My Statocles Site</a>
                     <ul>
                         <li>
                             <a href="/">Blog</a>
                         </li>
                     </ul>
+                    
                 </div>
             </nav>
             
@@ -31,6 +33,35 @@
     <div class="nine columns">
         <main>
 
+
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/05/02/elasticsearch-remove-messages/">Remove messages from Graylog2</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/graylog2/" rel="tag">graylog2</a>
+                        <a href="/blog/tag/elasticsearch/" rel="tag">elasticsearch</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-05-02">
+                            Posted on 2015-05-02
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
+
+<p>curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;match&quot;: { &quot;message&quot; : &quot;SearchPattern&quot;}}}&#39;</p>
+
+<p>remove exact pattern:
+curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;term&quot;: { &quot;message&quot; : &quot;ExactText&quot;}}}&#39;</p>
+
+
+
+            </article>
             <article>
                 <header>
                     <h1><a href="/blog/2015/04/30/using-perl-and-graylog/">Используем Graylog с Perl</a></h1>
@@ -282,46 +313,11 @@ autostart=true
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)/">Ubuntu LC_ALL = (unset)</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
-                        <a href="/blog/tag/LC_ALL/" rel="tag">LC_ALL</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-04-09">
-                            Posted on 2015-04-09
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
-
-<pre><code>LANGUAGE = (unset)
-LC_ALL = (unset)
-</code></pre>
-
-<p>Для исправления делаем:</p>
-
-<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
-# locale-gen ru_RU.UTF-8
-</code></pre>
-
-<p>И перелегониваемся.</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
             <li class="prev">
-                <a class="button disabled" href="" rel="next">
+                <a class="button button-primary" href="/blog/page/3" rel="next">
                     ← Older
                 </a>
             </li>
@@ -377,6 +373,7 @@ LC_ALL = (unset)
 
 </div>
 
+
         </div>
         <footer>
             
@@ -385,6 +382,5 @@ LC_ALL = (unset)
                 <a href="http://www.perl.org">Powered by Perl</a>
             </div>
         </footer>
-	<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7948447 = new Ya.Metrika({id:7948447, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img alt="" src="//mc.yandex.ru/watch/7948447" style="position:absolute; left:-9999px;"></div></noscript><!-- /Yandex.Metrika counter -->
     </body>
 </html>

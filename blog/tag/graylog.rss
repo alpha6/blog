@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Just another blog</title>
+        <title>My Statocles Site</title>
         <link>http://alpha6.ru/blog/tag/graylog/</link>
         <atom:link href="http://alpha6.ru/blog/tag/graylog.rss" rel="self" type="application/rss+xml" />
-        <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.047</generator>
+        <description>Blog feed of My Statocles Site</description>
+        <generator>Statocles 0.055</generator>
         <item>
             <title>Используем Graylog с Perl</title>
             <link>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</link>
@@ -17,7 +17,7 @@
 
 <p>Первым делом надо создать Input для логов.
 Мы будем использовать GELF формат через Log::Log4perl.
-Идем System->Inputs в выпадающем списке выбираем GELF UDP и жмем Launch Input.
+Идем System-&gt;Inputs в выпадающем списке выбираем GELF UDP и жмем Launch Input.
 В открывшемся окне выбираем ноды на которых будет работать этот инпут, описание, адрес на котором он будет слушать.
 Жмем launch, убеждаемся что он стартанул и на этом пока все работы с Graylog закончены.</p>
 
@@ -49,13 +49,13 @@ use strict;
 use Log::Log4perl;
 
 #Загружаем конфигурацию 
-Log::Log4perl::init('logger.conf');
+Log::Log4perl::init(&#39;logger.conf&#39;);
 
 #Получаем логгер
-my $logger = Log::Log4perl-&gt;get_logger('graylog');
+my $logger = Log::Log4perl-&gt;get_logger(&#39;graylog&#39;);
 
-$logger-&gt;info('hello graylog');
-$logger-&gt;info('Тестовое сообщение UTF8');
+$logger-&gt;info(&#39;hello graylog&#39;);
+$logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
 </code></pre>
 
 <p>В теории, этого достаточно для того что бы нужные логи вашего приложения начали идти в Graylog. Но, как обычно, есть нюанс - этот модуль совершенно не представляет что есть более чем однобайтные кодировки и при попытке что-то записать в лог что-то с utf8 мы получим ошибку <code>Wide character in IO::Compress::Gzip::write</code> и в Graylog сообщение не придет.</p>
@@ -75,8 +75,8 @@ $logger-&gt;info('Тестовое сообщение UTF8');
 
                     <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/graylog/">graylog</a>
+                    <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                    <a href="http://alpha6.ru/blog/tag/graylog/">graylog</a>
                 </p>
             ]]></description>
             <pubDate>
