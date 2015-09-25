@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/LC_ALL/</id>
-    <title>My Statocles Site</title>
-    <updated>2015-09-25T09:34:20Z</updated>
+    <title>Just another blog</title>
+    <updated>2015-09-25T09:44:43Z</updated>
     <link href="http://alpha6.ru/blog/tag/LC_ALL.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/LC_ALL/" rel="alternate" />
     <generator version="0.055">Statocles</generator>

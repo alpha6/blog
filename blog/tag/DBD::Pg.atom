@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/DBD::Pg/</id>
-    <title>My Statocles Site</title>
-    <updated>2015-09-25T09:34:21Z</updated>
+    <title>Just another blog</title>
+    <updated>2015-09-25T09:44:42Z</updated>
     <link href="http://alpha6.ru/blog/tag/DBD::Pg.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/DBD::Pg/" rel="alternate" />
     <generator version="0.055">Statocles</generator>
