@@ -12,7 +12,7 @@ page_app:
   args:
     store: page
     url_root: /page
-  class: Statocles::App::Plain
+  class: Statocles::App::Basic
 site:
   args:
     apps:
@@ -42,7 +42,7 @@ static_app:
   args:
     store: static
     url_root: /static
-  class: Statocles::App::Static
+  class: Statocles::App::Basic
 theme:
   args:
     store: theme
