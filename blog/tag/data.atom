@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/data/</id>
     <title>Just another blog</title>
-    <updated>2015-09-29T23:30:40Z</updated>
+    <updated>2015-09-29T23:32:26Z</updated>
     <link href="http://alpha6.ru/blog/tag/data.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/data/" rel="alternate" />
     <generator version="0.055">Statocles</generator>
@@ -11,7 +11,7 @@
         <title>prostgresql interval in future</title>
         <link href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/" rel="alternate" />
         <content type="html"><![CDATA[
-            <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать слудующий символ</p>
+            <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:</p>
 
 <pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
 SELECT NOW() + &#39;5 days&#39;::interval;

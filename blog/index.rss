@@ -11,7 +11,7 @@
             <link>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</link>
             <guid>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</guid>
             <description><![CDATA[
-                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать слудующий символ</p>
+                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:</p>
 
 <pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
 SELECT NOW() + &#39;5 days&#39;::interval;
