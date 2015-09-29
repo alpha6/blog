@@ -37,6 +37,36 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2015/09/29/prostgresql-interval-in-future/">prostgresql interval in future</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/postgresql/" rel="tag">postgresql</a>
+                        <a href="/blog/tag/data/" rel="tag">data</a>
+                        <a href="/blog/tag/timestapm/" rel="tag">timestapm</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-09-29">
+                            Posted on 2015-09-29
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать слудующий символ</p>
+
+<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
+SELECT NOW() + &#39;5 days&#39;::interval;
+</code></pre>
+
+<p>Работает и в плюс и в минус.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/09/19/dbd-pg-install/">DBD::Pg install</a></h1>
 
                     <p class="tags">Tags:
@@ -218,34 +248,6 @@ Host local. not found: 3(NXDOMAIN)
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/05/02/elasticsearch-remove-messages/">Remove messages from Graylog2</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/graylog2/" rel="tag">graylog2</a>
-                        <a href="/blog/tag/elasticsearch/" rel="tag">elasticsearch</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-05-02">
-                            Posted on 2015-05-02
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
-
-<p>curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;match&quot;: { &quot;message&quot; : &quot;SearchPattern&quot;}}}&#39;</p>
-
-<p>remove exact pattern:
-curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;term&quot;: { &quot;message&quot; : &quot;ExactText&quot;}}}&#39;</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -276,6 +278,7 @@ curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&
             <li><a href="/blog/tag/Ubuntu/">Ubuntu</a></li>
             <li><a href="/blog/tag/airplay/">airplay</a></li>
             <li><a href="/blog/tag/bugs/">bugs</a></li>
+            <li><a href="/blog/tag/data/">data</a></li>
             <li><a href="/blog/tag/elasticsearch/">elasticsearch</a></li>
             <li><a href="/blog/tag/gearman/">gearman</a></li>
             <li><a href="/blog/tag/graylog/">graylog</a></li>
@@ -285,8 +288,10 @@ curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&
             <li><a href="/blog/tag/note/">note</a></li>
             <li><a href="/blog/tag/package/">package</a></li>
             <li><a href="/blog/tag/perl/">perl</a></li>
+            <li><a href="/blog/tag/postgresql/">postgresql</a></li>
             <li><a href="/blog/tag/shairport/">shairport</a></li>
             <li><a href="/blog/tag/snippet/">snippet</a></li>
+            <li><a href="/blog/tag/timestapm/">timestapm</a></li>
             <li><a href="/blog/tag/ubuntu/">ubuntu</a></li>
         </ul>
         <h1>Feeds</h1>

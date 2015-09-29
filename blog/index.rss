@@ -7,6 +7,30 @@
         <description>Blog feed of Just another blog</description>
         <generator>Statocles 0.055</generator>
         <item>
+            <title>prostgresql interval in future</title>
+            <link>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</link>
+            <guid>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</guid>
+            <description><![CDATA[
+                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать слудующий символ</p>
+
+<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
+SELECT NOW() + &#39;5 days&#39;::interval;
+</code></pre>
+
+<p>Работает и в плюс и в минус.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/postgresql/">postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/data/">data</a>
+                    <a href="http://alpha6.ru/blog/tag/timestapm/">timestapm</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Tue, 29 Sep 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>DBD::Pg install</title>
             <link>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</link>
             <guid>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</guid>
@@ -163,28 +187,6 @@ Host local. not found: 3(NXDOMAIN)
             ]]></description>
             <pubDate>
                 Wed, 20 May 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Remove messages from Graylog2</title>
-            <link>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</link>
-            <guid>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</guid>
-            <description><![CDATA[
-                <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
-
-<p>curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;match&quot;: { &quot;message&quot; : &quot;SearchPattern&quot;}}}&#39;</p>
-
-<p>remove exact pattern:
-curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;term&quot;: { &quot;message&quot; : &quot;ExactText&quot;}}}&#39;</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/graylog2/">graylog2</a>
-                    <a href="http://alpha6.ru/blog/tag/elasticsearch/">elasticsearch</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sat, 02 May 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

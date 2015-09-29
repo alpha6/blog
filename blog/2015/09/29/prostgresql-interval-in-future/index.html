@@ -6,7 +6,7 @@
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <title>stdout autoflush - Just another blog</title>
+        <title>prostgresql interval in future - Just another blog</title>
         <meta content="Statocles 0.055" name="generator">
         
     </head>
@@ -31,16 +31,16 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>stdout autoflush</h1>
+                <h1>prostgresql interval in future</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/snippet/" rel="tag">snippet</a>
-                    <a href="/blog/tag/perl/" rel="tag">perl</a>
-                    <a href="/blog/tag/io/" rel="tag">io</a>
+                    <a href="/blog/tag/postgresql/" rel="tag">postgresql</a>
+                    <a href="/blog/tag/data/" rel="tag">data</a>
+                    <a href="/blog/tag/timestapm/" rel="tag">timestapm</a>
                 </p>
 
                 <aside>
-                    <p><time datetime="2015-04-25">
-                        Posted on 2015-04-25
+                    <p><time datetime="2015-09-29">
+                        Posted on 2015-09-29
                     </time>
                     </p>
                 </aside>
@@ -48,16 +48,13 @@
 
             </header>
             <section id="section-1">
-                <p>Классический метод:</p>
+                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать слудующий символ</p>
 
-<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
+<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
+SELECT NOW() + &#39;5 days&#39;::interval;
 </code></pre>
 
-<p>ООП:</p>
-
-<pre><code>use IO::Handle;
-STDERR-&gt;autoflush(1);
-</code></pre>
+<p>Работает и в плюс и в минус.</p>
 
             </section>
         </main>

@@ -8,8 +8,8 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
         <meta content="Statocles 0.055" name="generator">
-        <link href="/blog/tag/graylog2.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/tag/graylog2.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/tag/timestapm.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/timestapm.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -37,28 +37,30 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/05/02/elasticsearch-remove-messages/">Remove messages from Graylog2</a></h1>
+                    <h1><a href="/blog/2015/09/29/prostgresql-interval-in-future/">prostgresql interval in future</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/graylog2/" rel="tag">graylog2</a>
-                        <a href="/blog/tag/elasticsearch/" rel="tag">elasticsearch</a>
+                        <a href="/blog/tag/postgresql/" rel="tag">postgresql</a>
+                        <a href="/blog/tag/data/" rel="tag">data</a>
+                        <a href="/blog/tag/timestapm/" rel="tag">timestapm</a>
                     </p>
 
                     <aside>
-                        <p><time datetime="2015-05-02">
-                            Posted on 2015-05-02
+                        <p><time datetime="2015-09-29">
+                            Posted on 2015-09-29
                         </time>
                         </p>
                     </aside>
 
                 </header>
 
-                <p>If you want to remove all messages with requested pattern in message body, you have to write following line:</p>
+                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать слудующий символ</p>
 
-<p>curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;match&quot;: { &quot;message&quot; : &quot;SearchPattern&quot;}}}&#39;</p>
+<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
+SELECT NOW() + &#39;5 days&#39;::interval;
+</code></pre>
 
-<p>remove exact pattern:
-curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&#39;{&quot;query&quot; : {&quot;term&quot;: { &quot;message&quot; : &quot;ExactText&quot;}}}&#39;</p>
+<p>Работает и в плюс и в минус.</p>
 
 
 
@@ -112,12 +114,12 @@ curl -XDELETE &#39;http://graylog.example:9200/graylog_*/message/_query&#39; -d&
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/graylog2.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/timestapm.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/graylog2.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/timestapm.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>
