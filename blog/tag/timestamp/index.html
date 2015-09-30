@@ -8,8 +8,8 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
         <meta content="Statocles 0.055" name="generator">
-        <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/tag/timestamp.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/timestamp.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -37,36 +37,30 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)/">Ubuntu LC_ALL = (unset)</a></h1>
+                    <h1><a href="/blog/2015/09/29/prostgresql-interval-in-future/">prostgresql interval in future</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
-                        <a href="/blog/tag/LC_ALL/" rel="tag">LC_ALL</a>
+                        <a href="/blog/tag/Postgresql/" rel="tag">Postgresql</a>
+                        <a href="/blog/tag/data/" rel="tag">data</a>
+                        <a href="/blog/tag/timestamp/" rel="tag">timestamp</a>
                     </p>
 
                     <aside>
-                        <p><time datetime="2015-04-09">
-                            Posted on 2015-04-09
+                        <p><time datetime="2015-09-29">
+                            Posted on 2015-09-29
                         </time>
                         </p>
                     </aside>
 
                 </header>
 
-                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
+                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:</p>
 
-<pre><code>LANGUAGE = (unset)
-LC_ALL = (unset)
+<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
+SELECT NOW() + &#39;5 days&#39;::interval;
 </code></pre>
 
-<p>Для исправления делаем:</p>
-
-<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
-# echo LC_CTYPE=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
-# locale-gen ru_RU.UTF-8
-</code></pre>
-
-<p>И перелегониваемся.</p>
+<p>Работает и в плюс и в минус.</p>
 
 
 
@@ -80,7 +74,7 @@ LC_ALL = (unset)
                 </a>
             </li>
             <li class="next">
-                <a class="button button-primary" href="/blog/page/2" rel="prev">
+                <a class="button disabled" href="" rel="prev">
                     Newer →
                 </a>
             </li>
@@ -119,12 +113,12 @@ LC_ALL = (unset)
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/index.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/timestamp.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/index.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/timestamp.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>

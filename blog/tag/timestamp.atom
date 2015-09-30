@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/data/</id>
+    <id>http://alpha6.ru/blog/tag/timestamp/</id>
     <title>Just another blog</title>
     <updated>2015-09-30T14:51:01Z</updated>
-    <link href="http://alpha6.ru/blog/tag/data.atom" rel="self" />
-    <link href="http://alpha6.ru/blog/tag/data/" rel="alternate" />
+    <link href="http://alpha6.ru/blog/tag/timestamp.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/timestamp/" rel="alternate" />
     <generator version="0.055">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</id>

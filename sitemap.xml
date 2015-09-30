@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://alpha6.ru/blog/tag/gearman/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-23</lastmod>
+        <loc>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-04-25</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/Ubuntu/</loc>
@@ -13,7 +13,145 @@
         <lastmod>2015-09-19</lastmod>
     </url>
     <url>
+        <loc>http://alpha6.ru/page/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-09-30</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/note/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-09-14</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/perl/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-09-14</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-05-24</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/LC_ALL/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-09</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/timestamp/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-09-29</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-04-09</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/io/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-25</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/graylog2/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-05-02</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-04-30</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-05-02</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/elasticsearch/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-05-02</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/shairport/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-05-20</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/page/2/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-09-29</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/Automation/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-11</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/airplay/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-05-20</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/Postgresql/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-09-29</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/bugs/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-23</lastmod>
+    </url>
+    <url>
         <loc>http://alpha6.ru/blog/tag/ubuntu/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-23</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/package/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-09-14</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/snippet/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-04-25</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/linux/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-05-20</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/2015/04/11/starting-with-rex/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-04-11</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/gearman/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2015-04-23</lastmod>
@@ -25,160 +163,16 @@
         <lastmod>2015-04-11</lastmod>
     </url>
     <url>
-        <loc>http://alpha6.ru/blog/tag/io/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-25</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <lastmod>2015-04-25</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/elasticsearch/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-05-02</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/graylog/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-30</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/2015/04/11/starting-with-rex/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <lastmod>2015-04-11</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/2015/05/20/airport-linux/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <lastmod>2015-05-20</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/package/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-09-14</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/postgresql/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-09-29</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/page/3/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-09-29</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/airplay/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-05-20</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/Automation/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-11</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/LC_ALL/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-09</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/page/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <lastmod>2015-09-30</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/2015/09/14/get-package-methods/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <lastmod>2015-09-14</lastmod>
-    </url>
-    <url>
         <loc>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
         <lastmod>2015-04-23</lastmod>
     </url>
     <url>
-        <loc>http://alpha6.ru/blog/tag/perl/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
+        <loc>http://alpha6.ru/blog/2015/09/14/get-package-methods/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
         <lastmod>2015-09-14</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <lastmod>2015-04-09</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <lastmod>2015-04-30</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <lastmod>2015-09-19</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/timestapm/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-09-29</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <lastmod>2015-05-24</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/bugs/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-23</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/Perl/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-09-19</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-09-29</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/data/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-09-29</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/page/2/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-09-29</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/DBD::Pg/</loc>
@@ -193,46 +187,46 @@
         <lastmod>2015-09-29</lastmod>
     </url>
     <url>
-        <loc>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <lastmod>2015-05-02</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/shairport/</loc>
+        <loc>http://alpha6.ru/blog/tag/graylog/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2015-05-20</lastmod>
+        <lastmod>2015-04-30</lastmod>
     </url>
     <url>
-        <loc>http://alpha6.ru/blog/tag/linux/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-05-20</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/snippet/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-04-25</lastmod>
-    </url>
-    <url>
-        <loc>http://alpha6.ru/blog/tag/Postgresql/</loc>
+        <loc>http://alpha6.ru/blog/tag/Perl/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2015-09-19</lastmod>
     </url>
     <url>
-        <loc>http://alpha6.ru/blog/tag/note/</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.3</priority>
-        <lastmod>2015-09-14</lastmod>
+        <loc>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-09-19</lastmod>
     </url>
     <url>
-        <loc>http://alpha6.ru/blog/tag/graylog2/</loc>
+        <loc>http://alpha6.ru/blog/page/3/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2015-05-02</lastmod>
+        <lastmod>2015-09-29</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/2015/05/20/airport-linux/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-05-20</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-09-29</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/data/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-09-29</lastmod>
     </url>
 </urlset>
 

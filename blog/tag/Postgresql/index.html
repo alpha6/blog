@@ -8,8 +8,8 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
         <meta content="Statocles 0.055" name="generator">
-        <link href="/blog/tag/postgresql.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/tag/postgresql.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/tag/Postgresql.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/Postgresql.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -40,9 +40,9 @@
                     <h1><a href="/blog/2015/09/29/prostgresql-interval-in-future/">prostgresql interval in future</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/postgresql/" rel="tag">postgresql</a>
+                        <a href="/blog/tag/Postgresql/" rel="tag">Postgresql</a>
                         <a href="/blog/tag/data/" rel="tag">data</a>
-                        <a href="/blog/tag/timestapm/" rel="tag">timestapm</a>
+                        <a href="/blog/tag/timestamp/" rel="tag">timestamp</a>
                     </p>
 
                     <aside>
@@ -61,6 +61,35 @@ SELECT NOW() + &#39;5 days&#39;::interval;
 </code></pre>
 
 <p>Работает и в плюс и в минус.</p>
+
+
+
+            </article>
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/09/19/dbd-pg-install/">DBD::Pg install</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
+                        <a href="/blog/tag/Postgresql/" rel="tag">Postgresql</a>
+                        <a href="/blog/tag/Perl/" rel="tag">Perl</a>
+                        <a href="/blog/tag/DBD::Pg/" rel="tag">DBD::Pg</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-09-19">
+                            Posted on 2015-09-19
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Markdown content goes here.</p>
+
+<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
+
+<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
 
 
 
@@ -105,21 +134,20 @@ SELECT NOW() + &#39;5 days&#39;::interval;
             <li><a href="/blog/tag/note/">note</a></li>
             <li><a href="/blog/tag/package/">package</a></li>
             <li><a href="/blog/tag/perl/">perl</a></li>
-            <li><a href="/blog/tag/postgresql/">postgresql</a></li>
             <li><a href="/blog/tag/shairport/">shairport</a></li>
             <li><a href="/blog/tag/snippet/">snippet</a></li>
-            <li><a href="/blog/tag/timestapm/">timestapm</a></li>
+            <li><a href="/blog/tag/timestamp/">timestamp</a></li>
             <li><a href="/blog/tag/ubuntu/">ubuntu</a></li>
         </ul>
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/postgresql.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/Postgresql.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/postgresql.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/Postgresql.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>
@@ -136,6 +164,7 @@ SELECT NOW() + &#39;5 days&#39;::interval;
                 <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br>
                 <a href="http://www.perl.org">Powered by Perl</a>
             </div>
+            <!-- Yandex.Metrika counter --><script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7948447 = new Ya.Metrika({ id:7948447, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img alt="" src="https://mc.yandex.ru/watch/7948447" style="position:absolute; left:-9999px;"></div></noscript><!-- /Yandex.Metrika counter -->
         </footer>
     </body>
 </html>

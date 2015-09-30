@@ -21,9 +21,9 @@ SELECT NOW() + &#39;5 days&#39;::interval;
 
                     <p><a href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/postgresql/">postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
                     <a href="http://alpha6.ru/blog/tag/data/">data</a>
-                    <a href="http://alpha6.ru/blog/tag/timestapm/">timestapm</a>
+                    <a href="http://alpha6.ru/blog/tag/timestamp/">timestamp</a>
                 </p>
             ]]></description>
             <pubDate>

@@ -7,6 +7,30 @@
         <description>Blog feed of Just another blog</description>
         <generator>Statocles 0.055</generator>
         <item>
+            <title>prostgresql interval in future</title>
+            <link>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</link>
+            <guid>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</guid>
+            <description><![CDATA[
+                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:</p>
+
+<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
+SELECT NOW() + &#39;5 days&#39;::interval;
+</code></pre>
+
+<p>Работает и в плюс и в минус.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/data/">data</a>
+                    <a href="http://alpha6.ru/blog/tag/timestamp/">timestamp</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Tue, 29 Sep 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>DBD::Pg install</title>
             <link>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</link>
             <guid>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</guid>

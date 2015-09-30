@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/</id>
     <title>Just another blog</title>
-    <updated>2015-09-30T14:44:44Z</updated>
+    <updated>2015-09-30T14:50:59Z</updated>
     <link href="http://alpha6.ru/blog/index.atom" rel="self" />
     <link href="http://alpha6.ru/blog/" rel="alternate" />
     <generator version="0.055">Statocles</generator>
@@ -21,15 +21,15 @@ SELECT NOW() + &#39;5 days&#39;::interval;
 
                 <p><a href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="http://alpha6.ru/blog/tag/postgresql/">postgresql</a>
+                <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
                 <a href="http://alpha6.ru/blog/tag/data/">data</a>
-                <a href="http://alpha6.ru/blog/tag/timestapm/">timestapm</a>
+                <a href="http://alpha6.ru/blog/tag/timestamp/">timestamp</a>
             </p>
         ]]></content>
         <updated>2015-09-29T00:00:00Z</updated>
-        <category term="postgresql" />
+        <category term="Postgresql" />
         <category term="data" />
-        <category term="timestapm" />
+        <category term="timestamp" />
     </entry>
     <entry>
         <id>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</id>

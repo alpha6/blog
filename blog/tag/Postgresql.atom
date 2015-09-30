@@ -2,10 +2,35 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/Postgresql/</id>
     <title>Just another blog</title>
-    <updated>2015-09-30T14:44:44Z</updated>
+    <updated>2015-09-30T14:51:00Z</updated>
     <link href="http://alpha6.ru/blog/tag/Postgresql.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/Postgresql/" rel="alternate" />
     <generator version="0.055">Statocles</generator>
+    <entry>
+        <id>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</id>
+        <title>prostgresql interval in future</title>
+        <link href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:</p>
+
+<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
+SELECT NOW() + &#39;5 days&#39;::interval;
+</code></pre>
+
+<p>Работает и в плюс и в минус.</p>
+
+                <p><a href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                <a href="http://alpha6.ru/blog/tag/data/">data</a>
+                <a href="http://alpha6.ru/blog/tag/timestamp/">timestamp</a>
+            </p>
+        ]]></content>
+        <updated>2015-09-29T00:00:00Z</updated>
+        <category term="Postgresql" />
+        <category term="data" />
+        <category term="timestamp" />
+    </entry>
     <entry>
         <id>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</id>
         <title>DBD::Pg install</title>
