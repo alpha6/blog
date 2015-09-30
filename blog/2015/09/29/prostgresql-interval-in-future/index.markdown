@@ -1,5 +1,5 @@
 ---
-tags: postgresql, data, timestapm
+tags: Postgresql, data, timestamp
 title: prostgresql interval in future
 ---
 Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:
