@@ -2,8 +2,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/Postgresql/</link>
-        <atom:link href="http://alpha6.ru/blog/tag/Postgresql.rss" rel="self" type="application/rss+xml" />
+        <link>http://alpha6.ru/blog/tag/Redmine/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/Redmine.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
         <generator>Statocles 0.055</generator>
         <item>
@@ -117,53 +117,6 @@ sudo service nginx start
             ]]></description>
             <pubDate>
                 Fri, 02 Oct 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>prostgresql interval in future</title>
-            <link>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</link>
-            <guid>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</guid>
-            <description><![CDATA[
-                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:</p>
-
-<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
-SELECT NOW() + &#39;5 days&#39;::interval;
-</code></pre>
-
-<p>Работает и в плюс и в минус.</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
-                    <a href="http://alpha6.ru/blog/tag/data/">data</a>
-                    <a href="http://alpha6.ru/blog/tag/timestamp/">timestamp</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Tue, 29 Sep 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>DBD::Pg install</title>
-            <link>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</link>
-            <guid>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</guid>
-            <description><![CDATA[
-                <p>Markdown content goes here.</p>
-
-<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
-
-<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
-                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
-                    <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
-                    <a href="http://alpha6.ru/blog/tag/DBD::Pg/">DBD::Pg</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sat, 19 Sep 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

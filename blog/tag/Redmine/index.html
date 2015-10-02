@@ -8,8 +8,8 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
         <meta content="Statocles 0.055" name="generator">
-        <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/tag/Redmine.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/Redmine.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -154,161 +154,11 @@ sudo service nginx start
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/09/29/prostgresql-interval-in-future/">prostgresql interval in future</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/Postgresql/" rel="tag">Postgresql</a>
-                        <a href="/blog/tag/data/" rel="tag">data</a>
-                        <a href="/blog/tag/timestamp/" rel="tag">timestamp</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-09-29">
-                            Posted on 2015-09-29
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:</p>
-
-<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
-SELECT NOW() + &#39;5 days&#39;::interval;
-</code></pre>
-
-<p>Работает и в плюс и в минус.</p>
-
-
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/09/19/dbd-pg-install/">DBD::Pg install</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
-                        <a href="/blog/tag/Postgresql/" rel="tag">Postgresql</a>
-                        <a href="/blog/tag/Perl/" rel="tag">Perl</a>
-                        <a href="/blog/tag/DBD::Pg/" rel="tag">DBD::Pg</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-09-19">
-                            Posted on 2015-09-19
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Markdown content goes here.</p>
-
-<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
-
-<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
-
-
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/09/14/get-package-methods/">Получение методов пакета</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/note/" rel="tag">note</a>
-                        <a href="/blog/tag/package/" rel="tag">package</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-09-14">
-                            Posted on 2015-09-14
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Для получения методов пакета Foo::Bar делаем:</p>
-
-<pre><code>print Dumper(\%Foo::Bar::);
-</code></pre>
-
-<p>Для проверки существования метода:</p>
-
-<pre><code>if (Foo::Bar::.$method_name) {
-    #some stuff
-}
-</code></pre>
-
-<p>Для получения методов текущего пакета:</p>
-
-<pre><code>print Dumper(\%main::)
-</code></pre>
-
-<p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
-
-<p><a href="http://perldoc.perl.org/perlmod.html#Symbol-Tables">Подробнее в документации</a></p>
-
-
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/05/24/ubuntu-bcm43142/">ubuntu 15.04 и BCM43142</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
-                        <a href="/blog/tag/note/" rel="tag">note</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-05-24">
-                            Posted on 2015-05-24
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова &quot;совсем&quot;. И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
-
-<p>Симптомы:
-* в NetworkManager нет даже пункта про беспроводные подключения.
-* <code># lshw -c Network</code> говорит что-то вроде:</p>
-
-<pre><code>*-network UNCLAIMED     
-   description: Network controller
-   product: BCM43142 802.11b/g/n
-   vendor: Broadcom Corporation
-   physical id: 0
-   bus info: pci@0000:02:00.0
-   version: 01
-   width: 64 bits
-   clock: 33MHz
-   capabilities: bus_master cap_list
-   configuration: latency=0
-   resources: memory:90500000-90507fff
-</code></pre>
-
-<p>Как можно заметить - устройство карте не назначено. Значит надо доустановить пакет с прошивкой для карты. С 14.04 эта карта поддерживается в официальных драйверах, так что просто устанавливаем пакет руками:</p>
-
-<pre><code>sudo apt-get install bcmwl-kernel-source
-</code></pre>
-
-<p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
             <li class="prev">
-                <a class="button button-primary" href="/blog/page/2" rel="next">
+                <a class="button disabled" href="" rel="next">
                     ← Older
                 </a>
             </li>
@@ -354,12 +204,12 @@ SELECT NOW() + &#39;5 days&#39;::interval;
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/index.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/Redmine.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/index.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/Redmine.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>

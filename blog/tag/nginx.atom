@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/Postgresql/</link>
-        <atom:link href="http://alpha6.ru/blog/tag/Postgresql.rss" rel="self" type="application/rss+xml" />
-        <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.055</generator>
-        <item>
-            <title>Installing Redmine from Ubuntu package</title>
-            <link>http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/</link>
-            <guid>http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/</guid>
-            <description><![CDATA[
-                <p>Устанавливаем Redmine из пакетов в Ubuntu. Версия в пакетах не самая свежая, зато никаких заморочек с настройкой руби и интеграцией с БД.</p>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/nginx/</id>
+    <title>Just another blog</title>
+    <updated>2015-10-02T07:20:35Z</updated>
+    <link href="http://alpha6.ru/blog/tag/nginx.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/nginx/" rel="alternate" />
+    <generator version="0.055">Statocles</generator>
+    <entry>
+        <id>http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/</id>
+        <title>Installing Redmine from Ubuntu package</title>
+        <link href="http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Устанавливаем Redmine из пакетов в Ubuntu. Версия в пакетах не самая свежая, зато никаких заморочек с настройкой руби и интеграцией с БД.</p>
 
 <p>В качестве БД будем использовать Postgresql, на фронтенде Nginx, все совершенно стандартно.</p>
 
@@ -107,65 +107,19 @@ sudo service nginx start
 
 <p>Enjoy.</p>
 
-                    <p><a href="http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Redmine/">Redmine</a>
-                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
-                    <a href="http://alpha6.ru/blog/tag/nginx/">nginx</a>
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Fri, 02 Oct 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>prostgresql interval in future</title>
-            <link>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</link>
-            <guid>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</guid>
-            <description><![CDATA[
-                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:</p>
-
-<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
-SELECT NOW() + &#39;5 days&#39;::interval;
-</code></pre>
-
-<p>Работает и в плюс и в минус.</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
-                    <a href="http://alpha6.ru/blog/tag/data/">data</a>
-                    <a href="http://alpha6.ru/blog/tag/timestamp/">timestamp</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Tue, 29 Sep 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>DBD::Pg install</title>
-            <link>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</link>
-            <guid>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</guid>
-            <description><![CDATA[
-                <p>Markdown content goes here.</p>
-
-<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
-
-<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
-                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
-                    <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
-                    <a href="http://alpha6.ru/blog/tag/DBD::Pg/">DBD::Pg</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sat, 19 Sep 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-    </channel>
-</rss>
+                <p><a href="http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://alpha6.ru/blog/tag/Redmine/">Redmine</a>
+                <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                <a href="http://alpha6.ru/blog/tag/nginx/">nginx</a>
+                <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+            </p>
+        ]]></content>
+        <updated>2015-10-02T00:00:00Z</updated>
+        <category term="Redmine" />
+        <category term="Postgresql" />
+        <category term="nginx" />
+        <category term="Ubuntu" />
+    </entry>
+</feed>
 
