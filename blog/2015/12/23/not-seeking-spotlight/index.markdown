@@ -22,6 +22,6 @@ Remove Spotlight index folder:
 
 Run service:
 
-   sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+    sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
 
 After reindex - everything should work well.
