@@ -1,120 +1,153 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/Perl/</id>
+    <id>http://alpha6.ru/blog/tag/perl/</id>
     <title>Just another blog</title>
-    <updated>2015-12-23T11:39:37Z</updated>
-    <link href="http://alpha6.ru/blog/tag/Perl.atom" rel="self" />
-    <link href="http://alpha6.ru/blog/tag/Perl/" rel="alternate" />
+    <updated>2015-12-23T11:55:38Z</updated>
+    <link href="http://alpha6.ru/blog/tag/perl.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/perl/" rel="alternate" />
     <generator version="0.061">Statocles</generator>
     <entry>
-        <id>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</id>
-        <title>DBD::Pg install</title>
-        <link href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/" rel="alternate" />
+        <id>http://alpha6.ru/blog/2015/09/14/get-package-methods/</id>
+        <title>Получение методов пакета</title>
+        <link href="http://alpha6.ru/blog/2015/09/14/get-package-methods/" rel="alternate" />
         <content type="html"><![CDATA[
-            <p>Markdown content goes here.</p>
+            <p>Для получения методов пакета Foo::Bar делаем:</p>
 
-<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
+<pre><code>print Dumper(\%Foo::Bar::);
+</code></pre>
 
-<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
+<p>Для проверки существования метода:</p>
 
-                <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
+<pre><code>if (Foo::Bar::.$method_name) {
+    #some stuff
+}
+</code></pre>
+
+<p>Для получения методов текущего пакета:</p>
+
+<pre><code>print Dumper(\%main::)
+</code></pre>
+
+<p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
+
+<p><a href="http://perldoc.perl.org/perlmod.html#Symbol-Tables">Подробнее в документации</a></p>
+
+                <p><a href="http://alpha6.ru/blog/2015/09/14/get-package-methods/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
-                <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
-                <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
-                <a href="http://alpha6.ru/blog/tag/DBD::Pg/">DBD::Pg</a>
+                <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                <a href="http://alpha6.ru/blog/tag/note/">note</a>
+                <a href="http://alpha6.ru/blog/tag/package/">package</a>
             </p>
         ]]></content>
-        <updated>2015-09-19T00:00:00Z</updated>
-        <category term="Ubuntu" />
-        <category term="Postgresql" />
-        <category term="Perl" />
-        <category term="DBD::Pg" />
+        <updated>2015-09-14T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="note" />
+        <category term="package" />
     </entry>
     <entry>
-        <id>http://alpha6.ru/blog/2015/04/11/starting-with-rex/</id>
-        <title>Starting with Rex</title>
-        <link href="http://alpha6.ru/blog/2015/04/11/starting-with-rex/" rel="alternate" />
+        <id>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</id>
+        <title>Используем Graylog с Perl</title>
+        <link href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/" rel="alternate" />
         <content type="html"><![CDATA[
-            <p>В жизни каждого человека настает момент когда ему становится лениво делать одно и то же на удаленных серверах и хочется автоматизации.</p>
+            <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
 
-<p>В решении этой тяжелой жизненной проблемы нам поможет <a href="http://www.rexify.org">R(?)ex</a>.</p>
+<p>! На момент написания статьи в VM идет версия Graylog-web с багом - при создании dashboard на нее нельзя добавить виджет т.к. JS-скрипт ответственный за разблокировку dashboard падает с ошибкой. Что-бы что-то сделать с дэшбордом на него надо добавить любой виджет с любой страницы. Это делается по клику на иконку возле названия виджета и выбором нужного дэшборда.</p>
 
-<p><strong>Небольшой F.A.Q</strong></p>
+<p>Первым делом надо создать Input для логов.
+Мы будем использовать GELF формат через Log::Log4perl.
+Идем System-&gt;Inputs в выпадающем списке выбираем GELF UDP и жмем Launch Input.
+В открывшемся окне выбираем ноды на которых будет работать этот инпут, описание, адрес на котором он будет слушать.
+Жмем launch, убеждаемся что он стартанул и на этом пока все работы с Graylog закончены.</p>
 
-<p><strong><em>Что это?</em></strong></p>
+<p>Теперь устанавливаем пакет <a href="https://metacpan.org/pod/Log::Log4perl::Layout::GELF">Log::Log4perl::Layout::GELF</a>.</p>
 
-<p>Это приложение для управления удаленными(и не очень) серверами и приложениями.</p>
+<p>Создаем файл конфигурации логгера:</p>
 
-<p><strong><em>Я могу просто написать bash/perl/pithon/ruby/etc-скрипт и он сделает то же самое.</em></strong></p>
+<pre><code>log4perl.logger.graylog                     = INFO, Screen, Graylog
 
-<p>Несомненно, но это будет очередное изобретение велосипеда с колесами разной степеньи квадратности. </p>
+log4perl.appender.Screen                = Log::Log4perl::Appender::Screen
+log4perl.appender.Screen.stderr         = 0
+log4perl.appender.Screen.layout         = Log::Log4perl::Layout::PatternLayout
+log4perl.appender.Screen.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.Screen.utf8           = 1
 
-<p><strong><em>Почему не Puppet/Ansible?</em></strong></p>
-
-<p>Потому что здесь про Perl, но сравнение Rex и Ansible я еще сделаю.</p>
-
-<p><strong>Поехали</strong></p>
-
-<p>Во первых, Rex можно использовать для простого запуска команд на удаленном сервере:</p>
-
-<p><code>rex -H &quot;example.com example.ru&quot; -e &quot;say run &#39;uptime&#39;&quot;</code></p>
-
-<p>Задачи выполняются последовательно, так что придется подождать пока опросятся все сервера, особенно если их много.</p>
-
-<p>Запуск из консоли это вариант если надо что-то и единоразово посмотреть что там на серверах творится. Но постоянно набирать команды в консоли это решение для сильных духом и памятью.
-Мы же как, настоящие программисты, будем осваивать командные файлы.</p>
-
-<p>По умолчанию Rex использует файл под названием Rexfile (удивительное совпадение).</p>
-
-<p>Попробуем сделать что-то полезное.</p>
-
-<p>Создадим Rexfile который будет содержать команду <code>deploy</code>. По этой команде Rex пойдет на удаленный сервер и сделает там <code>git pull</code> для сайта. Простейшний вариант деплоя.</p>
-
-<pre><code> use Rex -feature =&gt; [&#39;1.0&#39;];
-
- user &quot;myuser&quot;;
- private_key &quot;/home/myuser/.ssh/id_rsa&quot;;
- public_key &quot;/home/myuser/.ssh/id_rsa.pub&quot;;
- key_auth;
-
- group myservers =&gt; &quot;example.ru&quot;;
-
- desc &quot;Deploy the blog on example.ru&quot;;
- task &quot;deploy&quot;, group =&gt; &quot;myservers&quot;, sub {
-   run &quot;cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages&quot;;
- };
+log4perl.appender.Graylog          = Log::Log4perl::Appender::Socket
+log4perl.appender.Graylog.PeerAddr = graylog.host
+log4perl.appender.Graylog.PeerPort = 12201
+log4perl.appender.Graylog.Proto    = udp
+log4perl.appender.Graylog.layout   = GELF
 </code></pre>
 
-<p>Теперь можно сказать: <code>rex deploy</code></p>
+<p>Создаем тестовый скрипт:</p>
 
-<p>Дальше Rex залогинится под пользователем &quot;myuser&quot; с использованием указанных ключей и выполнит команду указанную в опции run. Если пользователь на удаленном сервер совпадает с текущим - то первую секцию можно опустить. Будет использоваться текущий пользователь и его настройки ключей для ssh. Но если планируется использование команды через cron - то указывать надо обязательно, иначе ничего работать не будет.</p>
+<pre><code>#!/usr/bin/env perl
 
-<p>Так же можно обновлять конфигурацию копируя на хосты необходимые файлы (вы же не храните авторизационные данные в Git, правда?)
-приведем содержимое раздела task к виду:</p>
+use utf8;
+use strict;
+use Log::Log4perl;
 
-<pre><code> run &quot;cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages&quot;;
- file &quot;/srv/www/example.ru/test.conf&quot;,
-     source    =&gt; &quot;files/test.conf&quot;;
+#Загружаем конфигурацию 
+Log::Log4perl::init(&#39;logger.conf&#39;);
+
+#Получаем логгер
+my $logger = Log::Log4perl-&gt;get_logger(&#39;graylog&#39;);
+
+$logger-&gt;info(&#39;hello graylog&#39;);
+$logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
 </code></pre>
 
-<p>Теперь при выполнении <code>rex deploy</code> будет выполнен <code>pull</code> из репозитория на удаленном сервере, а затем туда будет скопирован файл <code>files/test.conf</code>.</p>
+<p>В теории, этого достаточно для того что бы нужные логи вашего приложения начали идти в Graylog. Но, как обычно, есть нюанс - этот модуль совершенно не представляет что есть более чем однобайтные кодировки и при попытке что-то записать в лог что-то с utf8 мы получим ошибку <code>Wide character in IO::Compress::Gzip::write</code> и в Graylog сообщение не придет.</p>
 
-<p>В принципе, этого совершенно достаточно для деплоя простого сайта не требующего перезапуска сервисов. Таким скриптом деплоится этот блог. Пошаговый мануал о том, как сделать настройку сервера с нуля до продакшена одной командой будет в следующей статье.</p>
+<p>Для обычных аппендеров, например Screen, эта проблема решается просто - дописываем в конфигурацию флаг включения utf8:</p>
 
-<p>А те кому не хочется ждать - могут почитать <a href="http://www.rexify.org/howtos/index.html#howtos">официальную документацию</a>, она весьма подробная и с хорошими примерами.</p>
+<pre><code>log4perl.appender.FileAppndr.utf8     = 1
+</code></pre>
 
-                <p><a href="http://alpha6.ru/blog/2015/04/11/starting-with-rex/#section-2">Continue reading...</a></p>
+<p>Но в данном случае проблема на уровне layout и этот модуль не обрабатывает такую ситуацию.</p>
+
+<p>Для себя я эту проблему решил просто - сделал форк модуля с названием <a href="https://github.com/alpha6/Log-Log4perl-Layout-GELFUtf">GELFUtf</a> и использую его.</p>
+
+<p>Таким образом в конфиге вместо <code>log4perl.appender.Graylog.layout   = GELF</code> пишу <code>log4perl.appender.Graylog.layout   = GELFUtf</code>.</p>
+
+<p>Подменить фунцию на лету у меня не получилось, скорее всего из-за хитрой архитектуры Log4perl. А лезть патчить в рантайм - овчинка выделки не стоит. Так что пока пользуюсь патченым модулем и коплю силы на создание полноценного патча для оригинального модуля.</p>
+
+                <p><a href="http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="http://alpha6.ru/blog/tag/Rex/">Rex</a>
-                <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
-                <a href="http://alpha6.ru/blog/tag/Automation/">Automation</a>
+                <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                <a href="http://alpha6.ru/blog/tag/graylog/">graylog</a>
             </p>
         ]]></content>
-        <updated>2015-04-11T00:00:00Z</updated>
-        <category term="Rex" />
-        <category term="Perl" />
-        <category term="Automation" />
+        <updated>2015-04-30T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="graylog" />
+    </entry>
+    <entry>
+        <id>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</id>
+        <title>stdout autoflush</title>
+        <link href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Классический метод:</p>
+
+<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
+</code></pre>
+
+<p>ООП:</p>
+
+<pre><code>use IO::Handle;
+STDERR-&gt;autoflush(1);
+</code></pre>
+
+                <p><a href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://alpha6.ru/blog/tag/snippet/">snippet</a>
+                <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                <a href="http://alpha6.ru/blog/tag/io/">io</a>
+            </p>
+        ]]></content>
+        <updated>2015-04-25T00:00:00Z</updated>
+        <category term="snippet" />
+        <category term="perl" />
+        <category term="io" />
     </entry>
 </feed>
 

@@ -35,6 +35,8 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plis
 
 <p>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist</p>
 
+<p>After reindex - everything should work well.</p>
+
                     <p><a href="http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="http://alpha6.ru/blog/tag/Spotlight/">Spotlight</a>
