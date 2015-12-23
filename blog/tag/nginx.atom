@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/nginx/</id>
     <title>Just another blog</title>
-    <updated>2015-10-02T07:20:35Z</updated>
+    <updated>2015-12-23T11:39:36Z</updated>
     <link href="http://alpha6.ru/blog/tag/nginx.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/nginx/" rel="alternate" />
-    <generator version="0.055">Statocles</generator>
+    <generator version="0.061">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/</id>
         <title>Installing Redmine from Ubuntu package</title>

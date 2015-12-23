@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/elasticsearch/</link>
         <atom:link href="http://alpha6.ru/blog/tag/elasticsearch.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.055</generator>
+        <generator>Statocles 0.061</generator>
         <item>
             <title>Remove messages from Graylog2</title>
             <link>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</link>

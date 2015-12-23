@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/gearman/</link>
         <atom:link href="http://alpha6.ru/blog/tag/gearman.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.055</generator>
+        <generator>Statocles 0.061</generator>
         <item>
             <title>Ubuntu 14.04 + Gearman</title>
             <link>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/</link>

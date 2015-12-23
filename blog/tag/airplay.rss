@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/airplay/</link>
         <atom:link href="http://alpha6.ru/blog/tag/airplay.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.055</generator>
+        <generator>Statocles 0.061</generator>
         <item>
             <title>Превращаем Linux компьютер в AirPlay приемник</title>
             <link>http://alpha6.ru/blog/2015/05/20/airport-linux/</link>

@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/perl/</link>
         <atom:link href="http://alpha6.ru/blog/tag/perl.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.055</generator>
+        <generator>Statocles 0.061</generator>
         <item>
             <title>Получение методов пакета</title>
             <link>http://alpha6.ru/blog/2015/09/14/get-package-methods/</link>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/Spotlight/</id>
+    <title>Just another blog</title>
+    <updated>2015-12-23T11:39:37Z</updated>
+    <link href="http://alpha6.ru/blog/tag/Spotlight.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/Spotlight/" rel="alternate" />
+    <generator version="0.061">Statocles</generator>
+    <entry>
+        <id>http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/</id>
+        <title>Spotlight does not search for</title>
+        <link href="http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>If your Spotlight does not search for some files or applications:</p>
+
+<p>The first of all - restart the Spotlight:</p>
+
+<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>If it have no effect - remove Spotlight&#39;s index:</p>
+
+<p>Stop Spotlight service:</p>
+
+<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>Remove Spotlight index folder:</p>
+
+<pre><code>sudo rm -rf /.Spotlight-V100
+</code></pre>
+
+<p>Run service:</p>
+
+<p>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist</p>
+
+                <p><a href="http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://alpha6.ru/blog/tag/Spotlight/">Spotlight</a>
+                <a href="http://alpha6.ru/blog/tag/ElCapitan/">ElCapitan</a>
+                <a href="http://alpha6.ru/blog/tag/MacOS/">MacOS</a>
+            </p>
+        ]]></content>
+        <updated>2015-12-23T00:00:00Z</updated>
+        <category term="Spotlight" />
+        <category term="ElCapitan" />
+        <category term="MacOS" />
+    </entry>
+</feed>
+

@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/DBD::Pg/</link>
         <atom:link href="http://alpha6.ru/blog/tag/DBD::Pg.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.055</generator>
+        <generator>Statocles 0.061</generator>
         <item>
             <title>DBD::Pg install</title>
             <link>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</link>

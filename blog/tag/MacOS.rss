@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/tag/MacOS/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/MacOS.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.061</generator>
+        <item>
+            <title>Spotlight does not search for</title>
+            <link>http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/</link>
+            <guid>http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/</guid>
+            <description><![CDATA[
+                <p>If your Spotlight does not search for some files or applications:</p>
+
+<p>The first of all - restart the Spotlight:</p>
+
+<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>If it have no effect - remove Spotlight&#39;s index:</p>
+
+<p>Stop Spotlight service:</p>
+
+<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>Remove Spotlight index folder:</p>
+
+<pre><code>sudo rm -rf /.Spotlight-V100
+</code></pre>
+
+<p>Run service:</p>
+
+<p>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/Spotlight/">Spotlight</a>
+                    <a href="http://alpha6.ru/blog/tag/ElCapitan/">ElCapitan</a>
+                    <a href="http://alpha6.ru/blog/tag/MacOS/">MacOS</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Wed, 23 Dec 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

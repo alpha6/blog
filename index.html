@@ -7,7 +7,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
-        <meta content="Statocles 0.055" name="generator">
+        <meta content="Statocles 0.061" name="generator">
         <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
         <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
@@ -35,6 +35,52 @@
         <main>
 
 
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/12/23/not-seeking-spotlight/">Spotlight does not search for</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/Spotlight/" rel="tag">Spotlight</a>
+                        <a href="/blog/tag/ElCapitan/" rel="tag">ElCapitan</a>
+                        <a href="/blog/tag/MacOS/" rel="tag">MacOS</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-12-23">
+                            Posted on 2015-12-23
+                        </time>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>If your Spotlight does not search for some files or applications:</p>
+
+<p>The first of all - restart the Spotlight:</p>
+
+<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>If it have no effect - remove Spotlight&#39;s index:</p>
+
+<p>Stop Spotlight service:</p>
+
+<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>Remove Spotlight index folder:</p>
+
+<pre><code>sudo rm -rf /.Spotlight-V100
+</code></pre>
+
+<p>Run service:</p>
+
+<p>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist</p>
+
+
+
+            </article>
             <article>
                 <header>
                     <h1><a href="/blog/2015/10/02/installing-redmine-from-ubuntu-package/">Installing Redmine from Ubuntu package</a></h1>
@@ -256,54 +302,6 @@ SELECT NOW() + &#39;5 days&#39;::interval;
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/05/24/ubuntu-bcm43142/">ubuntu 15.04 и BCM43142</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
-                        <a href="/blog/tag/note/" rel="tag">note</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-05-24">
-                            Posted on 2015-05-24
-                        </time>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова &quot;совсем&quot;. И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
-
-<p>Симптомы:
-* в NetworkManager нет даже пункта про беспроводные подключения.
-* <code># lshw -c Network</code> говорит что-то вроде:</p>
-
-<pre><code>*-network UNCLAIMED     
-   description: Network controller
-   product: BCM43142 802.11b/g/n
-   vendor: Broadcom Corporation
-   physical id: 0
-   bus info: pci@0000:02:00.0
-   version: 01
-   width: 64 bits
-   clock: 33MHz
-   capabilities: bus_master cap_list
-   configuration: latency=0
-   resources: memory:90500000-90507fff
-</code></pre>
-
-<p>Как можно заметить - устройство карте не назначено. Значит надо доустановить пакет с прошивкой для карты. С 14.04 эта карта поддерживается в официальных драйверах, так что просто устанавливаем пакет руками:</p>
-
-<pre><code>sudo apt-get install bcmwl-kernel-source
-</code></pre>
-
-<p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -327,11 +325,14 @@ SELECT NOW() + &#39;5 days&#39;::interval;
         <ul class="list-inline">
             <li><a href="/blog/tag/Automation/">Automation</a></li>
             <li><a href="/blog/tag/DBD::Pg/">DBD::Pg</a></li>
+            <li><a href="/blog/tag/ElCapitan/">ElCapitan</a></li>
             <li><a href="/blog/tag/LC_ALL/">LC_ALL</a></li>
+            <li><a href="/blog/tag/MacOS/">MacOS</a></li>
             <li><a href="/blog/tag/Perl/">Perl</a></li>
             <li><a href="/blog/tag/Postgresql/">Postgresql</a></li>
             <li><a href="/blog/tag/Redmine/">Redmine</a></li>
             <li><a href="/blog/tag/Rex/">Rex</a></li>
+            <li><a href="/blog/tag/Spotlight/">Spotlight</a></li>
             <li><a href="/blog/tag/Ubuntu/">Ubuntu</a></li>
             <li><a href="/blog/tag/airplay/">airplay</a></li>
             <li><a href="/blog/tag/bugs/">bugs</a></li>

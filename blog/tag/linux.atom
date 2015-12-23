@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/linux/</id>
     <title>Just another blog</title>
-    <updated>2015-10-02T07:20:36Z</updated>
+    <updated>2015-12-23T11:39:38Z</updated>
     <link href="http://alpha6.ru/blog/tag/linux.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/linux/" rel="alternate" />
-    <generator version="0.055">Statocles</generator>
+    <generator version="0.061">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/05/20/airport-linux/</id>
         <title>Превращаем Linux компьютер в AirPlay приемник</title>

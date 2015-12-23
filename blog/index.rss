@@ -5,7 +5,47 @@
         <link>http://alpha6.ru/blog/</link>
         <atom:link href="http://alpha6.ru/blog/index.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.055</generator>
+        <generator>Statocles 0.061</generator>
+        <item>
+            <title>Spotlight does not search for</title>
+            <link>http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/</link>
+            <guid>http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/</guid>
+            <description><![CDATA[
+                <p>If your Spotlight does not search for some files or applications:</p>
+
+<p>The first of all - restart the Spotlight:</p>
+
+<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>If it have no effect - remove Spotlight&#39;s index:</p>
+
+<p>Stop Spotlight service:</p>
+
+<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>Remove Spotlight index folder:</p>
+
+<pre><code>sudo rm -rf /.Spotlight-V100
+</code></pre>
+
+<p>Run service:</p>
+
+<p>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/Spotlight/">Spotlight</a>
+                    <a href="http://alpha6.ru/blog/tag/ElCapitan/">ElCapitan</a>
+                    <a href="http://alpha6.ru/blog/tag/MacOS/">MacOS</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Wed, 23 Dec 2015 00:00:00 +0000
+            </pubDate>
+        </item>
         <item>
             <title>Installing Redmine from Ubuntu package</title>
             <link>http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/</link>
@@ -201,48 +241,6 @@ SELECT NOW() + &#39;5 days&#39;::interval;
             ]]></description>
             <pubDate>
                 Mon, 14 Sep 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>ubuntu 15.04 и BCM43142</title>
-            <link>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</link>
-            <guid>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</guid>
-            <description><![CDATA[
-                <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова &quot;совсем&quot;. И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
-
-<p>Симптомы:
-* в NetworkManager нет даже пункта про беспроводные подключения.
-* <code># lshw -c Network</code> говорит что-то вроде:</p>
-
-<pre><code>*-network UNCLAIMED     
-   description: Network controller
-   product: BCM43142 802.11b/g/n
-   vendor: Broadcom Corporation
-   physical id: 0
-   bus info: pci@0000:02:00.0
-   version: 01
-   width: 64 bits
-   clock: 33MHz
-   capabilities: bus_master cap_list
-   configuration: latency=0
-   resources: memory:90500000-90507fff
-</code></pre>
-
-<p>Как можно заметить - устройство карте не назначено. Значит надо доустановить пакет с прошивкой для карты. С 14.04 эта карта поддерживается в официальных драйверах, так что просто устанавливаем пакет руками:</p>
-
-<pre><code>sudo apt-get install bcmwl-kernel-source
-</code></pre>
-
-<p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
-                    <a href="http://alpha6.ru/blog/tag/note/">note</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sun, 24 May 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>
