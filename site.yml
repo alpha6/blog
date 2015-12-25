@@ -93,7 +93,7 @@ site:
 
         data:
             disqus:
-                shortname: 'alpha6ru'
+                shortname: 'alpha6sblog'
 
 
 # theme: These are the settings for the theme.  See Statocles::Help::Theme for
