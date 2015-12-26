@@ -7,6 +7,114 @@
         <description>Blog feed of Just another blog</description>
         <generator>Statocles 0.061</generator>
         <item>
+            <title>State переменные в Perl</title>
+            <link>http://alpha6.ru/blog/2015/12/26/state-variabes-in-perl/</link>
+            <guid>http://alpha6.ru/blog/2015/12/26/state-variabes-in-perl/</guid>
+            <description><![CDATA[
+                <p>В Perl существует особый тип переменных под названием state.</p>
+
+<p>В <a href="http://perldoc.perl.org/functions/state.html">доке</a> про них написано:</p>
+
+<blockquote>
+  <p>state declares a lexically scoped variable, just like my. However, those variables will never be reinitialized ...</p>
+</blockquote>
+
+<p>На первый взгляд это дает нам возможность очень просто реализовывать счетчики и иже с ними:</p>
+
+<pre><code>sub count {
+  state $count = 0;
+  $count++;
+}
+</code></pre>
+
+<p>Однако, есть нюанс - фраза <em>will never be reinitialized</em> означает что переменная действительно никогда не будет переинициализирована пока существует родительский скрипт. И это дает нам вот такую замечательную граблю на которую можно ненароком наступить:</p>
+
+<p>Объявляем пакет:</p>
+
+<pre><code>package MyTestState;
+
+use strict;
+use feature &#39;state&#39;;
+
+sub new {
+  bless {}, shift;
+}
+
+sub count {
+  state $count = 0;
+  $count++;
+}
+
+1;
+</code></pre>
+
+<p>И саму программу:</p>
+
+<pre><code>use lib &#39;lib&#39;;
+use v5.18;
+use MyTestState;
+
+my $mystate =  MyTestState-&gt;new();
+
+for (0..10) {
+  my $counter = $mystate-&gt;count();
+  say &quot;Counter [$counter]&quot;;
+}
+</code></pre>
+
+<p>Вывод ожидаем:</p>
+
+<pre><code>Counter [0]
+Counter [1]
+Counter [2]
+...
+Counter [10]
+</code></pre>
+
+<p>А теперь добавляем такой код:</p>
+
+<pre><code>undef $mystate;
+
+say &quot;next object!=======&quot;;
+
+my $mystate1 = MyTestState-&gt;new();
+for (0..10) {
+  my $counter = $mystate1-&gt;count();
+  say &quot;Counter [$counter]&quot;;
+
+}
+</code></pre>
+
+<p>Здесь мы удаляем старый объект со счетчиком и создаем новый. Логично предположить что счетчик пойдет заново, но на самом деле нет. Не смотря на то что мы удалили старый объект и создали новый, переменная со счетчиком никуда не делась и не была переиницализирована! И при запуске программы мы увидим:</p>
+
+<pre><code>Counter [0]
+Counter [1]
+Counter [2]
+...
+Counter [10]
+next object!
+Counter [11]
+Counter [12]
+Counter [13]
+...
+Counter [20]
+Counter [21]
+</code></pre>
+
+<p>Так что слово <code>newer</code> в документации действительно значит &quot;никогда пока жив инстанс интерпретатора запустивший скрипт&quot;.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/12/26/state-variabes-in-perl/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                    <a href="http://alpha6.ru/blog/tag/state/">state</a>
+                    <a href="http://alpha6.ru/blog/tag/trap/">trap</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sat, 26 Dec 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Spotlight does not search for</title>
             <link>http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/</link>
             <guid>http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/</guid>
@@ -207,43 +315,6 @@ SELECT NOW() + &#39;5 days&#39;::interval;
             ]]></description>
             <pubDate>
                 Sat, 19 Sep 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Получение методов пакета</title>
-            <link>http://alpha6.ru/blog/2015/09/14/get-package-methods/</link>
-            <guid>http://alpha6.ru/blog/2015/09/14/get-package-methods/</guid>
-            <description><![CDATA[
-                <p>Для получения методов пакета Foo::Bar делаем:</p>
-
-<pre><code>print Dumper(\%Foo::Bar::);
-</code></pre>
-
-<p>Для проверки существования метода:</p>
-
-<pre><code>if (Foo::Bar::.$method_name) {
-    #some stuff
-}
-</code></pre>
-
-<p>Для получения методов текущего пакета:</p>
-
-<pre><code>print Dumper(\%main::)
-</code></pre>
-
-<p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
-
-<p><a href="http://perldoc.perl.org/perlmod.html#Symbol-Tables">Подробнее в документации</a></p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/09/14/get-package-methods/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
-                    <a href="http://alpha6.ru/blog/tag/note/">note</a>
-                    <a href="http://alpha6.ru/blog/tag/package/">package</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Mon, 14 Sep 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

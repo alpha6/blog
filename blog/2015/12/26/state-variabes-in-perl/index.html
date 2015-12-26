@@ -6,7 +6,7 @@
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <title>Starting with Rex - Just another blog</title>
+        <title>State переменные в Perl - Just another blog</title>
         <meta content="Statocles 0.061" name="generator">
         
     </head>
@@ -31,16 +31,16 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>Starting with Rex</h1>
+                <h1>State переменные в Perl</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/Rex/" rel="tag">Rex</a>
-                    <a href="/blog/tag/Perl/" rel="tag">Perl</a>
-                    <a href="/blog/tag/Automation/" rel="tag">Automation</a>
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    <a href="/blog/tag/state/" rel="tag">state</a>
+                    <a href="/blog/tag/trap/" rel="tag">trap</a>
                 </p>
 
                 <aside>
-                    <p><time datetime="2015-04-11">
-                        Posted on 2015-04-11
+                    <p><time datetime="2015-12-26">
+                        Posted on 2015-12-26
                     </time>
                     </p>
                 </aside>
@@ -48,73 +48,97 @@
 
             </header>
             <section id="section-1">
-                <p>В жизни каждого человека настает момент когда ему становится лениво делать одно и то же на удаленных серверах и хочется автоматизации.</p>
+                <p>В Perl существует особый тип переменных под названием state.</p>
 
-<p>В решении этой тяжелой жизненной проблемы нам поможет <a href="http://www.rexify.org">R(?)ex</a>.</p>
+<p>В <a href="http://perldoc.perl.org/functions/state.html">доке</a> про них написано:</p>
 
-<p><strong>Небольшой F.A.Q</strong></p>
+<blockquote>
+  <p>state declares a lexically scoped variable, just like my. However, those variables will never be reinitialized ...</p>
+</blockquote>
 
-<p><strong><em>Что это?</em></strong></p>
+<p>На первый взгляд это дает нам возможность очень просто реализовывать счетчики и иже с ними:</p>
 
-<p>Это приложение для управления удаленными(и не очень) серверами и приложениями.</p>
-
-<p><strong><em>Я могу просто написать bash/perl/pithon/ruby/etc-скрипт и он сделает то же самое.</em></strong></p>
-
-<p>Несомненно, но это будет очередное изобретение велосипеда с колесами разной степеньи квадратности. </p>
-
-<p><strong><em>Почему не Puppet/Ansible?</em></strong></p>
-
-<p>Потому что здесь про Perl, но сравнение Rex и Ansible я еще сделаю.</p>
-
-<p><strong>Поехали</strong></p>
-
-<p>Во первых, Rex можно использовать для простого запуска команд на удаленном сервере:</p>
-
-<p><code>rex -H &quot;example.com example.ru&quot; -e &quot;say run &#39;uptime&#39;&quot;</code></p>
-
-<p>Задачи выполняются последовательно, так что придется подождать пока опросятся все сервера, особенно если их много.</p>
-
-<p>Запуск из консоли это вариант если надо что-то и единоразово посмотреть что там на серверах творится. Но постоянно набирать команды в консоли это решение для сильных духом и памятью.
-Мы же как, настоящие программисты, будем осваивать командные файлы.</p>
-
-<p>По умолчанию Rex использует файл под названием Rexfile (удивительное совпадение).</p>
-
-<p>Попробуем сделать что-то полезное.</p>
-
-<p>Создадим Rexfile который будет содержать команду <code>deploy</code>. По этой команде Rex пойдет на удаленный сервер и сделает там <code>git pull</code> для сайта. Простейшний вариант деплоя.</p>
-
-<pre><code> use Rex -feature =&gt; [&#39;1.0&#39;];
-
- user &quot;myuser&quot;;
- private_key &quot;/home/myuser/.ssh/id_rsa&quot;;
- public_key &quot;/home/myuser/.ssh/id_rsa.pub&quot;;
- key_auth;
-
- group myservers =&gt; &quot;example.ru&quot;;
-
- desc &quot;Deploy the blog on example.ru&quot;;
- task &quot;deploy&quot;, group =&gt; &quot;myservers&quot;, sub {
-   run &quot;cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages&quot;;
- };
+<pre><code>sub count {
+  state $count = 0;
+  $count++;
+}
 </code></pre>
 
-<p>Теперь можно сказать: <code>rex deploy</code></p>
+<p>Однако, есть нюанс - фраза <em>will never be reinitialized</em> означает что переменная действительно никогда не будет переинициализирована пока существует родительский скрипт. И это дает нам вот такую замечательную граблю на которую можно ненароком наступить:</p>
 
-<p>Дальше Rex залогинится под пользователем &quot;myuser&quot; с использованием указанных ключей и выполнит команду указанную в опции run. Если пользователь на удаленном сервер совпадает с текущим - то первую секцию можно опустить. Будет использоваться текущий пользователь и его настройки ключей для ssh. Но если планируется использование команды через cron - то указывать надо обязательно, иначе ничего работать не будет.</p>
+<p>Объявляем пакет:</p>
 
-<p>Так же можно обновлять конфигурацию копируя на хосты необходимые файлы (вы же не храните авторизационные данные в Git, правда?)
-приведем содержимое раздела task к виду:</p>
+<pre><code>package MyTestState;
 
-<pre><code> run &quot;cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages&quot;;
- file &quot;/srv/www/example.ru/test.conf&quot;,
-     source    =&gt; &quot;files/test.conf&quot;;
+use strict;
+use feature &#39;state&#39;;
+
+sub new {
+  bless {}, shift;
+}
+
+sub count {
+  state $count = 0;
+  $count++;
+}
+
+1;
 </code></pre>
 
-<p>Теперь при выполнении <code>rex deploy</code> будет выполнен <code>pull</code> из репозитория на удаленном сервере, а затем туда будет скопирован файл <code>files/test.conf</code>.</p>
+<p>И саму программу:</p>
 
-<p>В принципе, этого совершенно достаточно для деплоя простого сайта не требующего перезапуска сервисов. Таким скриптом деплоится этот блог. Пошаговый мануал о том, как сделать настройку сервера с нуля до продакшена одной командой будет в следующей статье.</p>
+<pre><code>use lib &#39;lib&#39;;
+use v5.18;
+use MyTestState;
 
-<p>А те кому не хочется ждать - могут почитать <a href="http://www.rexify.org/howtos/index.html#howtos">официальную документацию</a>, она весьма подробная и с хорошими примерами.</p>
+my $mystate =  MyTestState-&gt;new();
+
+for (0..10) {
+  my $counter = $mystate-&gt;count();
+  say &quot;Counter [$counter]&quot;;
+}
+</code></pre>
+
+<p>Вывод ожидаем:</p>
+
+<pre><code>Counter [0]
+Counter [1]
+Counter [2]
+...
+Counter [10]
+</code></pre>
+
+<p>А теперь добавляем такой код:</p>
+
+<pre><code>undef $mystate;
+
+say &quot;next object!=======&quot;;
+
+my $mystate1 = MyTestState-&gt;new();
+for (0..10) {
+  my $counter = $mystate1-&gt;count();
+  say &quot;Counter [$counter]&quot;;
+
+}
+</code></pre>
+
+<p>Здесь мы удаляем старый объект со счетчиком и создаем новый. Логично предположить что счетчик пойдет заново, но на самом деле нет. Не смотря на то что мы удалили старый объект и создали новый, переменная со счетчиком никуда не делась и не была переиницализирована! И при запуске программы мы увидим:</p>
+
+<pre><code>Counter [0]
+Counter [1]
+Counter [2]
+...
+Counter [10]
+next object!
+Counter [11]
+Counter [12]
+Counter [13]
+...
+Counter [20]
+Counter [21]
+</code></pre>
+
+<p>Так что слово <code>newer</code> в документации действительно значит &quot;никогда пока жив инстанс интерпретатора запустивший скрипт&quot;.</p>
 
             </section>
         </main>
@@ -123,8 +147,8 @@
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             var disqus_shortname = 'alpha6sblog';
-            var disqus_identifier = '/2015/04/11/starting-with-rex/index.markdown';
-            var disqus_url = 'http://alpha6.ru/blog/2015/04/11/starting-with-rex/';
+            var disqus_identifier = '/2015/12/26/state-variabes-in-perl/index.markdown';
+            var disqus_url = 'http://alpha6.ru/blog/2015/12/26/state-variabes-in-perl/';
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
