@@ -2,10 +2,38 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/</id>
     <title>Just another blog</title>
-    <updated>2015-12-26T12:51:45Z</updated>
+    <updated>2015-12-28T22:19:39Z</updated>
     <link href="http://alpha6.ru/blog/index.atom" rel="self" />
     <link href="http://alpha6.ru/blog/" rel="alternate" />
     <generator version="0.061">Statocles</generator>
+    <entry>
+        <id>http://alpha6.ru/blog/2015/12/28/git-clone-recursive/</id>
+        <title>git clone recursive</title>
+        <link href="http://alpha6.ru/blog/2015/12/28/git-clone-recursive/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>В Git 2.6 для Windows появилась неприятная бага - если уровень вложенности сабмодулей больше 3х, то команда <code>git clone --recursive</code> падает с ошибкой при клонировании глубоко вложенных сабмодулей.</p>
+
+<p>Как бороться - разбить клонирование на 3 этапа:</p>
+
+<pre><code>git clone &lt;repo_addr&gt;
+cd &lt;repo_dir&gt;
+git submodule update --init
+git submodule foreach --recursive git submodule update --init
+</code></pre>
+
+<p>Здесь мы просто клонируем репозиторий, при необходимости можно сделать чекаут на нужную ветку.
+Затем инициализируем и загружаем сабмодули первого уровня. И последняя команда проходит рекурсивно по всем сабмодулям рекурсивно и загружает их на неограниченном (наверное) уровне вложенности.</p>
+
+                <p><a href="http://alpha6.ru/blog/2015/12/28/git-clone-recursive/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://alpha6.ru/blog/tag/git/">git</a>
+                <a href="http://alpha6.ru/blog/tag/windows/">windows</a>
+            </p>
+        ]]></content>
+        <updated>2015-12-28T00:00:00Z</updated>
+        <category term="git" />
+        <category term="windows" />
+    </entry>
     <entry>
         <id>http://alpha6.ru/blog/2015/12/26/state-variabes-in-perl/</id>
         <title>State переменные в Perl</title>
@@ -298,31 +326,6 @@ SELECT NOW() + &#39;5 days&#39;::interval;
         <category term="Postgresql" />
         <category term="data" />
         <category term="timestamp" />
-    </entry>
-    <entry>
-        <id>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</id>
-        <title>DBD::Pg install</title>
-        <link href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>Markdown content goes here.</p>
-
-<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
-
-<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
-
-                <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
-                <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
-                <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
-                <a href="http://alpha6.ru/blog/tag/DBD::Pg/">DBD::Pg</a>
-            </p>
-        ]]></content>
-        <updated>2015-09-19T00:00:00Z</updated>
-        <category term="Ubuntu" />
-        <category term="Postgresql" />
-        <category term="Perl" />
-        <category term="DBD::Pg" />
     </entry>
 </feed>
 

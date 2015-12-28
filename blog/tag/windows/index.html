@@ -8,8 +8,8 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
         <meta content="Statocles 0.061" name="generator">
-        <link href="/blog/tag/bugs.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/tag/bugs.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/tag/windows.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/windows.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -37,46 +37,35 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/04/23/ubuntu-14-04-gearman/">Ubuntu 14.04 + Gearman</a></h1>
+                    <h1><a href="/blog/2015/12/28/git-clone-recursive/">git clone recursive</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/ubuntu/" rel="tag">ubuntu</a>
-                        <a href="/blog/tag/gearman/" rel="tag">gearman</a>
-                        <a href="/blog/tag/bugs/" rel="tag">bugs</a>
+                        <a href="/blog/tag/git/" rel="tag">git</a>
+                        <a href="/blog/tag/windows/" rel="tag">windows</a>
                     </p>
 
                     <aside>
-                        <p><time datetime="2015-04-23">
-                            Posted on 2015-04-23
+                        <p><time datetime="2015-12-28">
+                            Posted on 2015-12-28
                         </time>
-                        <a data-disqus-identifier="/2015/04/23/ubuntu-14-04-gearman/index.markdown" href="/blog/2015/04/23/ubuntu-14-04-gearman/#disqus_thread">0 comments</a>
+                        <a data-disqus-identifier="/2015/12/28/git-clone-recursive/index.markdown" href="/blog/2015/12/28/git-clone-recursive/#disqus_thread">0 comments</a>
                         </p>
                     </aside>
 
                 </header>
 
-                <p>В базовой установке Gearman в ubuntu 14.04 есть баг - инит-скрипт написан не правильно и в результате Gearman  не реагирует наличие конфиг файла и запускается с настойками по умолчанию. Причем, на одном из серверов у меня проблемма после обновления усугубилась и он перестал запускаться даже с настройками по умолчанию.</p>
+                <p>В Git 2.6 для Windows появилась неприятная бага - если уровень вложенности сабмодулей больше 3х, то команда <code>git clone --recursive</code> падает с ошибкой при клонировании глубоко вложенных сабмодулей.</p>
 
-<p>Есть два варианта решения проблемы:</p>
+<p>Как бороться - разбить клонирование на 3 этапа:</p>
 
-<ol>
-<li>Пропатчить инит-скрипт, как это сделать можно прочитать <a href="http://jeremykendall.net/2014/09/04/ubuntu-14-dot-04-gearman-config-bug/">здесь</a></li>
-<li>Запускать его из под supervisord.</li>
-</ol>
-
-<p>У меня все приложения крутятся под supervisor, так что я пошел этим путем. </p>
-
-<p>Минимальный конфиг файл для супервизора:</p>
-
-<pre><code>[program:gearmand]
-command=/usr/sbin/gearmand -L 127.0.0.1 --user=gearman --log-file=stderr
-autorestart=true
-autostart=true
+<pre><code>git clone &lt;repo_addr&gt;
+cd &lt;repo_dir&gt;
+git submodule update --init
+git submodule foreach --recursive git submodule update --init
 </code></pre>
 
-<p><code>-L 127.0.0.1</code> указано, во первых, что-бы gearman не биндился на внешние интерфейсы (там все закрыто фаирволом, но все же). Во вторых - если на машине включен ipv6, но не настроен, то gearman будет пытаться забиндиться и на ipv6 и падать.</p>
-
-<p>З.Ы. инит для supervisord в 14.04 тоже кривой, но это уже другая история.</p>
+<p>Здесь мы просто клонируем репозиторий, при необходимости можно сделать чекаут на нужную ветку.
+Затем инициализируем и загружаем сабмодули первого уровня. И последняя команда проходит рекурсивно по всем сабмодулям рекурсивно и загружает их на неограниченном (наверное) уровне вложенности.</p>
 
 
 
@@ -138,12 +127,12 @@ autostart=true
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/bugs.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/windows.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/bugs.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/windows.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>
