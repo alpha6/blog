@@ -6,7 +6,7 @@
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <title>git clone recursive - Just another blog</title>
+        <title>Installing and configuring Postgresql 9.4 on Debian 8 - Just another blog</title>
         <meta content="Statocles 0.061" name="generator">
         
     </head>
@@ -31,15 +31,15 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>git clone recursive</h1>
+                <h1>Installing and configuring Postgresql 9.4 on Debian 8</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/git/" rel="tag">git</a>
-                    <a href="/blog/tag/windows/" rel="tag">windows</a>
+                    <a href="/blog/tag/postgresql/" rel="tag">postgresql</a>
+                    <a href="/blog/tag/debian/" rel="tag">debian</a>
                 </p>
 
                 <aside>
-                    <p><time datetime="2015-12-28">
-                        Posted on 2015-12-28
+                    <p><time datetime="2016-01-17">
+                        Posted on 2016-01-17
                     </time>
                     </p>
                 </aside>
@@ -47,18 +47,58 @@
 
             </header>
             <section id="section-1">
-                <p>В Git 2.6 для Windows появилась неприятная бага - если уровень вложенности сабмодулей больше 3х, то команда <code>git clone --recursive</code> падает с ошибкой при клонировании глубоко вложенных сабмодулей.</p>
+                <p>Install the postgresql server package:</p>
 
-<p>Как бороться - разбить клонирование на 3 этапа:</p>
-
-<pre><code>git clone &lt;repo_addr&gt;
-cd &lt;repo_dir&gt;
-git submodule update --init
-git submodule foreach --recursive git submodule update --init
+<pre><code>#apt-get install postgresql-9.4
 </code></pre>
 
-<p>Здесь мы просто клонируем репозиторий, при необходимости можно сделать чекаут на нужную ветку.
-Затем инициализируем и загружаем сабмодули первого уровня. И последняя команда проходит рекурсивно по всем сабмодулям рекурсивно и загружает их на неограниченном (наверное) уровне вложенности.</p>
+<p>Create cluster (if it haven&#39;t created automatically):</p>
+
+<pre><code>#pg_createcluster 9.4 main --start
+</code></pre>
+
+<p>Next we need to allow connects from remote sources.</p>
+
+<p>Edit <code>/etc/postgresql/9.4/main/postgresql.conf</code> and set <code>listen_addresses</code> to <code>&#39;*&#39;</code>.</p>
+
+<p>Restart the Postgresql service:</p>
+
+<pre><code>#service postgresql Restart
+</code></pre>
+
+<p>Now we should create database user.</p>
+
+<pre><code>#su postgres
+#psql
+
+postgres=# CREATE USER db_user_name WITH PASSWORD &#39;secret_password&#39;;
+</code></pre>
+
+<p>Create new database and grant access to it to our user.</p>
+
+<pre><code>postgres=# CREATE DATABASE &quot;db_name&quot;
+  WITH OWNER &quot;db_user_name&quot;
+  ENCODING &#39;UTF8&#39;
+  LC_COLLATE = &#39;en_US.UTF-8&#39;
+  LC_CTYPE = &#39;en_US.UTF-8&#39;
+  TEMPLATE = template0;
+</code></pre>
+
+<p>Now we have database with UTF8 collation, it is time to allow connect from remote sources. Our user is the owner of the schema.</p>
+
+<p>Edit <code>/etc/postgresql/9.4/main/pg_hba.conf</code> and add line</p>
+
+<pre><code>host    all   db_user_name    0.0.0.0/0               md5
+</code></pre>
+
+<p>after the line:</p>
+
+<pre><code>host    all   all             127.0.0.1/32            md5
+</code></pre>
+
+<p>Save file and restart the service.</p>
+
+<p>Now we can connect to our server from remote computer.</p>
 
             </section>
         </main>
@@ -67,8 +107,8 @@ git submodule foreach --recursive git submodule update --init
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             var disqus_shortname = 'alpha6sblog';
-            var disqus_identifier = '/2015/12/28/git-clone-recursive/index.markdown';
-            var disqus_url = 'http://alpha6.ru/blog/2015/12/28/git-clone-recursive/';
+            var disqus_identifier = '/2016/01/17/postgres-install/index.markdown';
+            var disqus_url = 'http://alpha6.ru/blog/2016/01/17/postgres-install/';
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';

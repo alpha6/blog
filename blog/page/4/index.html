@@ -8,8 +8,8 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
         <meta content="Statocles 0.061" name="generator">
-        <link href="/blog/tag/Spotlight.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/tag/Spotlight.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -37,50 +37,37 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/12/23/not-seeking-spotlight/">Spotlight does not search for</a></h1>
+                    <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)/">Ubuntu LC_ALL = (unset)</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/Spotlight/" rel="tag">Spotlight</a>
-                        <a href="/blog/tag/ElCapitan/" rel="tag">ElCapitan</a>
-                        <a href="/blog/tag/MacOS/" rel="tag">MacOS</a>
+                        <a href="/blog/tag/Ubuntu/" rel="tag">Ubuntu</a>
+                        <a href="/blog/tag/LC_ALL/" rel="tag">LC_ALL</a>
                     </p>
 
                     <aside>
-                        <p><time datetime="2015-12-23">
-                            Posted on 2015-12-23
+                        <p><time datetime="2015-04-09">
+                            Posted on 2015-04-09
                         </time>
-                        <a data-disqus-identifier="/2015/12/23/not-seeking-spotlight/index.markdown" href="/blog/2015/12/23/not-seeking-spotlight/#disqus_thread">0 comments</a>
+                        <a data-disqus-identifier="/2015/04/09/ubuntu-lc_all=(unset)/index.markdown" href="/blog/2015/04/09/ubuntu-lc_all=(unset)/#disqus_thread">0 comments</a>
                         </p>
                     </aside>
 
                 </header>
 
-                <p>If your Spotlight does not search for some files or applications:</p>
+                <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
 
-<p>The first of all - restart the Spotlight:</p>
-
-<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+<pre><code>LANGUAGE = (unset)
+LC_ALL = (unset)
 </code></pre>
 
-<p>If it have no effect - remove Spotlight&#39;s index:</p>
+<p>Для исправления делаем:</p>
 
-<p>Stop Spotlight service:</p>
-
-<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
+# echo LC_CTYPE=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
+# locale-gen ru_RU.UTF-8
 </code></pre>
 
-<p>Remove Spotlight index folder:</p>
-
-<pre><code>sudo rm -rf /.Spotlight-V100
-</code></pre>
-
-<p>Run service:</p>
-
-<pre><code>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-</code></pre>
-
-<p>After reindex - everything should work well.</p>
+<p>И перелегониваемся.</p>
 
 
 
@@ -94,7 +81,7 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plis
                 </a>
             </li>
             <li class="next">
-                <a class="button disabled" href="" rel="prev">
+                <a class="button button-primary" href="/blog/page/3" rel="prev">
                     Newer →
                 </a>
             </li>
@@ -144,12 +131,12 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plis
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/Spotlight.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/index.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/Spotlight.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/index.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>

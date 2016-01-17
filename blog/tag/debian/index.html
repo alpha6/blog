@@ -8,8 +8,8 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
         <meta content="Statocles 0.061" name="generator">
-        <link href="/blog/tag/Spotlight.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/tag/Spotlight.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/tag/debian.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/debian.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -37,50 +37,75 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/12/23/not-seeking-spotlight/">Spotlight does not search for</a></h1>
+                    <h1><a href="/blog/2016/01/17/postgres-install/">Installing and configuring Postgresql 9.4 on Debian 8</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/Spotlight/" rel="tag">Spotlight</a>
-                        <a href="/blog/tag/ElCapitan/" rel="tag">ElCapitan</a>
-                        <a href="/blog/tag/MacOS/" rel="tag">MacOS</a>
+                        <a href="/blog/tag/postgresql/" rel="tag">postgresql</a>
+                        <a href="/blog/tag/debian/" rel="tag">debian</a>
                     </p>
 
                     <aside>
-                        <p><time datetime="2015-12-23">
-                            Posted on 2015-12-23
+                        <p><time datetime="2016-01-17">
+                            Posted on 2016-01-17
                         </time>
-                        <a data-disqus-identifier="/2015/12/23/not-seeking-spotlight/index.markdown" href="/blog/2015/12/23/not-seeking-spotlight/#disqus_thread">0 comments</a>
+                        <a data-disqus-identifier="/2016/01/17/postgres-install/index.markdown" href="/blog/2016/01/17/postgres-install/#disqus_thread">0 comments</a>
                         </p>
                     </aside>
 
                 </header>
 
-                <p>If your Spotlight does not search for some files or applications:</p>
+                <p>Install the postgresql server package:</p>
 
-<p>The first of all - restart the Spotlight:</p>
-
-<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+<pre><code>#apt-get install postgresql-9.4
 </code></pre>
 
-<p>If it have no effect - remove Spotlight&#39;s index:</p>
+<p>Create cluster (if it haven&#39;t created automatically):</p>
 
-<p>Stop Spotlight service:</p>
-
-<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+<pre><code>#pg_createcluster 9.4 main --start
 </code></pre>
 
-<p>Remove Spotlight index folder:</p>
+<p>Next we need to allow connects from remote sources.</p>
 
-<pre><code>sudo rm -rf /.Spotlight-V100
+<p>Edit <code>/etc/postgresql/9.4/main/postgresql.conf</code> and set <code>listen_addresses</code> to <code>&#39;*&#39;</code>.</p>
+
+<p>Restart the Postgresql service:</p>
+
+<pre><code>#service postgresql Restart
 </code></pre>
 
-<p>Run service:</p>
+<p>Now we should create database user.</p>
 
-<pre><code>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+<pre><code>#su postgres
+#psql
+
+postgres=# CREATE USER db_user_name WITH PASSWORD &#39;secret_password&#39;;
 </code></pre>
 
-<p>After reindex - everything should work well.</p>
+<p>Create new database and grant access to it to our user.</p>
+
+<pre><code>postgres=# CREATE DATABASE &quot;db_name&quot;
+  WITH OWNER &quot;db_user_name&quot;
+  ENCODING &#39;UTF8&#39;
+  LC_COLLATE = &#39;en_US.UTF-8&#39;
+  LC_CTYPE = &#39;en_US.UTF-8&#39;
+  TEMPLATE = template0;
+</code></pre>
+
+<p>Now we have database with UTF8 collation, it is time to allow connect from remote sources. Our user is the owner of the schema.</p>
+
+<p>Edit <code>/etc/postgresql/9.4/main/pg_hba.conf</code> and add line</p>
+
+<pre><code>host    all   db_user_name    0.0.0.0/0               md5
+</code></pre>
+
+<p>after the line:</p>
+
+<pre><code>host    all   all             127.0.0.1/32            md5
+</code></pre>
+
+<p>Save file and restart the service.</p>
+
+<p>Now we can connect to our server from remote computer.</p>
 
 
 
@@ -144,12 +169,12 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plis
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/Spotlight.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/debian.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/Spotlight.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/debian.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>

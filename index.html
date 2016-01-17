@@ -37,6 +37,81 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2016/01/17/postgres-install/">Installing and configuring Postgresql 9.4 on Debian 8</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/postgresql/" rel="tag">postgresql</a>
+                        <a href="/blog/tag/debian/" rel="tag">debian</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2016-01-17">
+                            Posted on 2016-01-17
+                        </time>
+                        <a data-disqus-identifier="/2016/01/17/postgres-install/index.markdown" href="/blog/2016/01/17/postgres-install/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Install the postgresql server package:</p>
+
+<pre><code>#apt-get install postgresql-9.4
+</code></pre>
+
+<p>Create cluster (if it haven&#39;t created automatically):</p>
+
+<pre><code>#pg_createcluster 9.4 main --start
+</code></pre>
+
+<p>Next we need to allow connects from remote sources.</p>
+
+<p>Edit <code>/etc/postgresql/9.4/main/postgresql.conf</code> and set <code>listen_addresses</code> to <code>&#39;*&#39;</code>.</p>
+
+<p>Restart the Postgresql service:</p>
+
+<pre><code>#service postgresql Restart
+</code></pre>
+
+<p>Now we should create database user.</p>
+
+<pre><code>#su postgres
+#psql
+
+postgres=# CREATE USER db_user_name WITH PASSWORD &#39;secret_password&#39;;
+</code></pre>
+
+<p>Create new database and grant access to it to our user.</p>
+
+<pre><code>postgres=# CREATE DATABASE &quot;db_name&quot;
+  WITH OWNER &quot;db_user_name&quot;
+  ENCODING &#39;UTF8&#39;
+  LC_COLLATE = &#39;en_US.UTF-8&#39;
+  LC_CTYPE = &#39;en_US.UTF-8&#39;
+  TEMPLATE = template0;
+</code></pre>
+
+<p>Now we have database with UTF8 collation, it is time to allow connect from remote sources. Our user is the owner of the schema.</p>
+
+<p>Edit <code>/etc/postgresql/9.4/main/pg_hba.conf</code> and add line</p>
+
+<pre><code>host    all   db_user_name    0.0.0.0/0               md5
+</code></pre>
+
+<p>after the line:</p>
+
+<pre><code>host    all   all             127.0.0.1/32            md5
+</code></pre>
+
+<p>Save file and restart the service.</p>
+
+<p>Now we can connect to our server from remote computer.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/12/28/git-clone-recursive/">git clone recursive</a></h1>
 
                     <p class="tags">Tags:
@@ -355,37 +430,6 @@ sudo service nginx start
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/09/29/prostgresql-interval-in-future/">prostgresql interval in future</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/Postgresql/" rel="tag">Postgresql</a>
-                        <a href="/blog/tag/data/" rel="tag">data</a>
-                        <a href="/blog/tag/timestamp/" rel="tag">timestamp</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-09-29">
-                            Posted on 2015-09-29
-                        </time>
-                        <a data-disqus-identifier="/2015/09/29/prostgresql-interval-in-future/index.markdown" href="/blog/2015/09/29/prostgresql-interval-in-future/#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:</p>
-
-<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
-SELECT NOW() + &#39;5 days&#39;::interval;
-</code></pre>
-
-<p>Работает и в плюс и в минус.</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -421,6 +465,7 @@ SELECT NOW() + &#39;5 days&#39;::interval;
             <li><a href="/blog/tag/airplay/">airplay</a></li>
             <li><a href="/blog/tag/bugs/">bugs</a></li>
             <li><a href="/blog/tag/data/">data</a></li>
+            <li><a href="/blog/tag/debian/">debian</a></li>
             <li><a href="/blog/tag/elasticsearch/">elasticsearch</a></li>
             <li><a href="/blog/tag/gearman/">gearman</a></li>
             <li><a href="/blog/tag/git/">git</a></li>
@@ -432,6 +477,7 @@ SELECT NOW() + &#39;5 days&#39;::interval;
             <li><a href="/blog/tag/note/">note</a></li>
             <li><a href="/blog/tag/package/">package</a></li>
             <li><a href="/blog/tag/perl/">perl</a></li>
+            <li><a href="/blog/tag/postgresql/">postgresql</a></li>
             <li><a href="/blog/tag/shairport/">shairport</a></li>
             <li><a href="/blog/tag/snippet/">snippet</a></li>
             <li><a href="/blog/tag/state/">state</a></li>
