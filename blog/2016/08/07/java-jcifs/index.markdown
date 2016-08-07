@@ -2,15 +2,16 @@
 tags: java, jcifs, samba
 title: Работаем с самбой из Java с помощью JCIFS
 ---
-# Простые примеры работы с самбой при помощи JCIFS
+## Простые примеры работы с самбой при помощи JCIFS
 
-  import jcifs.Config;
-  import jcifs.smb.*;
+Ниже показан пример класса для копирования файла на самба-шару и просмотра содержимого заданной шары
 
-  import java.io.*;
+    import jcifs.Config;
+    import jcifs.smb.*;
+    import java.io.*;
 
-  public class SambaTest {
-    // Нормальный конструктор я тут делать не буду, для тестового примера это не нужно
+    public class SambaTest {
+      // Нормальный конструктор я тут делать не буду, для тестового примера это не нужно
     static final String USER_NAME = "username";
     static final String PASSWORD = "password";
     static final String DOMAIN = "user_domain";
@@ -20,23 +21,27 @@ title: Работаем с самбой из Java с помощью JCIFS
 
 
     // Копируем файл на шару.
-    // К сожалению SmbFile ничего не знает о методе copyTo из File, так что придется этот метод эмулировать руками. Халява не прокатила :(
+    // К сожалению SmbFile ничего не знает о методе copyTo из File,
+    // так что придется этот метод эмулировать руками. Халява не прокатила :(
     // В обратную сторону все тоже самое, только потоки будут в обратную сторону.
     public boolean copyFileToSamba(String srcFilePath, String destPath) {
         boolean successful = false;
         try{
             // Создаем объект аутентификатор
-            NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(DOMAIN, USER_NAME, PASSWORD);
+            NtlmPasswordAuthentication auth =
+              new NtlmPasswordAuthentication(DOMAIN, USER_NAME, PASSWORD);
 
             // Читаем содержимое исходного файла
             File srcFile = new File(srcFilePath);
             InputStream localFile = new FileInputStream(srcFile);
 
             // Создаем объект для потока куда мы будем писать наша файл
-            SmbFileOutputStream destFileName = new SmbFileOutputStream(new SmbFile(destPath+File.separator+srcFile.getName(), auth));
+            SmbFileOutputStream destFileName = new SmbFileOutputStream(
+              new SmbFile(destPath+File.separator+srcFile.getName(), auth));
 
             // Ну и копируем все из исходного потока в поток назначения.
-            BufferedReader brl = new BufferedReader(new InputStreamReader(localFile));
+            BufferedReader brl = new BufferedReader(
+              new InputStreamReader(localFile));
             String b = null;
             while((b=brl.readLine())!=null){
                 destFileName.write(b.getBytes());
@@ -57,7 +62,8 @@ title: Работаем с самбой из Java с помощью JCIFS
         boolean successful = false;
         try{
             // Создаем объект для аутентификации на шаре
-            NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(DOMAIN, USER_NAME, PASSWORD);
+            NtlmPasswordAuthentication auth =
+              new NtlmPasswordAuthentication(DOMAIN, USER_NAME, PASSWORD);
             String path = NETWORK_FOLDER;
 
             // Ресолвим путь назначения в SmbFile
@@ -90,6 +96,8 @@ title: Работаем с самбой из Java с помощью JCIFS
 
 В конструктор добавляем следующее:
 
-  Config.setProperty( "jcifs.resolveOrder", "DNS");
 
-Этим мы указываем что ресолвить имя сервера мы будем ТОЛЬКО через DNS. Можно туда добавить всякие NetBIOS и прочее, но на практике я с необходимостью это делать не сталкивался. Естественно, что если у вас в сети нет локального DNS сервера который будет ресолвить именя локальным машин - то механизм надо сменить на другой. Выбор механизмов ресолвинга будет проходить в порядке указанном в конфиге.
+    Config.setProperty( "jcifs.resolveOrder", "DNS");
+
+
+Этим мы указываем что ресолвить имя сервера мы будем ТОЛЬКО через DNS. Можно туда добавить всякие NetBIOS и прочее, но на практике с необходимостью это делать я не сталкивался. Естественно, что если у вас в сети нет локального DNS сервера который будет ресолвить именя локальным машин - то механизм надо сменить на другой. Выбор механизмов ресолвинга будет проходить в порядке указанном в конфиге.
