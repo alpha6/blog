@@ -109,6 +109,7 @@ theme:
         # Themes have a special syntax to refer to themes that come bundled with
         # Statocles. See Statocles::Help::Theme for more information
         store: 'theme'
+        # store: '::default'
 
 # deploy: These are the settings for the site's deploy. See Statocles::Deploy::File
 # for a full list of attributes and what they do.
