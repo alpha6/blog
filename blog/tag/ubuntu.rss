@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/Ubuntu/</link>
-        <atom:link href="http://alpha6.ru/blog/tag/Ubuntu.rss" rel="self" type="application/rss+xml" />
+        <link>http://alpha6.ru/blog/tag/ubuntu/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/ubuntu.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.061</generator>
+        <generator>Statocles 0.077</generator>
         <item>
             <title>Installing Redmine from Ubuntu package</title>
             <link>http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/</link>
@@ -109,10 +109,10 @@ sudo service nginx start
 
                     <p><a href="http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Redmine/">Redmine</a>
-                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/redmine/">Redmine</a>
+                    <a href="http://alpha6.ru/blog/tag/postgresql/">Postgresql</a>
                     <a href="http://alpha6.ru/blog/tag/nginx/">nginx</a>
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">Ubuntu</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -132,10 +132,10 @@ sudo service nginx start
 
                     <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
-                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
-                    <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
-                    <a href="http://alpha6.ru/blog/tag/DBD::Pg/">DBD::Pg</a>
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/postgresql/">Postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/perl/">Perl</a>
+                    <a href="http://alpha6.ru/blog/tag/dbd-pg/">DBD::Pg</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -176,12 +176,51 @@ sudo service nginx start
 
                     <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">Ubuntu</a>
                     <a href="http://alpha6.ru/blog/tag/note/">note</a>
                 </p>
             ]]></description>
             <pubDate>
                 Sun, 24 May 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Ubuntu 14.04 + Gearman</title>
+            <link>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/</link>
+            <guid>http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/</guid>
+            <description><![CDATA[
+                <p>В базовой установке Gearman в ubuntu 14.04 есть баг - инит-скрипт написан не правильно и в результате Gearman  не реагирует наличие конфиг файла и запускается с настойками по умолчанию. Причем, на одном из серверов у меня проблемма после обновления усугубилась и он перестал запускаться даже с настройками по умолчанию.</p>
+
+<p>Есть два варианта решения проблемы:</p>
+
+<ol>
+<li>Пропатчить инит-скрипт, как это сделать можно прочитать <a href="http://jeremykendall.net/2014/09/04/ubuntu-14-dot-04-gearman-config-bug/">здесь</a></li>
+<li>Запускать его из под supervisord.</li>
+</ol>
+
+<p>У меня все приложения крутятся под supervisor, так что я пошел этим путем. </p>
+
+<p>Минимальный конфиг файл для супервизора:</p>
+
+<pre><code>[program:gearmand]
+command=/usr/sbin/gearmand -L 127.0.0.1 --user=gearman --log-file=stderr
+autorestart=true
+autostart=true
+</code></pre>
+
+<p><code>-L 127.0.0.1</code> указано, во первых, что-бы gearman не биндился на внешние интерфейсы (там все закрыто фаирволом, но все же). Во вторых - если на машине включен ipv6, но не настроен, то gearman будет пытаться забиндиться и на ipv6 и падать.</p>
+
+<p>З.Ы. инит для supervisord в 14.04 тоже кривой, но это уже другая история.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/04/23/ubuntu-14-04-gearman/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/gearman/">gearman</a>
+                    <a href="http://alpha6.ru/blog/tag/bugs/">bugs</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Thu, 23 Apr 2015 00:00:00 +0000
             </pubDate>
         </item>
         <item>
@@ -206,8 +245,8 @@ LC_ALL = (unset)
 
                     <p><a href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
-                    <a href="http://alpha6.ru/blog/tag/LC_ALL/">LC_ALL</a>
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/lc_all/">LC_ALL</a>
                 </p>
             ]]></description>
             <pubDate>

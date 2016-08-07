@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/io/</link>
         <atom:link href="http://alpha6.ru/blog/tag/io.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.061</generator>
+        <generator>Statocles 0.077</generator>
         <item>
             <title>stdout autoflush</title>
             <link>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</link>

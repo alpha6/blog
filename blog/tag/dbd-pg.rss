@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/tag/dbd-pg/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/dbd-pg.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.077</generator>
+        <item>
+            <title>DBD::Pg install</title>
+            <link>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</link>
+            <guid>http://alpha6.ru/blog/2015/09/19/dbd-pg-install/</guid>
+            <description><![CDATA[
+                <p>Markdown content goes here.</p>
+
+<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
+
+<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/postgresql/">Postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/perl/">Perl</a>
+                    <a href="http://alpha6.ru/blog/tag/dbd-pg/">DBD::Pg</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sat, 19 Sep 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

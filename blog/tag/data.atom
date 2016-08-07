@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/data/</id>
     <title>Just another blog</title>
-    <updated>2016-01-17T18:23:03Z</updated>
+    <updated>2016-08-07T15:06:41Z</updated>
     <link href="http://alpha6.ru/blog/tag/data.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/data/" rel="alternate" />
-    <generator version="0.061">Statocles</generator>
+    <generator version="0.077">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/</id>
         <title>prostgresql interval in future</title>
@@ -21,7 +21,7 @@ SELECT NOW() + &#39;5 days&#39;::interval;
 
                 <p><a href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                <a href="http://alpha6.ru/blog/tag/postgresql/">Postgresql</a>
                 <a href="http://alpha6.ru/blog/tag/data/">data</a>
                 <a href="http://alpha6.ru/blog/tag/timestamp/">timestamp</a>
             </p>

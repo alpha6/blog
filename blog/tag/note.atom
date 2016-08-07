@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/note/</id>
     <title>Just another blog</title>
-    <updated>2016-01-17T18:23:03Z</updated>
+    <updated>2016-08-07T15:06:43Z</updated>
     <link href="http://alpha6.ru/blog/tag/note.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/note/" rel="alternate" />
-    <generator version="0.061">Statocles</generator>
+    <generator version="0.077">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/09/14/get-package-methods/</id>
         <title>Получение методов пакета</title>
@@ -78,7 +78,7 @@
 
                 <p><a href="http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                <a href="http://alpha6.ru/blog/tag/ubuntu/">Ubuntu</a>
                 <a href="http://alpha6.ru/blog/tag/note/">note</a>
             </p>
         ]]></content>

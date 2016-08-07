@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/git/</id>
     <title>Just another blog</title>
-    <updated>2016-01-17T18:23:03Z</updated>
+    <updated>2016-08-07T15:06:42Z</updated>
     <link href="http://alpha6.ru/blog/tag/git.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/git/" rel="alternate" />
-    <generator version="0.061">Statocles</generator>
+    <generator version="0.077">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/12/28/git-clone-recursive/</id>
         <title>git clone recursive</title>
