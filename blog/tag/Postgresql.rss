@@ -2,10 +2,78 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/Postgresql/</link>
-        <atom:link href="http://alpha6.ru/blog/tag/Postgresql.rss" rel="self" type="application/rss+xml" />
+        <link>http://alpha6.ru/blog/tag/postgresql/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/postgresql.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.061</generator>
+        <generator>Statocles 0.077</generator>
+        <item>
+            <title>Installing and configuring Postgresql 9.4 on Debian 8</title>
+            <link>http://alpha6.ru/blog/2016/01/17/postgres-install/</link>
+            <guid>http://alpha6.ru/blog/2016/01/17/postgres-install/</guid>
+            <description><![CDATA[
+                <p>Install the postgresql server package:</p>
+
+<pre><code>#apt-get install postgresql-9.4
+</code></pre>
+
+<p>Create cluster (if it haven&#39;t created automatically):</p>
+
+<pre><code>#pg_createcluster 9.4 main --start
+</code></pre>
+
+<p>Next we need to allow connects from remote sources.</p>
+
+<p>Edit <code>/etc/postgresql/9.4/main/postgresql.conf</code> and set <code>listen_addresses</code> to <code>&#39;*&#39;</code>.</p>
+
+<p>Restart the Postgresql service:</p>
+
+<pre><code>#service postgresql Restart
+</code></pre>
+
+<p>Now we should create database user.</p>
+
+<pre><code>#su postgres
+#psql
+
+postgres=# CREATE USER db_user_name WITH PASSWORD &#39;secret_password&#39;;
+</code></pre>
+
+<p>Create new database and grant access to it to our user.</p>
+
+<pre><code>postgres=# CREATE DATABASE &quot;db_name&quot;
+  WITH OWNER &quot;db_user_name&quot;
+  ENCODING &#39;UTF8&#39;
+  LC_COLLATE = &#39;en_US.UTF-8&#39;
+  LC_CTYPE = &#39;en_US.UTF-8&#39;
+  TEMPLATE = template0;
+</code></pre>
+
+<p>Now we have database with UTF8 collation, it is time to allow connect from remote sources. Our user is the owner of the schema.</p>
+
+<p>Edit <code>/etc/postgresql/9.4/main/pg_hba.conf</code> and add line</p>
+
+<pre><code>host    all   db_user_name    0.0.0.0/0               md5
+</code></pre>
+
+<p>after the line:</p>
+
+<pre><code>host    all   all             127.0.0.1/32            md5
+</code></pre>
+
+<p>Save file and restart the service.</p>
+
+<p>Now we can connect to our server from remote computer.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2016/01/17/postgres-install/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/postgresql/">postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/debian/">debian</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sun, 17 Jan 2016 00:00:00 +0000
+            </pubDate>
+        </item>
         <item>
             <title>Installing Redmine from Ubuntu package</title>
             <link>http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/</link>
@@ -109,10 +177,10 @@ sudo service nginx start
 
                     <p><a href="http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Redmine/">Redmine</a>
-                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/redmine/">Redmine</a>
+                    <a href="http://alpha6.ru/blog/tag/postgresql/">Postgresql</a>
                     <a href="http://alpha6.ru/blog/tag/nginx/">nginx</a>
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">Ubuntu</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -134,7 +202,7 @@ SELECT NOW() + &#39;5 days&#39;::interval;
 
                     <p><a href="http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/postgresql/">Postgresql</a>
                     <a href="http://alpha6.ru/blog/tag/data/">data</a>
                     <a href="http://alpha6.ru/blog/tag/timestamp/">timestamp</a>
                 </p>
@@ -156,10 +224,10 @@ SELECT NOW() + &#39;5 days&#39;::interval;
 
                     <p><a href="http://alpha6.ru/blog/2015/09/19/dbd-pg-install/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
-                    <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
-                    <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
-                    <a href="http://alpha6.ru/blog/tag/DBD::Pg/">DBD::Pg</a>
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/postgresql/">Postgresql</a>
+                    <a href="http://alpha6.ru/blog/tag/perl/">Perl</a>
+                    <a href="http://alpha6.ru/blog/tag/dbd-pg/">DBD::Pg</a>
                 </p>
             ]]></description>
             <pubDate>

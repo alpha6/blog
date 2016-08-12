@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/LC_ALL/</link>
-        <atom:link href="http://alpha6.ru/blog/tag/LC_ALL.rss" rel="self" type="application/rss+xml" />
+        <link>http://alpha6.ru/blog/tag/lc_all/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/lc_all.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.061</generator>
+        <generator>Statocles 0.077</generator>
         <item>
             <title>Ubuntu LC_ALL = (unset)</title>
             <link>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</link>
@@ -28,8 +28,8 @@ LC_ALL = (unset)
 
                     <p><a href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
-                    <a href="http://alpha6.ru/blog/tag/LC_ALL/">LC_ALL</a>
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">Ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/lc_all/">LC_ALL</a>
                 </p>
             ]]></description>
             <pubDate>

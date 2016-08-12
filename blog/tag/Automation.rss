@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Just another blog</title>
-        <link>http://alpha6.ru/blog/tag/Automation/</link>
-        <atom:link href="http://alpha6.ru/blog/tag/Automation.rss" rel="self" type="application/rss+xml" />
+        <link>http://alpha6.ru/blog/tag/automation/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/automation.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.061</generator>
+        <generator>Statocles 0.077</generator>
         <item>
             <title>Starting with Rex</title>
             <link>http://alpha6.ru/blog/2015/04/11/starting-with-rex/</link>
@@ -81,9 +81,9 @@
 
                     <p><a href="http://alpha6.ru/blog/2015/04/11/starting-with-rex/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/Rex/">Rex</a>
-                    <a href="http://alpha6.ru/blog/tag/Perl/">Perl</a>
-                    <a href="http://alpha6.ru/blog/tag/Automation/">Automation</a>
+                    <a href="http://alpha6.ru/blog/tag/rex/">Rex</a>
+                    <a href="http://alpha6.ru/blog/tag/perl/">Perl</a>
+                    <a href="http://alpha6.ru/blog/tag/automation/">Automation</a>
                 </p>
             ]]></description>
             <pubDate>

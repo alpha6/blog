@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/ElCapitan/</id>
+    <id>http://alpha6.ru/blog/tag/elcapitan/</id>
     <title>Just another blog</title>
-    <updated>2016-01-17T18:23:02Z</updated>
-    <link href="http://alpha6.ru/blog/tag/ElCapitan.atom" rel="self" />
-    <link href="http://alpha6.ru/blog/tag/ElCapitan/" rel="alternate" />
-    <generator version="0.061">Statocles</generator>
+    <updated>2016-08-12T13:52:25Z</updated>
+    <link href="http://alpha6.ru/blog/tag/elcapitan.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/elcapitan/" rel="alternate" />
+    <generator version="0.077">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/</id>
         <title>Spotlight does not search for</title>
@@ -40,9 +40,9 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plis
 
                 <p><a href="http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="http://alpha6.ru/blog/tag/Spotlight/">Spotlight</a>
-                <a href="http://alpha6.ru/blog/tag/ElCapitan/">ElCapitan</a>
-                <a href="http://alpha6.ru/blog/tag/MacOS/">MacOS</a>
+                <a href="http://alpha6.ru/blog/tag/spotlight/">Spotlight</a>
+                <a href="http://alpha6.ru/blog/tag/elcapitan/">ElCapitan</a>
+                <a href="http://alpha6.ru/blog/tag/macos/">MacOS</a>
             </p>
         ]]></content>
         <updated>2015-12-23T00:00:00Z</updated>

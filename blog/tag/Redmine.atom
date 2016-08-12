@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://alpha6.ru/blog/tag/Redmine/</id>
+    <id>http://alpha6.ru/blog/tag/redmine/</id>
     <title>Just another blog</title>
-    <updated>2016-01-17T18:23:03Z</updated>
-    <link href="http://alpha6.ru/blog/tag/Redmine.atom" rel="self" />
-    <link href="http://alpha6.ru/blog/tag/Redmine/" rel="alternate" />
-    <generator version="0.061">Statocles</generator>
+    <updated>2016-08-12T13:52:24Z</updated>
+    <link href="http://alpha6.ru/blog/tag/redmine.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/redmine/" rel="alternate" />
+    <generator version="0.077">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/</id>
         <title>Installing Redmine from Ubuntu package</title>
@@ -109,10 +109,10 @@ sudo service nginx start
 
                 <p><a href="http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="http://alpha6.ru/blog/tag/Redmine/">Redmine</a>
-                <a href="http://alpha6.ru/blog/tag/Postgresql/">Postgresql</a>
+                <a href="http://alpha6.ru/blog/tag/redmine/">Redmine</a>
+                <a href="http://alpha6.ru/blog/tag/postgresql/">Postgresql</a>
                 <a href="http://alpha6.ru/blog/tag/nginx/">nginx</a>
-                <a href="http://alpha6.ru/blog/tag/Ubuntu/">Ubuntu</a>
+                <a href="http://alpha6.ru/blog/tag/ubuntu/">Ubuntu</a>
             </p>
         ]]></content>
         <updated>2015-10-02T00:00:00Z</updated>
