@@ -37,6 +37,158 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2016/08/23/marlin-setup/">Настраиваем прошивку Marlin для Arduino + RAMPS 1.4</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/prusai3/" rel="tag">prusai3</a>
+                        <a href="/blog/tag/3dprinting/" rel="tag">3dprinting</a>
+                        <a href="/blog/tag/ramps/" rel="tag">ramps</a>
+                        <a href="/blog/tag/marlin/" rel="tag">marlin</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2016-08-23">
+                            Posted on 2016-08-23
+                        </time>
+                        <a data-disqus-identifier="/2016/08/23/marlin-setup/index.markdown" href="/blog/2016/08/23/marlin-setup/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Так получилось что некоторое время назад я стал владельцем китайского клона Prusa i3 под гордым китайским названием Hesine M505.
+Это чудо китайской мысли конечно было далеко от совершенства, но с задачей печатать все подряд справлялось вполне успешно. Однако, чем дальше в лес - тем толще партизаны. И забравшись в лес подальше возжелал я печатать детали с использованием растворимых поддержек, да и двумя цветами печатать тоже было бы  неплохо.</p>
+
+<p>К сожалению, у родной для принтера платы Melzi V2 был фатальный недостаток - на ней отсутсвовал порт для подключения второго экструдера. Изучение матчасти показало, что можно взять еще одну такую же плату и воткнуть ее в режиме слейва. Однако ценник на это удовольствие получался высоковатым. И, что самое неприятно, при таком апгрейде терялась возможность подключения экрана и кнопок управления. Т.е. печатать можно будет только с компьютера, а это не самая лучшая идея по многим причинам.</p>
+
+<p>Так я пришел к решению полностью заменить мозги принтера. Выбор был сделан в пользу нестареющей класски Arduino Mega 2560 + RAMPS 1.4 + A4988. Быстро сказка сказывается, да долго посылочка едет. Получив посылку с мозгами, моторами и прочим полезным в хозяйстве инвентарем я обнаружил что забыл заказать шестерню податчика экструдера. Благо на тот момент она уже ехала ко мне с али, где я заказал ее просто так, от жадности.</p>
+
+<p>В общем, пока необходимые запчасти едут, можно подключить и отстроить новые мозги в конфигурации с одним экструдером, а потом просто переконфигурировать прошивку когда будет собрано все железо.</p>
+
+<p>Ставить мы будем классику жанра - Marlin. Клонируем репозиторий в любое удобное место отсюда https://github.com/MarlinFirmware/Marlin. Скачиваем Arduino IDE.</p>
+
+<p>В Arduino IDE открываем прошивку.
+Выбираем нашу плату Arduino Mega 2560 и процессор AtMega 2560.</p>
+
+<p>Дальше нас интересует вкладка с файлом Configuration.h, теперь мы будем его безудержно править.</p>
+
+<p>Выбираем нашу плату: RAMPS 1.4 с одним хотэндом</p>
+
+<pre><code>#ifndef MOTHERBOARD
+  #define MOTHERBOARD BOARD_RAMPS_14_EFB
+#endif
+</code></pre>
+
+<p>В файле boards.h приведен полный список поддерживаемых плат и их вариаций. Нас пока интересует только RAMPS 1.4 с одним экструдером.</p>
+
+<p>Выставляем кол-во температурных сенсоров. Сенсоров должно быть по числу экструдеров. В нашем случае 1. Убеждаемся что напротив первого сенсора в списке стоит 1.</p>
+
+<pre><code>#define TEMP_SENSOR_0 1
+</code></pre>
+
+<p>Выставляем максимальную температуру хотэнда и стола.</p>
+
+<pre><code>#define HEATER_0_MAXTEMP 250
+#define BED_MAXTEMP 130
+</code></pre>
+
+<p>У меня стоят термопредохранители на 252 градуса, так что максимальная температура хота должна быть ниже температуры срабатывания предохранителя. Если собираетесь печатать чем-то вроде поликарбоната - то температуру надо поднять. Со столом таже история, единственное что даже печать нейлоном не требует очень больших температур стола, 130 градусов должно хватить всем.</p>
+
+<p>В Hesine M505 стоят нормально замкнутые концевики, а в прошивка по умолчанию рассчитывает на нормально разомкнутые.
+Включаем инвертирование концевиков:</p>
+
+<pre><code>// Mechanical endstop with COM to ground and NC to Signal uses &quot;false&quot; here (most common setup).
+#define X_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+</code></pre>
+
+<p>Проверяем направление вращения моторов. Тут история примерно таже что и с концевиками, т.к. прошивка изначально рассчитана на Ultimaker.</p>
+
+<pre><code>// Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
+#define INVERT_X_DIR true
+#define INVERT_Y_DIR true
+#define INVERT_Z_DIR false
+</code></pre>
+
+<p>И для экструдера повторяем операцию.</p>
+
+<pre><code>#define INVERT_E0_DIR true
+</code></pre>
+
+<p>Выставляем размеры рабочей зоны</p>
+
+<pre><code>#define X_MIN_POS 0
+#define Y_MIN_POS 0
+#define Z_MIN_POS 0
+#define X_MAX_POS 250
+#define Y_MAX_POS 230
+#define Z_MAX_POS 140
+</code></pre>
+
+<p>Для начала можно выставить заводомо большие чем рабочая зона габариты. Потом все откалибруется по месту. По умолчанию в прошивке стоят значени 200х200х200, тогда как у Hesine M505 рабочее поле по всем направлениям больше чем эти цифры. И прошивка просто не даст двигаться за их пределы.</p>
+
+<p>Устанавливаем координаты начала стола. Это нужно чтобы ноль стола в слайсере совпадал с нулем в координатах принтера. Иначе модель может вылезать за пределы зоны печати.</p>
+
+<pre><code>#define MANUAL_X_HOME_POS -30
+#define MANUAL_Y_HOME_POS -20
+</code></pre>
+
+<p>Выставляем шаги для моторов.</p>
+
+<pre><code>#define DEFAULT_AXIS_STEPS_PER_UNIT   {100,100,1600,95}
+</code></pre>
+
+<p>Параметры тут следующие: мотор_Х, мотор_Y, мотор_Z, мотор_экструдера</p>
+
+<p>Для рассчета шагов по X и Y используем следующую формулу:</p>
+
+<pre><code>(200*16)/(16*2)=80 шагов
+</code></pre>
+
+<p>Где 200 - это число шагов двигателя на 360 градусов. Типичная цифра для моторов с шагом 1.8 градуса.
+16 в числителе - кол-во микрошагов на шаг.
+16 в знаменателе - кол-во зубов на шпуле.
+2 - стандартный шаг для ремня GT2</p>
+
+<p>Для Z:</p>
+
+<pre><code>3200/2 = 1600
+</code></pre>
+
+<p>В Hesine M505 штатно используется трапециидальный винт с шагом резьбы 2мм. Соответственно мы белим число шагов на полный оборот на кол-во миллиметров которые будут пройдены за оборот и получаем число шагов на миллиметр.</p>
+
+<p>Подачу экструдера пока посчитаем и выставим предварительно. Потом ее все равно придется подгонять.
+Шестерня экструдера штатно имеет диаметр около 10мм. Получаем длинну окружности на один оборот: 3.14*10=31.4 мм на оборот.</p>
+
+<p>Делим число шагов на длинну окружности и получаем число шагов на миллиметр.</p>
+
+<pre><code>3200/31.4=101.9
+</code></pre>
+
+<p>округляем до 102.</p>
+
+<p>Заливаем все это дело в Arduino.</p>
+
+<p>После того как все залилось и все железо подключено запускаем Pronterface и начинаем калибровку.</p>
+
+<ul>
+<li>Двигаем моторы и проверяем что они крутятся в нужную сторону. Если это не так - меняем параметр INVERT_*_DIR на противоположное значение.</li>
+<li>Проверяем состояние концевиков. По команде M119 будет показано состояние концевиков. Если концевик нажат - напротив него должно быть написано TRIGGERED. Напротив ненажатого - open. Если это не так - меняем настройку *<em>MIN</em>ENDSTOP_INVERTING.</li>
+<li>Даем команду G28. Все оси должны приехать в свое минимальное положение. Дальше через Pronterface двигаем все оси в их безопасное максимальное положение и даем комаду M114. Она покажет текущее положение по осям. Вносим эти данные в настройку *<em>MAX</em>POS.</li>
+<li>Опять говорим G28. Передвигаем экструдер в нулевую координату стола по X-Y. Смотрим что показывает M114 и эти цифры переносим в MANUAL_*<em>HOME</em>POS с обратным знаком. Т.е. если M114 говорит что координата по Х сейчас 30 - то в настройку пишем -30. Это значит что после ухода в HOME экструдер отъедет от него на 30мм и будет считать это положение нолем.</li>
+<li>откручиваем сопло или трубку боудена у экструдера. На прутке отмечаем расстояние, например 10 см, и прогоняем эту же длинну из Pronterface. После этого смотрим сколько в реальности прошло прутка и корректируем кол-во шагов для экструдера чтобы он прогонял четко нужное кол-во пластика. Важно понимать что на горячую с установленным соплом эта цифра все равно будет отличаться от установленного. Если вы всегда печатаете соплом одного диаметра - можно повторить эту операцию с соплом и полученные данные внести в прошивку. Я использую несколько сопел, так что объем пластика корректирую через настройку потока в слайсере.</li>
+</ul>
+
+<p>После того как все это сделано - печатаем тестовую модель. Я использую пустой куб 20х20х20 мм. После того как он отпечатан - проверяем что размеры сторон у нас точно соответсвуют тому что должно быть. Если это не так по отдельным измерениям - корректируем кол-во шагов для нужной оси.</p>
+
+<p>На этом основные настройки закончены. Дальше можно тюнить приведенные выше параметры для более качественной печати.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2016/08/07/java-jcifs/">Работаем с самбой из Java с помощью JCIFS</a></h1>
 
                     <p class="tags">Tags:
@@ -402,56 +554,6 @@ Counter [21]
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/12/23/not-seeking-spotlight/">Spotlight does not search for</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/spotlight/" rel="tag">Spotlight</a>
-                        <a href="/blog/tag/elcapitan/" rel="tag">ElCapitan</a>
-                        <a href="/blog/tag/macos/" rel="tag">MacOS</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-12-23">
-                            Posted on 2015-12-23
-                        </time>
-                        <a data-disqus-identifier="/2015/12/23/not-seeking-spotlight/index.markdown" href="/blog/2015/12/23/not-seeking-spotlight/#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>If your Spotlight does not search for some files or applications:</p>
-
-<p>The first of all - restart the Spotlight:</p>
-
-<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-</code></pre>
-
-<p>If it have no effect - remove Spotlight&#39;s index:</p>
-
-<p>Stop Spotlight service:</p>
-
-<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-</code></pre>
-
-<p>Remove Spotlight index folder:</p>
-
-<pre><code>sudo rm -rf /.Spotlight-V100
-</code></pre>
-
-<p>Run service:</p>
-
-<pre><code>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-</code></pre>
-
-<p>After reindex - everything should work well.</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -473,6 +575,7 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plis
         
         <h1>Tags</h1>
         <ul class="list-inline">
+            <li><a href="/blog/tag/3dprinting/">3dprinting</a></li>
             <li><a href="/blog/tag/airplay/">airplay</a></li>
             <li><a href="/blog/tag/automation/">Automation</a></li>
             <li><a href="/blog/tag/bugs/">bugs</a></li>
@@ -491,11 +594,14 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plis
             <li><a href="/blog/tag/lc_all/">LC_ALL</a></li>
             <li><a href="/blog/tag/linux/">linux</a></li>
             <li><a href="/blog/tag/macos/">MacOS</a></li>
+            <li><a href="/blog/tag/marlin/">marlin</a></li>
             <li><a href="/blog/tag/nginx/">nginx</a></li>
             <li><a href="/blog/tag/note/">note</a></li>
             <li><a href="/blog/tag/package/">package</a></li>
             <li><a href="/blog/tag/perl/">perl</a></li>
             <li><a href="/blog/tag/postgresql/">postgresql</a></li>
+            <li><a href="/blog/tag/prusai3/">prusai3</a></li>
+            <li><a href="/blog/tag/ramps/">ramps</a></li>
             <li><a href="/blog/tag/redmine/">Redmine</a></li>
             <li><a href="/blog/tag/rex/">Rex</a></li>
             <li><a href="/blog/tag/samba/">samba</a></li>
