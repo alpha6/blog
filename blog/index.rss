@@ -7,6 +7,95 @@
         <description>Blog feed of Just another blog</description>
         <generator>Statocles 0.077</generator>
         <item>
+            <title>Добавляем второй экструдер</title>
+            <link>http://alpha6.ru/blog/2016/09/04/marlin-adding-second-extruder/</link>
+            <guid>http://alpha6.ru/blog/2016/09/04/marlin-adding-second-extruder/</guid>
+            <description><![CDATA[
+                <p>В прошлой серии мы установили прошивку Marin и откалибровали все это дело. Теперь пришло время добавить второй экструдер.</p>
+
+<p>Для этого нам понадобится:</p>
+
+<ul>
+<li>второй экструдер</li>
+<li>второй хот-энд в сборе и все прилегающие детали, типа трубки боудена</li>
+<li>каретка на два экструдера. Я использую такую - http://www.thingiverse.com/thing:1749633</li>
+</ul>
+
+<p>В общем случае все просто идем в Arduino IDE и правим конфигурацию.</p>
+
+<p>Меняем конфигурацию платы управления на RAMPS 1.4 c 2 экструдерами и подогреваемым столом</p>
+
+<pre><code>#ifndef MOTHERBOARD
+  #define MOTHERBOARD BOARD_RAMPS_14_EEB
+#endif
+</code></pre>
+
+<p>Указываем кол-во экструдеров:</p>
+
+<pre><code>#define EXTRUDERS 2
+</code></pre>
+
+<p>Указываем тип датчика температуры для второго экструдера:</p>
+
+<pre><code>#define TEMP_SENSOR_1 1
+</code></pre>
+
+<p>Максимальную температуру:</p>
+
+<pre><code>#define HEATER_1_MAXTEMP 250
+</code></pre>
+
+<p>Если надо, устанавливаем направление вращения мотора:</p>
+
+<pre><code>#define INVERT_E1_DIR true
+</code></pre>
+
+<p>В целом, если у вас одинаковые моторы на обоих экструдерах, то на этом настройка закончена.</p>
+
+<p>Но если у моторы разные или  на одном экструдере у меня мотор с шестерней подачи диаметром 10мм, а на втором - 7мм, то тут начинаются проблемы с калибровкой.</p>
+
+<p>Как откалибровать второй экструдер?
+Идем в пронтерфейс и говорим <code>T1</code>, эта команда указывает что сейчас активен экструдер номер 2 (отсчет начинается с 0). Включаем подачу филамента, для подачи будет использоваться число шагов из прошивки, т.е. для первого экструдера. Смотрим разницу и с помощью пропорции получаем кол-во шагов для активного экструдера. У меня из-за разницы в подающих шестернях получилось 80 шагов на мм.
+Говорим:</p>
+
+<pre><code>M92 E80
+</code></pre>
+
+<p>Этим мы устанавливаем новое кол-во шагов для текущего экструдера. Проверяем, при необходимости подгоняем значение.</p>
+
+<p>После калибровки вылезает проблема - Marlin не поддерживает установку разного числа шагов для разных экструдеров, соответственно в прошивке нам эти данные не сохранить. Придется этот вопрос решать програмно.</p>
+
+<p>Идем в <code>Slic3r</code>, я, в основном, использую его, для других слайсеров будут отличия. Переходим на вкладку <code>Printer Setting -&gt; Custom G-Code</code>.
+Нас интересует поле <code>Tool change G-Code</code>. Код в этом поле будет вызываться при каждой смене экструдера.
+Пишем туда следующее:</p>
+
+<pre><code>[[previous_extruder==0]]
+M92 E80
+[[/previous_extruder==0]]
+[[previous_extruder==1]]
+M92 E95
+[[/previous_extruder==1]]
+</code></pre>
+
+<p>Этот макрос дает следующий эффект - если мы переключились с экструдера 1, то выставляем число шагов текущего экструдера (второго) равным значению которое мы получили при калибровке, в моем случае это 80.
+Если мы переключились со второго экструдера на первый - то выставляем для него значение числа шагов равное значению из прошивки.</p>
+
+<p>Дальше идем в <code>Extruder 2</code> и выставляем смещение. Если вся эта конструкция собрана на каретке ссылку на которую я давал выше - то смещение по оси X  будет 24, по Y - 0. Для других кареток надо мерять и выставлять фактические значения.</p>
+
+<p>После этого печатаем деталь для калибровки 2х экструдеров - http://www.thingiverse.com/thing:124450 и точно подгоняем все для идеальной работы.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2016/09/04/marlin-adding-second-extruder/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/prusai3/">prusai3</a>
+                    <a href="http://alpha6.ru/blog/tag/marlin/">marlin</a>
+                    <a href="http://alpha6.ru/blog/tag/slic3r/">Slic3r</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sun, 04 Sep 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Настраиваем прошивку Marlin для Arduino + RAMPS 1.4</title>
             <link>http://alpha6.ru/blog/2016/08/23/marlin-setup/</link>
             <guid>http://alpha6.ru/blog/2016/08/23/marlin-setup/</guid>
@@ -380,114 +469,6 @@ git submodule foreach --recursive git submodule update --init
             ]]></description>
             <pubDate>
                 Mon, 28 Dec 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>State переменные в Perl</title>
-            <link>http://alpha6.ru/blog/2015/12/26/state-variabes-in-perl/</link>
-            <guid>http://alpha6.ru/blog/2015/12/26/state-variabes-in-perl/</guid>
-            <description><![CDATA[
-                <p>В Perl существует особый тип переменных под названием state.</p>
-
-<p>В <a href="http://perldoc.perl.org/functions/state.html">доке</a> про них написано:</p>
-
-<blockquote>
-  <p>state declares a lexically scoped variable, just like my. However, those variables will never be reinitialized ...</p>
-</blockquote>
-
-<p>На первый взгляд это дает нам возможность очень просто реализовывать счетчики и иже с ними:</p>
-
-<pre><code>sub count {
-  state $count = 0;
-  $count++;
-}
-</code></pre>
-
-<p>Однако, есть нюанс - фраза <em>will never be reinitialized</em> означает что переменная действительно никогда не будет переинициализирована пока существует родительский скрипт. И это дает нам вот такую замечательную граблю на которую можно ненароком наступить:</p>
-
-<p>Объявляем пакет:</p>
-
-<pre><code>package MyTestState;
-
-use strict;
-use feature &#39;state&#39;;
-
-sub new {
-  bless {}, shift;
-}
-
-sub count {
-  state $count = 0;
-  $count++;
-}
-
-1;
-</code></pre>
-
-<p>И саму программу:</p>
-
-<pre><code>use lib &#39;lib&#39;;
-use v5.18;
-use MyTestState;
-
-my $mystate =  MyTestState-&gt;new();
-
-for (0..10) {
-  my $counter = $mystate-&gt;count();
-  say &quot;Counter [$counter]&quot;;
-}
-</code></pre>
-
-<p>Вывод ожидаем:</p>
-
-<pre><code>Counter [0]
-Counter [1]
-Counter [2]
-...
-Counter [10]
-</code></pre>
-
-<p>А теперь добавляем такой код:</p>
-
-<pre><code>undef $mystate;
-
-say &quot;next object!=======&quot;;
-
-my $mystate1 = MyTestState-&gt;new();
-for (0..10) {
-  my $counter = $mystate1-&gt;count();
-  say &quot;Counter [$counter]&quot;;
-
-}
-</code></pre>
-
-<p>Здесь мы удаляем старый объект со счетчиком и создаем новый. Логично предположить что счетчик пойдет заново, но на самом деле нет. Не смотря на то что мы удалили старый объект и создали новый, переменная со счетчиком никуда не делась и не была переиницализирована! И при запуске программы мы увидим:</p>
-
-<pre><code>Counter [0]
-Counter [1]
-Counter [2]
-...
-Counter [10]
-next object!
-Counter [11]
-Counter [12]
-Counter [13]
-...
-Counter [20]
-Counter [21]
-</code></pre>
-
-<p>Так что слово <code>newer</code> в документации действительно значит &quot;никогда пока жив инстанс интерпретатора запустивший скрипт&quot;.</p>
-
-                    <p><a href="http://alpha6.ru/blog/2015/12/26/state-variabes-in-perl/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
-                    <a href="http://alpha6.ru/blog/tag/state/">state</a>
-                    <a href="http://alpha6.ru/blog/tag/trap/">trap</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sat, 26 Dec 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

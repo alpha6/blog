@@ -8,8 +8,8 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
         <meta content="Statocles 0.077" name="generator">
-        <link href="/blog/tag/snippet.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/tag/snippet.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/tag/slic3r.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/slic3r.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -37,34 +37,96 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2015/04/25/stdout-autoflush/">stdout autoflush</a></h1>
+                    <h1><a href="/blog/2016/09/04/marlin-adding-second-extruder/">Добавляем второй экструдер</a></h1>
 
                     <p class="tags">Tags:
-                        <a href="/blog/tag/snippet/" rel="tag">snippet</a>
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/io/" rel="tag">io</a>
+                        <a href="/blog/tag/prusai3/" rel="tag">prusai3</a>
+                        <a href="/blog/tag/marlin/" rel="tag">marlin</a>
+                        <a href="/blog/tag/slic3r/" rel="tag">Slic3r</a>
                     </p>
 
                     <aside>
-                        <p><time datetime="2015-04-25">
-                            Posted on 2015-04-25
+                        <p><time datetime="2016-09-04">
+                            Posted on 2016-09-04
                         </time>
-                        <a data-disqus-identifier="/2015/04/25/stdout-autoflush/index.markdown" href="/blog/2015/04/25/stdout-autoflush/#disqus_thread">0 comments</a>
+                        <a data-disqus-identifier="/2016/09/04/marlin-adding-second-extruder/index.markdown" href="/blog/2016/09/04/marlin-adding-second-extruder/#disqus_thread">0 comments</a>
                         </p>
                     </aside>
 
                 </header>
 
-                <p>Классический метод:</p>
+                <p>В прошлой серии мы установили прошивку Marin и откалибровали все это дело. Теперь пришло время добавить второй экструдер.</p>
 
-<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
+<p>Для этого нам понадобится:</p>
+
+<ul>
+<li>второй экструдер</li>
+<li>второй хот-энд в сборе и все прилегающие детали, типа трубки боудена</li>
+<li>каретка на два экструдера. Я использую такую - http://www.thingiverse.com/thing:1749633</li>
+</ul>
+
+<p>В общем случае все просто идем в Arduino IDE и правим конфигурацию.</p>
+
+<p>Меняем конфигурацию платы управления на RAMPS 1.4 c 2 экструдерами и подогреваемым столом</p>
+
+<pre><code>#ifndef MOTHERBOARD
+  #define MOTHERBOARD BOARD_RAMPS_14_EEB
+#endif
 </code></pre>
 
-<p>ООП:</p>
+<p>Указываем кол-во экструдеров:</p>
 
-<pre><code>use IO::Handle;
-STDERR-&gt;autoflush(1);
+<pre><code>#define EXTRUDERS 2
 </code></pre>
+
+<p>Указываем тип датчика температуры для второго экструдера:</p>
+
+<pre><code>#define TEMP_SENSOR_1 1
+</code></pre>
+
+<p>Максимальную температуру:</p>
+
+<pre><code>#define HEATER_1_MAXTEMP 250
+</code></pre>
+
+<p>Если надо, устанавливаем направление вращения мотора:</p>
+
+<pre><code>#define INVERT_E1_DIR true
+</code></pre>
+
+<p>В целом, если у вас одинаковые моторы на обоих экструдерах, то на этом настройка закончена.</p>
+
+<p>Но если у моторы разные или  на одном экструдере у меня мотор с шестерней подачи диаметром 10мм, а на втором - 7мм, то тут начинаются проблемы с калибровкой.</p>
+
+<p>Как откалибровать второй экструдер?
+Идем в пронтерфейс и говорим <code>T1</code>, эта команда указывает что сейчас активен экструдер номер 2 (отсчет начинается с 0). Включаем подачу филамента, для подачи будет использоваться число шагов из прошивки, т.е. для первого экструдера. Смотрим разницу и с помощью пропорции получаем кол-во шагов для активного экструдера. У меня из-за разницы в подающих шестернях получилось 80 шагов на мм.
+Говорим:</p>
+
+<pre><code>M92 E80
+</code></pre>
+
+<p>Этим мы устанавливаем новое кол-во шагов для текущего экструдера. Проверяем, при необходимости подгоняем значение.</p>
+
+<p>После калибровки вылезает проблема - Marlin не поддерживает установку разного числа шагов для разных экструдеров, соответственно в прошивке нам эти данные не сохранить. Придется этот вопрос решать програмно.</p>
+
+<p>Идем в <code>Slic3r</code>, я, в основном, использую его, для других слайсеров будут отличия. Переходим на вкладку <code>Printer Setting -&gt; Custom G-Code</code>.
+Нас интересует поле <code>Tool change G-Code</code>. Код в этом поле будет вызываться при каждой смене экструдера.
+Пишем туда следующее:</p>
+
+<pre><code>[[previous_extruder==0]]
+M92 E80
+[[/previous_extruder==0]]
+[[previous_extruder==1]]
+M92 E95
+[[/previous_extruder==1]]
+</code></pre>
+
+<p>Этот макрос дает следующий эффект - если мы переключились с экструдера 1, то выставляем число шагов текущего экструдера (второго) равным значению которое мы получили при калибровке, в моем случае это 80.
+Если мы переключились со второго экструдера на первый - то выставляем для него значение числа шагов равное значению из прошивки.</p>
+
+<p>Дальше идем в <code>Extruder 2</code> и выставляем смещение. Если вся эта конструкция собрана на каретке ссылку на которую я давал выше - то смещение по оси X  будет 24, по Y - 0. Для других кареток надо мерять и выставлять фактические значения.</p>
+
+<p>После этого печатаем деталь для калибровки 2х экструдеров - http://www.thingiverse.com/thing:124450 и точно подгоняем все для идеальной работы.</p>
 
 
 
@@ -133,12 +195,12 @@ STDERR-&gt;autoflush(1);
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/snippet.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/slic3r.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/snippet.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/slic3r.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>

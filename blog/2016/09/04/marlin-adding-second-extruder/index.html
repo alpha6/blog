@@ -6,7 +6,7 @@
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <title>prostgresql interval in future - Just another blog</title>
+        <title>Добавляем второй экструдер - Just another blog</title>
         <meta content="Statocles 0.077" name="generator">
         
     </head>
@@ -31,16 +31,16 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>prostgresql interval in future</h1>
+                <h1>Добавляем второй экструдер</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/postgresql/" rel="tag">Postgresql</a>
-                    <a href="/blog/tag/data/" rel="tag">data</a>
-                    <a href="/blog/tag/timestamp/" rel="tag">timestamp</a>
+                    <a href="/blog/tag/prusai3/" rel="tag">prusai3</a>
+                    <a href="/blog/tag/marlin/" rel="tag">marlin</a>
+                    <a href="/blog/tag/slic3r/" rel="tag">Slic3r</a>
                 </p>
 
                 <aside>
-                    <p><time datetime="2015-09-29">
-                        Posted on 2015-09-29
+                    <p><time datetime="2016-09-04">
+                        Posted on 2016-09-04
                     </time>
                     </p>
                 </aside>
@@ -48,13 +48,78 @@
 
             </header>
             <section id="section-1">
-                <p>Чтобы получить значение времени в заданном интервале от текущего момента можно использовать следующий синтаксис:</p>
+                <p>В прошлой серии мы установили прошивку Marin и откалибровали все это дело. Теперь пришло время добавить второй экструдер.</p>
 
-<pre><code>SELECT NOW() + &#39;5 minutes&#39;::interval;
-SELECT NOW() + &#39;5 days&#39;::interval;
+<p>Для этого нам понадобится:</p>
+
+<ul>
+<li>второй экструдер</li>
+<li>второй хот-энд в сборе и все прилегающие детали, типа трубки боудена</li>
+<li>каретка на два экструдера. Я использую такую - http://www.thingiverse.com/thing:1749633</li>
+</ul>
+
+<p>В общем случае все просто идем в Arduino IDE и правим конфигурацию.</p>
+
+<p>Меняем конфигурацию платы управления на RAMPS 1.4 c 2 экструдерами и подогреваемым столом</p>
+
+<pre><code>#ifndef MOTHERBOARD
+  #define MOTHERBOARD BOARD_RAMPS_14_EEB
+#endif
 </code></pre>
 
-<p>Работает и в плюс и в минус.</p>
+<p>Указываем кол-во экструдеров:</p>
+
+<pre><code>#define EXTRUDERS 2
+</code></pre>
+
+<p>Указываем тип датчика температуры для второго экструдера:</p>
+
+<pre><code>#define TEMP_SENSOR_1 1
+</code></pre>
+
+<p>Максимальную температуру:</p>
+
+<pre><code>#define HEATER_1_MAXTEMP 250
+</code></pre>
+
+<p>Если надо, устанавливаем направление вращения мотора:</p>
+
+<pre><code>#define INVERT_E1_DIR true
+</code></pre>
+
+<p>В целом, если у вас одинаковые моторы на обоих экструдерах, то на этом настройка закончена.</p>
+
+<p>Но если у моторы разные или  на одном экструдере у меня мотор с шестерней подачи диаметром 10мм, а на втором - 7мм, то тут начинаются проблемы с калибровкой.</p>
+
+<p>Как откалибровать второй экструдер?
+Идем в пронтерфейс и говорим <code>T1</code>, эта команда указывает что сейчас активен экструдер номер 2 (отсчет начинается с 0). Включаем подачу филамента, для подачи будет использоваться число шагов из прошивки, т.е. для первого экструдера. Смотрим разницу и с помощью пропорции получаем кол-во шагов для активного экструдера. У меня из-за разницы в подающих шестернях получилось 80 шагов на мм.
+Говорим:</p>
+
+<pre><code>M92 E80
+</code></pre>
+
+<p>Этим мы устанавливаем новое кол-во шагов для текущего экструдера. Проверяем, при необходимости подгоняем значение.</p>
+
+<p>После калибровки вылезает проблема - Marlin не поддерживает установку разного числа шагов для разных экструдеров, соответственно в прошивке нам эти данные не сохранить. Придется этот вопрос решать програмно.</p>
+
+<p>Идем в <code>Slic3r</code>, я, в основном, использую его, для других слайсеров будут отличия. Переходим на вкладку <code>Printer Setting -&gt; Custom G-Code</code>.
+Нас интересует поле <code>Tool change G-Code</code>. Код в этом поле будет вызываться при каждой смене экструдера.
+Пишем туда следующее:</p>
+
+<pre><code>[[previous_extruder==0]]
+M92 E80
+[[/previous_extruder==0]]
+[[previous_extruder==1]]
+M92 E95
+[[/previous_extruder==1]]
+</code></pre>
+
+<p>Этот макрос дает следующий эффект - если мы переключились с экструдера 1, то выставляем число шагов текущего экструдера (второго) равным значению которое мы получили при калибровке, в моем случае это 80.
+Если мы переключились со второго экструдера на первый - то выставляем для него значение числа шагов равное значению из прошивки.</p>
+
+<p>Дальше идем в <code>Extruder 2</code> и выставляем смещение. Если вся эта конструкция собрана на каретке ссылку на которую я давал выше - то смещение по оси X  будет 24, по Y - 0. Для других кареток надо мерять и выставлять фактические значения.</p>
+
+<p>После этого печатаем деталь для калибровки 2х экструдеров - http://www.thingiverse.com/thing:124450 и точно подгоняем все для идеальной работы.</p>
 
             </section>
         </main>
@@ -63,8 +128,8 @@ SELECT NOW() + &#39;5 days&#39;::interval;
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             var disqus_shortname = 'alpha6sblog';
-            var disqus_identifier = '/2015/09/29/prostgresql-interval-in-future/index.markdown';
-            var disqus_url = 'http://alpha6.ru/blog/2015/09/29/prostgresql-interval-in-future/';
+            var disqus_identifier = '/2016/09/04/marlin-adding-second-extruder/index.markdown';
+            var disqus_url = 'http://alpha6.ru/blog/2016/09/04/marlin-adding-second-extruder/';
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
