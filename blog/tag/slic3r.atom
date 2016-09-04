@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/slic3r/</id>
     <title>Just another blog</title>
-    <updated>2016-09-04T23:33:48Z</updated>
+    <updated>2016-09-04T23:35:39Z</updated>
     <link href="http://alpha6.ru/blog/tag/slic3r.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/slic3r/" rel="alternate" />
     <generator version="0.077">Statocles</generator>
@@ -11,7 +11,7 @@
         <title>Добавляем второй экструдер к RAMPS 1.4/Marlin</title>
         <link href="http://alpha6.ru/blog/2016/09/04/marlin-adding-second-extruder/" rel="alternate" />
         <content type="html"><![CDATA[
-            <p>В прошлой серии мы установили прошивку Marin и откалибровали все это дело. Теперь пришло время добавить второй экструдер.</p>
+            <p>В <a href="http://alpha6.ru/blog/2016/08/23/marlin-setup/">прошлой серии</a> мы установили прошивку Marin на Arduino Mega+RAMPS 1.4 и откалибровали все это дело. Теперь пришло время добавить второй экструдер.</p>
 
 <p>Для этого нам понадобится:</p>
 
