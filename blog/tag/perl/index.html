@@ -37,6 +37,79 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2016/09/08/send-html-email-with-perl/">Отправляем емейл из Perl с авторизацией и html</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/net-smtp/" rel="tag">Net::SMTP</a>
+                        <a href="/blog/tag/email/" rel="tag">email</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2016-09-08">
+                            Posted on 2016-09-08
+                        </time>
+                        <a data-disqus-identifier="/2016/09/08/send-html-email-with-perl/index.markdown" href="/blog/2016/09/08/send-html-email-with-perl/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Отправляем письмо в html с авторизацией из Perl.</p>
+
+<pre><code>use strict;
+use Net::SMTP;
+use Authen::SASL; #нужен для авторизации
+
+use utf8;
+use Encode;
+use MIME::Base64
+
+
+  my $message = &quot;&lt;html&gt;&lt;body&gt;Тестовое письмо&lt;/body&gt;&lt;/html&gt;&quot;;
+
+# авторизационные данные
+my $smtp_host = &#39;smtp.server.address&#39;;
+my $smtp_user = &#39;user_name&#39;;
+my $smtp_pass = &#39;password&#39;;
+
+
+my $debug = 1; # рассматриваем процесс подключения в деталях
+
+# mail properties
+my $mail_from = &#39;user@example.com&#39;;
+my $mail_to = &#39;recipient@example.com&#39;;
+my $mail_subject = &#39;Тестовое письмо&#39;;
+
+# Выставляем заголовки. Сюда можно добавить еще всякого при необходимости
+my $mail_headers = &quot;From: $mail_from\n&quot;.
+&quot;To: $mail_to\n&quot;.
+&quot;Subject: &quot;.encode(&#39;MIME-Header&#39;,$mail_subject).&quot;\n&quot;.
+&quot;MIME-Version: 1.0\n&quot;.
+&quot;Content-type: text/html; charset=UTF-8\n&quot;.
+&quot;Content-Transfer-Encoding: base64\n\n&quot;;
+
+my $mail_body = $message;
+
+# Отправляем письмо
+my $smtp = Net::SMTP-&gt;new($smtp_host, Debug =&gt; $debug) or die &quot;cannot connect to server&quot;;
+$smtp-&gt;auth($smtp_user,$smtp_pass) or die &quot;could not authenticate&quot;;
+$smtp-&gt;mail($mail_from);
+$smtp-&gt;to($mail_to);
+$smtp-&gt;data();
+$smtp-&gt;datasend($mail_headers);
+$smtp-&gt;datasend(encode_base64(encode(&#39;UTF-8&#39;, $mail_body)));
+$smtp-&gt;dataend();
+$smtp-&gt;quit;
+</code></pre>
+
+<p>При необходимости можно добавить файлы, PGP подписи и так далее.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/12/26/state-variabes-in-perl/">State переменные в Perl</a></h1>
 
                     <p class="tags">Tags:
@@ -308,40 +381,6 @@ $logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/04/25/stdout-autoflush/">stdout autoflush</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/snippet/" rel="tag">snippet</a>
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/io/" rel="tag">io</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-04-25">
-                            Posted on 2015-04-25
-                        </time>
-                        <a data-disqus-identifier="/2015/04/25/stdout-autoflush/index.markdown" href="/blog/2015/04/25/stdout-autoflush/#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Классический метод:</p>
-
-<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
-</code></pre>
-
-<p>ООП:</p>
-
-<pre><code>use IO::Handle;
-STDERR-&gt;autoflush(1);
-</code></pre>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -372,6 +411,7 @@ STDERR-&gt;autoflush(1);
             <li><a href="/blog/tag/debian/">debian</a></li>
             <li><a href="/blog/tag/elasticsearch/">elasticsearch</a></li>
             <li><a href="/blog/tag/elcapitan/">ElCapitan</a></li>
+            <li><a href="/blog/tag/email/">email</a></li>
             <li><a href="/blog/tag/gearman/">gearman</a></li>
             <li><a href="/blog/tag/git/">git</a></li>
             <li><a href="/blog/tag/graylog/">graylog</a></li>
@@ -383,6 +423,7 @@ STDERR-&gt;autoflush(1);
             <li><a href="/blog/tag/linux/">linux</a></li>
             <li><a href="/blog/tag/macos/">MacOS</a></li>
             <li><a href="/blog/tag/marlin/">marlin</a></li>
+            <li><a href="/blog/tag/net-smtp/">Net::SMTP</a></li>
             <li><a href="/blog/tag/nginx/">nginx</a></li>
             <li><a href="/blog/tag/note/">note</a></li>
             <li><a href="/blog/tag/package/">package</a></li>
