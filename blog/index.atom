@@ -2,10 +2,41 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/</id>
     <title>Just another blog</title>
-    <updated>2016-09-18T15:04:12Z</updated>
+    <updated>2016-10-08T12:38:20Z</updated>
     <link href="http://alpha6.ru/blog/index.atom" rel="self" />
     <link href="http://alpha6.ru/blog/" rel="alternate" />
     <generator version="0.077">Statocles</generator>
+    <entry>
+        <id>http://alpha6.ru/blog/2016/10/08/orange-pi-power-connector/</id>
+        <title>Orange Pi power connector</title>
+        <link href="http://alpha6.ru/blog/2016/10/08/orange-pi-power-connector/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Orange Pi can&#39;t work with USB power. It needs power from power connector or GPIO.</p>
+
+<p>If you need a fast and dirty way, use the GPIO pins. You may use standard smartphone charger with USB connector and 1A current.
+If you want to use external HDD with Orange Pi, you need power supply with 2+ A current.
+After you have found a charger, just connect +5V from USB to GPIO pin 2 (or pin 4, they are similar) and USB ground with pin 6.</p>
+
+<p><img alt="GPIO pinout diagram" src="http://cs5-3.4pda.to/8498940.png"></p>
+
+<p>The first pin is marked with white triangle near the GPIO connector.</p>
+
+<p>The right way is to use the power plug. But Orange Pi uses power connector which is not common.
+You need the connector with 4.0x1.7 mm diameter and 8mm long (or longer). In the shop where I bought the connector it was being sold as connector for Compaq notebooks.
+You need to solder +5V from the USB to the central contact of the connector and USB ground to the external contact.</p>
+
+                <p><a href="http://alpha6.ru/blog/2016/10/08/orange-pi-power-connector/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://alpha6.ru/blog/tag/orangepi/">orangepi</a>
+                <a href="http://alpha6.ru/blog/tag/diy/">diy</a>
+                <a href="http://alpha6.ru/blog/tag/power/">power</a>
+            </p>
+        ]]></content>
+        <updated>2016-10-08T00:00:00Z</updated>
+        <category term="orangepi" />
+        <category term="diy" />
+        <category term="power" />
+    </entry>
     <entry>
         <id>http://alpha6.ru/blog/2016/09/08/send-html-email-with-perl/</id>
         <title>Отправляем емейл из Perl с авторизацией и html</title>
@@ -458,74 +489,6 @@ public boolean readShareContent() {
         <category term="java" />
         <category term="jcifs" />
         <category term="samba" />
-    </entry>
-    <entry>
-        <id>http://alpha6.ru/blog/2016/01/17/postgres-install/</id>
-        <title>Installing and configuring Postgresql 9.4 on Debian 8</title>
-        <link href="http://alpha6.ru/blog/2016/01/17/postgres-install/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>Install the postgresql server package:</p>
-
-<pre><code>#apt-get install postgresql-9.4
-</code></pre>
-
-<p>Create cluster (if it haven&#39;t created automatically):</p>
-
-<pre><code>#pg_createcluster 9.4 main --start
-</code></pre>
-
-<p>Next we need to allow connects from remote sources.</p>
-
-<p>Edit <code>/etc/postgresql/9.4/main/postgresql.conf</code> and set <code>listen_addresses</code> to <code>&#39;*&#39;</code>.</p>
-
-<p>Restart the Postgresql service:</p>
-
-<pre><code>#service postgresql Restart
-</code></pre>
-
-<p>Now we should create database user.</p>
-
-<pre><code>#su postgres
-#psql
-
-postgres=# CREATE USER db_user_name WITH PASSWORD &#39;secret_password&#39;;
-</code></pre>
-
-<p>Create new database and grant access to it to our user.</p>
-
-<pre><code>postgres=# CREATE DATABASE &quot;db_name&quot;
-  WITH OWNER &quot;db_user_name&quot;
-  ENCODING &#39;UTF8&#39;
-  LC_COLLATE = &#39;en_US.UTF-8&#39;
-  LC_CTYPE = &#39;en_US.UTF-8&#39;
-  TEMPLATE = template0;
-</code></pre>
-
-<p>Now we have database with UTF8 collation, it is time to allow connect from remote sources. Our user is the owner of the schema.</p>
-
-<p>Edit <code>/etc/postgresql/9.4/main/pg_hba.conf</code> and add line</p>
-
-<pre><code>host    all   db_user_name    0.0.0.0/0               md5
-</code></pre>
-
-<p>after the line:</p>
-
-<pre><code>host    all   all             127.0.0.1/32            md5
-</code></pre>
-
-<p>Save file and restart the service.</p>
-
-<p>Now we can connect to our server from remote computer.</p>
-
-                <p><a href="http://alpha6.ru/blog/2016/01/17/postgres-install/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://alpha6.ru/blog/tag/postgresql/">postgresql</a>
-                <a href="http://alpha6.ru/blog/tag/debian/">debian</a>
-            </p>
-        ]]></content>
-        <updated>2016-01-17T00:00:00Z</updated>
-        <category term="postgresql" />
-        <category term="debian" />
     </entry>
 </feed>
 

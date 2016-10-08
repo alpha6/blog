@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/tag/power/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/power.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.077</generator>
+        <item>
+            <title>Orange Pi power connector</title>
+            <link>http://alpha6.ru/blog/2016/10/08/orange-pi-power-connector/</link>
+            <guid>http://alpha6.ru/blog/2016/10/08/orange-pi-power-connector/</guid>
+            <description><![CDATA[
+                <p>Orange Pi can&#39;t work with USB power. It needs power from power connector or GPIO.</p>
+
+<p>If you need a fast and dirty way, use the GPIO pins. You may use standard smartphone charger with USB connector and 1A current.
+If you want to use external HDD with Orange Pi, you need power supply with 2+ A current.
+After you have found a charger, just connect +5V from USB to GPIO pin 2 (or pin 4, they are similar) and USB ground with pin 6.</p>
+
+<p><img alt="GPIO pinout diagram" src="http://cs5-3.4pda.to/8498940.png"></p>
+
+<p>The first pin is marked with white triangle near the GPIO connector.</p>
+
+<p>The right way is to use the power plug. But Orange Pi uses power connector which is not common.
+You need the connector with 4.0x1.7 mm diameter and 8mm long (or longer). In the shop where I bought the connector it was being sold as connector for Compaq notebooks.
+You need to solder +5V from the USB to the central contact of the connector and USB ground to the external contact.</p>
+
+                    <p><a href="http://alpha6.ru/blog/2016/10/08/orange-pi-power-connector/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/orangepi/">orangepi</a>
+                    <a href="http://alpha6.ru/blog/tag/diy/">diy</a>
+                    <a href="http://alpha6.ru/blog/tag/power/">power</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sat, 08 Oct 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+
