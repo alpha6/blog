@@ -4,7 +4,7 @@
         <loc>http://alpha6.ru/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-10-08</lastmod>
+        <lastmod>2016-10-09</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</loc>
@@ -133,28 +133,34 @@
         <lastmod>2016-10-08</lastmod>
     </url>
     <url>
+        <loc>http://alpha6.ru/blog/2016/10/09/orange-pi-armbian-kodi/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2016-10-09</lastmod>
+    </url>
+    <url>
         <loc>http://alpha6.ru/blog/page/2/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-10-08</lastmod>
+        <lastmod>2016-10-09</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/3/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-10-08</lastmod>
+        <lastmod>2016-10-09</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/4/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-10-08</lastmod>
+        <lastmod>2016-10-09</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/5/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-10-08</lastmod>
+        <lastmod>2016-10-09</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/3dprinting/</loc>
@@ -167,6 +173,12 @@
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2015-05-20</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/armbian/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2016-10-09</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/automation/</loc>
@@ -265,6 +277,12 @@
         <lastmod>2016-08-07</lastmod>
     </url>
     <url>
+        <loc>http://alpha6.ru/blog/tag/kodi/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2016-10-09</lastmod>
+    </url>
+    <url>
         <loc>http://alpha6.ru/blog/tag/lc_all/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
@@ -305,6 +323,12 @@
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2015-09-14</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/orange-pi/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2016-10-09</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/orangepi/</loc>

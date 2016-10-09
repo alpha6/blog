@@ -37,6 +37,97 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2015/04/11/starting-with-rex/">Starting with Rex</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/rex/" rel="tag">Rex</a>
+                        <a href="/blog/tag/perl/" rel="tag">Perl</a>
+                        <a href="/blog/tag/automation/" rel="tag">Automation</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-04-11">
+                            Posted on 2015-04-11
+                        </time>
+                        <a data-disqus-identifier="/2015/04/11/starting-with-rex/index.markdown" href="/blog/2015/04/11/starting-with-rex/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>В жизни каждого человека настает момент когда ему становится лениво делать одно и то же на удаленных серверах и хочется автоматизации.</p>
+
+<p>В решении этой тяжелой жизненной проблемы нам поможет <a href="http://www.rexify.org">R(?)ex</a>.</p>
+
+<p><strong>Небольшой F.A.Q</strong></p>
+
+<p><strong><em>Что это?</em></strong></p>
+
+<p>Это приложение для управления удаленными(и не очень) серверами и приложениями.</p>
+
+<p><strong><em>Я могу просто написать bash/perl/pithon/ruby/etc-скрипт и он сделает то же самое.</em></strong></p>
+
+<p>Несомненно, но это будет очередное изобретение велосипеда с колесами разной степеньи квадратности. </p>
+
+<p><strong><em>Почему не Puppet/Ansible?</em></strong></p>
+
+<p>Потому что здесь про Perl, но сравнение Rex и Ansible я еще сделаю.</p>
+
+<p><strong>Поехали</strong></p>
+
+<p>Во первых, Rex можно использовать для простого запуска команд на удаленном сервере:</p>
+
+<p><code>rex -H &quot;example.com example.ru&quot; -e &quot;say run &#39;uptime&#39;&quot;</code></p>
+
+<p>Задачи выполняются последовательно, так что придется подождать пока опросятся все сервера, особенно если их много.</p>
+
+<p>Запуск из консоли это вариант если надо что-то и единоразово посмотреть что там на серверах творится. Но постоянно набирать команды в консоли это решение для сильных духом и памятью.
+Мы же как, настоящие программисты, будем осваивать командные файлы.</p>
+
+<p>По умолчанию Rex использует файл под названием Rexfile (удивительное совпадение).</p>
+
+<p>Попробуем сделать что-то полезное.</p>
+
+<p>Создадим Rexfile который будет содержать команду <code>deploy</code>. По этой команде Rex пойдет на удаленный сервер и сделает там <code>git pull</code> для сайта. Простейшний вариант деплоя.</p>
+
+<pre><code> use Rex -feature =&gt; [&#39;1.0&#39;];
+
+ user &quot;myuser&quot;;
+ private_key &quot;/home/myuser/.ssh/id_rsa&quot;;
+ public_key &quot;/home/myuser/.ssh/id_rsa.pub&quot;;
+ key_auth;
+
+ group myservers =&gt; &quot;example.ru&quot;;
+
+ desc &quot;Deploy the blog on example.ru&quot;;
+ task &quot;deploy&quot;, group =&gt; &quot;myservers&quot;, sub {
+   run &quot;cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages&quot;;
+ };
+</code></pre>
+
+<p>Теперь можно сказать: <code>rex deploy</code></p>
+
+<p>Дальше Rex залогинится под пользователем &quot;myuser&quot; с использованием указанных ключей и выполнит команду указанную в опции run. Если пользователь на удаленном сервер совпадает с текущим - то первую секцию можно опустить. Будет использоваться текущий пользователь и его настройки ключей для ssh. Но если планируется использование команды через cron - то указывать надо обязательно, иначе ничего работать не будет.</p>
+
+<p>Так же можно обновлять конфигурацию копируя на хосты необходимые файлы (вы же не храните авторизационные данные в Git, правда?)
+приведем содержимое раздела task к виду:</p>
+
+<pre><code> run &quot;cd /srv/www/example.ru &amp;&amp; git pull origin gh-pages&quot;;
+ file &quot;/srv/www/example.ru/test.conf&quot;,
+     source    =&gt; &quot;files/test.conf&quot;;
+</code></pre>
+
+<p>Теперь при выполнении <code>rex deploy</code> будет выполнен <code>pull</code> из репозитория на удаленном сервере, а затем туда будет скопирован файл <code>files/test.conf</code>.</p>
+
+<p>В принципе, этого совершенно достаточно для деплоя простого сайта не требующего перезапуска сервисов. Таким скриптом деплоится этот блог. Пошаговый мануал о том, как сделать настройку сервера с нуля до продакшена одной командой будет в следующей статье.</p>
+
+<p>А те кому не хочется ждать - могут почитать <a href="http://www.rexify.org/howtos/index.html#howtos">официальную документацию</a>, она весьма подробная и с хорошими примерами.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/04/09/ubuntu-lc_all=(unset)/">Ubuntu LC_ALL = (unset)</a></h1>
 
                     <p class="tags">Tags:
@@ -95,6 +186,7 @@ LC_ALL = (unset)
         <ul class="list-inline">
             <li><a href="/blog/tag/3dprinting/">3dprinting</a></li>
             <li><a href="/blog/tag/airplay/">airplay</a></li>
+            <li><a href="/blog/tag/armbian/">armbian</a></li>
             <li><a href="/blog/tag/automation/">Automation</a></li>
             <li><a href="/blog/tag/bugs/">bugs</a></li>
             <li><a href="/blog/tag/data/">data</a></li>
@@ -111,6 +203,7 @@ LC_ALL = (unset)
             <li><a href="/blog/tag/io/">io</a></li>
             <li><a href="/blog/tag/java/">java</a></li>
             <li><a href="/blog/tag/jcifs/">jcifs</a></li>
+            <li><a href="/blog/tag/kodi/">kodi</a></li>
             <li><a href="/blog/tag/lc_all/">LC_ALL</a></li>
             <li><a href="/blog/tag/linux/">linux</a></li>
             <li><a href="/blog/tag/macos/">MacOS</a></li>
@@ -118,6 +211,7 @@ LC_ALL = (unset)
             <li><a href="/blog/tag/net-smtp/">Net::SMTP</a></li>
             <li><a href="/blog/tag/nginx/">nginx</a></li>
             <li><a href="/blog/tag/note/">note</a></li>
+            <li><a href="/blog/tag/orange-pi/">orange pi</a></li>
             <li><a href="/blog/tag/orangepi/">orangepi</a></li>
             <li><a href="/blog/tag/package/">package</a></li>
             <li><a href="/blog/tag/perl/">perl</a></li>
