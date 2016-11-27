@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/3dprinting/</id>
     <title>Just another blog</title>
-    <updated>2016-11-27T10:44:37Z</updated>
+    <updated>2016-11-27T10:50:58Z</updated>
     <link href="http://alpha6.ru/blog/tag/3dprinting.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/3dprinting/" rel="alternate" />
-    <generator version="0.077">Statocles</generator>
+    <generator version="0.081">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2016/08/23/marlin-setup/</id>
         <title>Настраиваем прошивку Marlin для Arduino + RAMPS 1.4</title>

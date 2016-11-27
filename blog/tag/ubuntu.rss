@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/ubuntu/</link>
         <atom:link href="http://alpha6.ru/blog/tag/ubuntu.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.077</generator>
+        <generator>Statocles 0.081</generator>
         <item>
             <title>Installing Redmine from Ubuntu package</title>
             <link>http://alpha6.ru/blog/2015/10/02/installing-redmine-from-ubuntu-package/</link>

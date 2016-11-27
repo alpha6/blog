@@ -7,7 +7,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
-        <meta content="Statocles 0.077" name="generator">
+        <meta content="Statocles 0.081" name="generator">
         <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
         <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
@@ -35,40 +35,6 @@
         <main>
 
 
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/04/25/stdout-autoflush/">stdout autoflush</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/snippet/" rel="tag">snippet</a>
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/io/" rel="tag">io</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-04-25">
-                            Posted on 2015-04-25
-                        </time>
-                        <a data-disqus-identifier="/2015/04/25/stdout-autoflush/index.markdown" href="/blog/2015/04/25/stdout-autoflush/#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Классический метод:</p>
-
-<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
-</code></pre>
-
-<p>ООП:</p>
-
-<pre><code>use IO::Handle;
-STDERR-&gt;autoflush(1);
-</code></pre>
-
-
-
-            </article>
             <article>
                 <header>
                     <h1><a href="/blog/2015/04/23/ubuntu-14-04-gearman/">Ubuntu 14.04 + Gearman</a></h1>

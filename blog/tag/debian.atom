@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://alpha6.ru/blog/tag/debian/</id>
     <title>Just another blog</title>
-    <updated>2016-11-27T10:44:38Z</updated>
+    <updated>2016-11-27T10:51:00Z</updated>
     <link href="http://alpha6.ru/blog/tag/debian.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/debian/" rel="alternate" />
-    <generator version="0.077">Statocles</generator>
+    <generator version="0.081">Statocles</generator>
     <entry>
         <id>http://alpha6.ru/blog/2016/01/17/postgres-install/</id>
         <title>Installing and configuring Postgresql 9.4 on Debian 8</title>

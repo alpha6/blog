@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/marlin/</link>
         <atom:link href="http://alpha6.ru/blog/tag/marlin.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.077</generator>
+        <generator>Statocles 0.081</generator>
         <item>
             <title>Добавляем второй экструдер к RAMPS 1.4/Marlin</title>
             <link>http://alpha6.ru/blog/2016/09/04/marlin-adding-second-extruder/</link>

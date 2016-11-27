@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/perl/</link>
         <atom:link href="http://alpha6.ru/blog/tag/perl.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.077</generator>
+        <generator>Statocles 0.081</generator>
         <item>
             <title>Отправляем емейл из Perl с авторизацией и html</title>
             <link>http://alpha6.ru/blog/2016/09/08/send-html-email-with-perl/</link>
