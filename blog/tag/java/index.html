@@ -37,6 +37,43 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2016/10/18/httpresponse-json/">Корректное получение JSON ответа через Apache.HttpClient</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/java/" rel="tag">java</a>
+                        <a href="/blog/tag/json/" rel="tag">json</a>
+                        <a href="/blog/tag/apache-http/" rel="tag">apache.http</a>
+                        <a href="/blog/tag/confluence/" rel="tag">confluence</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2016-10-18">
+                            Posted on 2016-10-18
+                        </time>
+                        <a data-disqus-identifier="/2016/10/18/httpresponse-json/index.markdown" href="/blog/2016/10/18/httpresponse-json/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>У Apache HttpClient есть небольшая, но неприятная бага. Всплыла она при работе с REST API Confluence (вообще очень много баг всплывает при работе с API  продуктов Atlassian, но это все лирика).</p>
+
+<p>В чем, собственно, проблема? Проблема в том, что Confluence при запросе у него данных с Accept: application/json (собственно все JSON REST API) не выставляет заголовок content-encoding для отдаваемых данных. В целом, его можно понять т.к. по стандарту JSON всегда должен быть UTF-8, но HttpClient не понимает и потому разбирает входящие данные как ISO.</p>
+
+<p>Соответственно, дальше JSONObject при парсинге Entity превращает русский текст в совершенно непотребное.</p>
+
+<p>Лечится это элементарно, просто при работае с Entity принудительно указываем ей что кодировка у нас UTF-8.</p>
+
+<p>Вот так:</p>
+
+<pre><code>JSONObject jsonObj = new JSONObject(EntityUtils.toString(response.getEntity, &quot;UTF-8&quot;));
+</code></pre>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2016/08/07/java-jcifs/">Работаем с самбой из Java с помощью JCIFS</a></h1>
 
                     <p class="tags">Tags:
@@ -200,9 +237,11 @@ public boolean readShareContent() {
         <ul class="list-inline">
             <li><a href="/blog/tag/3dprinting/">3dprinting</a></li>
             <li><a href="/blog/tag/airplay/">airplay</a></li>
+            <li><a href="/blog/tag/apache-http/">apache.http</a></li>
             <li><a href="/blog/tag/armbian/">armbian</a></li>
             <li><a href="/blog/tag/automation/">Automation</a></li>
             <li><a href="/blog/tag/bugs/">bugs</a></li>
+            <li><a href="/blog/tag/confluence/">confluence</a></li>
             <li><a href="/blog/tag/data/">data</a></li>
             <li><a href="/blog/tag/dbd-pg/">DBD::Pg</a></li>
             <li><a href="/blog/tag/debian/">debian</a></li>
@@ -217,6 +256,7 @@ public boolean readShareContent() {
             <li><a href="/blog/tag/io/">io</a></li>
             <li><a href="/blog/tag/java/">java</a></li>
             <li><a href="/blog/tag/jcifs/">jcifs</a></li>
+            <li><a href="/blog/tag/json/">json</a></li>
             <li><a href="/blog/tag/kodi/">kodi</a></li>
             <li><a href="/blog/tag/lc_all/">LC_ALL</a></li>
             <li><a href="/blog/tag/linux/">linux</a></li>

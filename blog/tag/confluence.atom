@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/confluence/</id>
+    <title>Just another blog</title>
+    <updated>2016-11-27T10:44:36Z</updated>
+    <link href="http://alpha6.ru/blog/tag/confluence.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/confluence/" rel="alternate" />
+    <generator version="0.077">Statocles</generator>
+    <entry>
+        <id>http://alpha6.ru/blog/2016/10/18/httpresponse-json/</id>
+        <title>Корректное получение JSON ответа через Apache.HttpClient</title>
+        <link href="http://alpha6.ru/blog/2016/10/18/httpresponse-json/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>У Apache HttpClient есть небольшая, но неприятная бага. Всплыла она при работе с REST API Confluence (вообще очень много баг всплывает при работе с API  продуктов Atlassian, но это все лирика).</p>
+
+<p>В чем, собственно, проблема? Проблема в том, что Confluence при запросе у него данных с Accept: application/json (собственно все JSON REST API) не выставляет заголовок content-encoding для отдаваемых данных. В целом, его можно понять т.к. по стандарту JSON всегда должен быть UTF-8, но HttpClient не понимает и потому разбирает входящие данные как ISO.</p>
+
+<p>Соответственно, дальше JSONObject при парсинге Entity превращает русский текст в совершенно непотребное.</p>
+
+<p>Лечится это элементарно, просто при работае с Entity принудительно указываем ей что кодировка у нас UTF-8.</p>
+
+<p>Вот так:</p>
+
+<pre><code>JSONObject jsonObj = new JSONObject(EntityUtils.toString(response.getEntity, &quot;UTF-8&quot;));
+</code></pre>
+
+                <p><a href="http://alpha6.ru/blog/2016/10/18/httpresponse-json/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://alpha6.ru/blog/tag/java/">java</a>
+                <a href="http://alpha6.ru/blog/tag/json/">json</a>
+                <a href="http://alpha6.ru/blog/tag/apache-http/">apache.http</a>
+                <a href="http://alpha6.ru/blog/tag/confluence/">confluence</a>
+            </p>
+        ]]></content>
+        <updated>2016-10-18T00:00:00Z</updated>
+        <category term="java" />
+        <category term="json" />
+        <category term="apache.http" />
+        <category term="confluence" />
+    </entry>
+</feed>
+

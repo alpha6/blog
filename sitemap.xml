@@ -4,7 +4,7 @@
         <loc>http://alpha6.ru/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-10-09</lastmod>
+        <lastmod>2016-11-27</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</loc>
@@ -139,28 +139,40 @@
         <lastmod>2016-10-09</lastmod>
     </url>
     <url>
+        <loc>http://alpha6.ru/blog/2016/10/18/httpresponse-json/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2016-10-18</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/2016/11/27/mojolicious-first-step/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2016-11-27</lastmod>
+    </url>
+    <url>
         <loc>http://alpha6.ru/blog/page/2/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-10-09</lastmod>
+        <lastmod>2016-11-27</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/3/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-10-09</lastmod>
+        <lastmod>2016-11-27</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/4/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-10-09</lastmod>
+        <lastmod>2016-11-27</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/5/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-10-09</lastmod>
+        <lastmod>2016-11-27</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/3dprinting/</loc>
@@ -173,6 +185,12 @@
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2015-05-20</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/apache-http/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2016-10-18</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/armbian/</loc>
@@ -191,6 +209,12 @@
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2015-04-23</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/confluence/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2016-10-18</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/data/</loc>
@@ -268,13 +292,19 @@
         <loc>http://alpha6.ru/blog/tag/java/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-08-07</lastmod>
+        <lastmod>2016-10-18</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/jcifs/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2016-08-07</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/json/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2016-10-18</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/kodi/</loc>
