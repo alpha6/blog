@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/tag/windows/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/windows.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.081</generator>
+        <item>
+            <title>git clone recursive</title>
+            <link>http://alpha6.ru/blog/2015/12/28/git-clone-recursive/</link>
+            <guid>http://alpha6.ru/blog/2015/12/28/git-clone-recursive/</guid>
+            <description><![CDATA[
+                <p>В Git 2.6 для Windows появилась неприятная бага - если уровень вложенности сабмодулей больше 3х, то команда <code>git clone --recursive</code> падает с ошибкой при клонировании глубоко вложенных сабмодулей.</p>
+
+<p>Как бороться - разбить клонирование на 3 этапа:</p>
+
+<pre><code>git clone &lt;repo_addr&gt;
+cd &lt;repo_dir&gt;
+git submodule update --init
+git submodule foreach --recursive git submodule update --init
+</code></pre>
+
+<p>Здесь мы просто клонируем репозиторий, при необходимости можно сделать чекаут на нужную ветку.
+Затем инициализируем и загружаем сабмодули первого уровня. И последняя команда проходит рекурсивно по всем сабмодулям рекурсивно и загружает их на неограниченном (наверное) уровне вложенности.</p>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/git/">git</a>
+                        <a href="http://alpha6.ru/blog/tag/windows/">windows</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Mon, 28 Dec 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

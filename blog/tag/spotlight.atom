@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/spotlight/</id>
+    <title>Just another blog</title>
+    <updated>2015-12-23T00:00:00Z</updated>
+    <link href="http://alpha6.ru/blog/tag/spotlight.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/spotlight/" rel="alternate" />
+    <generator version="0.081">Statocles</generator>
+
+    <entry>
+        <id>http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/</id>
+        <title>Spotlight does not search for</title>
+        <link href="http://alpha6.ru/blog/2015/12/23/not-seeking-spotlight/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>If your Spotlight does not search for some files or applications:</p>
+
+<p>The first of all - restart the Spotlight:</p>
+
+<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>If it have no effect - remove Spotlight&#39;s index:</p>
+
+<p>Stop Spotlight service:</p>
+
+<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>Remove Spotlight index folder:</p>
+
+<pre><code>sudo rm -rf /.Spotlight-V100
+</code></pre>
+
+<p>Run service:</p>
+
+<pre><code>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code></pre>
+
+<p>After reindex - everything should work well.</p>
+
+
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/spotlight/">spotlight</a>
+                    <a href="http://alpha6.ru/blog/tag/elcapitan/">elcapitan</a>
+                    <a href="http://alpha6.ru/blog/tag/macos/">macos</a>
+                </p>
+
+        ]]></content>
+        <updated>2015-12-23T00:00:00Z</updated>
+        <category term="spotlight" />
+        <category term="elcapitan" />
+        <category term="macos" />
+    </entry>
+</feed>
+

@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/trap/</id>
+    <title>Just another blog</title>
+    <updated>2015-12-26T00:00:00Z</updated>
+    <link href="http://alpha6.ru/blog/tag/trap.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/trap/" rel="alternate" />
+    <generator version="0.081">Statocles</generator>
+
+    <entry>
+        <id>http://alpha6.ru/blog/2015/12/26/state-variabes-in-perl/</id>
+        <title>State переменные в Perl</title>
+        <link href="http://alpha6.ru/blog/2015/12/26/state-variabes-in-perl/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>В Perl существует особый тип переменных под названием state.</p>
+
+<p>В <a href="http://perldoc.perl.org/functions/state.html">доке</a> про них написано:</p>
+
+<blockquote>
+  <p>state declares a lexically scoped variable, just like my. However, those variables will never be reinitialized ...</p>
+</blockquote>
+
+<p>На первый взгляд это дает нам возможность очень просто реализовывать счетчики и иже с ними:</p>
+
+<pre><code>sub count {
+  state $count = 0;
+  $count++;
+}
+</code></pre>
+
+<p>Однако, есть нюанс - фраза <em>will never be reinitialized</em> означает что переменная действительно никогда не будет переинициализирована пока существует родительский скрипт. И это дает нам вот такую замечательную граблю на которую можно ненароком наступить:</p>
+
+<p>Объявляем пакет:</p>
+
+<pre><code>package MyTestState;
+
+use strict;
+use feature &#39;state&#39;;
+
+sub new {
+  bless {}, shift;
+}
+
+sub count {
+  state $count = 0;
+  $count++;
+}
+
+1;
+</code></pre>
+
+<p>И саму программу:</p>
+
+<pre><code>use lib &#39;lib&#39;;
+use v5.18;
+use MyTestState;
+
+my $mystate =  MyTestState-&gt;new();
+
+for (0..10) {
+  my $counter = $mystate-&gt;count();
+  say &quot;Counter [$counter]&quot;;
+}
+</code></pre>
+
+<p>Вывод ожидаем:</p>
+
+<pre><code>Counter [0]
+Counter [1]
+Counter [2]
+...
+Counter [10]
+</code></pre>
+
+<p>А теперь добавляем такой код:</p>
+
+<pre><code>undef $mystate;
+
+say &quot;next object!=======&quot;;
+
+my $mystate1 = MyTestState-&gt;new();
+for (0..10) {
+  my $counter = $mystate1-&gt;count();
+  say &quot;Counter [$counter]&quot;;
+
+}
+</code></pre>
+
+<p>Здесь мы удаляем старый объект со счетчиком и создаем новый. Логично предположить что счетчик пойдет заново, но на самом деле нет. Не смотря на то что мы удалили старый объект и создали новый, переменная со счетчиком никуда не делась и не была переиницализирована! И при запуске программы мы увидим:</p>
+
+<pre><code>Counter [0]
+Counter [1]
+Counter [2]
+...
+Counter [10]
+next object!
+Counter [11]
+Counter [12]
+Counter [13]
+...
+Counter [20]
+Counter [21]
+</code></pre>
+
+<p>Так что слово <code>newer</code> в документации действительно значит &quot;никогда пока жив инстанс интерпретатора запустивший скрипт&quot;.</p>
+
+
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                    <a href="http://alpha6.ru/blog/tag/state/">state</a>
+                    <a href="http://alpha6.ru/blog/tag/trap/">trap</a>
+                </p>
+
+        ]]></content>
+        <updated>2015-12-26T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="state" />
+        <category term="trap" />
+    </entry>
+</feed>
+

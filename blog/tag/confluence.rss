@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/tag/confluence/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/confluence.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.081</generator>
+        <item>
+            <title>Корректное получение JSON ответа с помощью Apache.HttpClient</title>
+            <link>http://alpha6.ru/blog/2016/10/18/httpresponse-json/</link>
+            <guid>http://alpha6.ru/blog/2016/10/18/httpresponse-json/</guid>
+            <description><![CDATA[
+                <p>У Apache HttpClient есть небольшая, но неприятная бага. Всплыла она при работе с REST API Confluence (вообще очень много баг всплывает при работе с API  продуктов Atlassian, но это все лирика).</p>
+
+<p>В чем, собственно, проблема? Проблема в том, что Confluence при запросе у него данных с Accept: application/json (собственно все JSON REST API) не выставляет заголовок content-encoding для отдаваемых данных. В целом, его можно понять т.к. по стандарту JSON всегда должен быть UTF-8, но HttpClient не понимает и потому разбирает входящие данные как ISO.</p>
+
+<p>Соответственно, дальше JSONObject при парсинге Entity превращает русский текст в совершенно непотребное.</p>
+
+<p>Лечится это элементарно, просто при работае с Entity принудительно указываем ей что кодировка у нас UTF-8.</p>
+
+<p>Вот так:</p>
+
+<pre><code>JSONObject jsonObj = new JSONObject(EntityUtils.toString(response.getEntity, &quot;UTF-8&quot;));
+</code></pre>
+
+<p>После этого русский текст внутри JSON будет в нормальном UTF-8 и с ним можно спокойно работать.</p>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/java/">java</a>
+                        <a href="http://alpha6.ru/blog/tag/json/">json</a>
+                        <a href="http://alpha6.ru/blog/tag/apache-http/">apache.http</a>
+                        <a href="http://alpha6.ru/blog/tag/confluence/">confluence</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Tue, 18 Oct 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+
