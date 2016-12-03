@@ -1,5 +1,5 @@
 ---
-tags: prusai3, marlin, Slic3r
+tags: prusai3, marlin, slic3r
 title: Добавляем второй экструдер к RAMPS 1.4/Marlin
 ---
 В [прошлой серии](http://alpha6.ru/blog/2016/08/23/marlin-setup/) мы установили прошивку Marin на Arduino Mega+RAMPS 1.4 и откалибровали все это дело. Теперь пришло время добавить второй экструдер.

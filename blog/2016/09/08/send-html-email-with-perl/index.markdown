@@ -1,5 +1,5 @@
 ---
-tags: perl, Net::SMTP, email
+tags: perl, net::smtp, email
 title: Отправляем емейл из Perl с авторизацией и html
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: 'Ubuntu, LC_ALL'
+tags: 'ubuntu, lc_all'
 title: Ubuntu LC_ALL = (unset)
 ---
 

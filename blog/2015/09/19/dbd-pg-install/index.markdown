@@ -1,5 +1,5 @@
 ---
-tags: Ubuntu, Postgresql, Perl, DBD::Pg
+tags: ubuntu, postgresql, perl, dbd::pg
 title: DBD::Pg install
 ---
 Markdown content goes here.

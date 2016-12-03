@@ -1,5 +1,5 @@
 ---
-tags: Redmine, Postgresql, nginx, Ubuntu
+tags: redmine, postgresql, nginx, ubuntu
 title: Installing Redmine from Ubuntu package
 ---
 

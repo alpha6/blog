@@ -1,5 +1,5 @@
 ---
-tags: Ubuntu, note
+tags: ubuntu, note
 title: ubuntu 15.04 и BCM43142
 ---
 

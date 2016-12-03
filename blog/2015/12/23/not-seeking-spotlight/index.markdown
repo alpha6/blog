@@ -1,5 +1,5 @@
 ---
-tags: Spotlight, ElCapitan, MacOS
+tags: spotlight, elcapitan, macos
 title: Spotlight does not search for
 ---
 
