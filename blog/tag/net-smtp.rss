@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/tag/net-smtp/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/net-smtp.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.081</generator>
+        <item>
+            <title>Отправляем емейл из Perl с авторизацией и html</title>
+            <link>http://alpha6.ru/blog/2016/09/08/send-html-email-with-perl/</link>
+            <guid>http://alpha6.ru/blog/2016/09/08/send-html-email-with-perl/</guid>
+            <description><![CDATA[
+                <p>Отправляем письмо в html с авторизацией из Perl.</p>
+
+<pre><code>use strict;
+use Net::SMTP;
+use Authen::SASL; #нужен для авторизации
+
+use utf8;
+use Encode;
+use MIME::Base64
+
+
+  my $message = &quot;&lt;html&gt;&lt;body&gt;Тестовое письмо&lt;/body&gt;&lt;/html&gt;&quot;;
+
+# авторизационные данные
+my $smtp_host = &#39;smtp.server.address&#39;;
+my $smtp_user = &#39;user_name&#39;;
+my $smtp_pass = &#39;password&#39;;
+
+
+my $debug = 1; # рассматриваем процесс подключения в деталях
+
+# mail properties
+my $mail_from = &#39;user@example.com&#39;;
+my $mail_to = &#39;recipient@example.com&#39;;
+my $mail_subject = &#39;Тестовое письмо&#39;;
+
+# Выставляем заголовки. Сюда можно добавить еще всякого при необходимости
+my $mail_headers = &quot;From: $mail_from\n&quot;.
+&quot;To: $mail_to\n&quot;.
+&quot;Subject: &quot;.encode(&#39;MIME-Header&#39;,$mail_subject).&quot;\n&quot;.
+&quot;MIME-Version: 1.0\n&quot;.
+&quot;Content-type: text/html; charset=UTF-8\n&quot;.
+&quot;Content-Transfer-Encoding: base64\n\n&quot;;
+
+my $mail_body = $message;
+
+# Отправляем письмо
+my $smtp = Net::SMTP-&gt;new($smtp_host, Debug =&gt; $debug) or die &quot;cannot connect to server&quot;;
+$smtp-&gt;auth($smtp_user,$smtp_pass) or die &quot;could not authenticate&quot;;
+$smtp-&gt;mail($mail_from);
+$smtp-&gt;to($mail_to);
+$smtp-&gt;data();
+$smtp-&gt;datasend($mail_headers);
+$smtp-&gt;datasend(encode_base64(encode(&#39;UTF-8&#39;, $mail_body)));
+$smtp-&gt;dataend();
+$smtp-&gt;quit;
+</code></pre>
+
+<p>При необходимости можно добавить файлы, PGP подписи и так далее.</p>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                        <a href="http://alpha6.ru/blog/tag/net-smtp/">net::smtp</a>
+                        <a href="http://alpha6.ru/blog/tag/email/">email</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Thu, 08 Sep 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

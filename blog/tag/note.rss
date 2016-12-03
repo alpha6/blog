@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/tag/note/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/note.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.081</generator>
+        <item>
+            <title>Получение методов пакета</title>
+            <link>http://alpha6.ru/blog/2015/09/14/get-package-methods/</link>
+            <guid>http://alpha6.ru/blog/2015/09/14/get-package-methods/</guid>
+            <description><![CDATA[
+                <p>Для получения методов пакета Foo::Bar делаем:</p>
+
+<pre><code>print Dumper(\%Foo::Bar::);
+</code></pre>
+
+<p>Для проверки существования метода:</p>
+
+<pre><code>if (Foo::Bar::.$method_name) {
+    #some stuff
+}
+</code></pre>
+
+<p>Для получения методов текущего пакета:</p>
+
+<pre><code>print Dumper(\%main::)
+</code></pre>
+
+<p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
+
+<p><a href="http://perldoc.perl.org/perlmod.html#Symbol-Tables">Подробнее в документации</a></p>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                        <a href="http://alpha6.ru/blog/tag/note/">note</a>
+                        <a href="http://alpha6.ru/blog/tag/package/">package</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Mon, 14 Sep 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>ubuntu 15.04 и BCM43142</title>
+            <link>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</link>
+            <guid>http://alpha6.ru/blog/2015/05/24/ubuntu-bcm43142/</guid>
+            <description><![CDATA[
+                <p>После апгрейда Ubuntu 14.04 на Kubuntu 15.04 выяснилось что Wi-Fi на моем ноутбуке работать не хочет от слова &quot;совсем&quot;. И если в 14.04 после подключения к интернету он сам предлагал доустановить нужные драйвера - то в 15.04 магия не срабатывала и Wi-Fi не работал.</p>
+
+<p>Симптомы:
+* в NetworkManager нет даже пункта про беспроводные подключения.
+* <code># lshw -c Network</code> говорит что-то вроде:</p>
+
+<pre><code>*-network UNCLAIMED     
+   description: Network controller
+   product: BCM43142 802.11b/g/n
+   vendor: Broadcom Corporation
+   physical id: 0
+   bus info: pci@0000:02:00.0
+   version: 01
+   width: 64 bits
+   clock: 33MHz
+   capabilities: bus_master cap_list
+   configuration: latency=0
+   resources: memory:90500000-90507fff
+</code></pre>
+
+<p>Как можно заметить - устройство карте не назначено. Значит надо доустановить пакет с прошивкой для карты. С 14.04 эта карта поддерживается в официальных драйверах, так что просто устанавливаем пакет руками:</p>
+
+<pre><code>sudo apt-get install bcmwl-kernel-source
+</code></pre>
+
+<p>Перезагружемся и видим в NetworkManager раздел с беспроводными сетями.</p>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/ubuntu/">ubuntu</a>
+                        <a href="http://alpha6.ru/blog/tag/note/">note</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Sun, 24 May 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

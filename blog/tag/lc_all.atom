@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/lc_all/</id>
+    <title>Just another blog</title>
+    <updated>2015-04-09T00:00:00Z</updated>
+    <link href="http://alpha6.ru/blog/tag/lc_all.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/lc_all/" rel="alternate" />
+    <generator version="0.081">Statocles</generator>
+
+    <entry>
+        <id>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</id>
+        <title>Ubuntu LC_ALL = (unset)</title>
+        <link href="http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>При установке Ubuntu (в основном на VDS) периодический вылезает ошибка:</p>
+
+<pre><code>LANGUAGE = (unset)
+LC_ALL = (unset)
+</code></pre>
+
+<p>Для исправления делаем:</p>
+
+<pre><code># echo LC_ALL=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
+# echo LC_CTYPE=&quot;ru_RU.UTF-8&quot; &gt;&gt; /etc/environment
+# locale-gen ru_RU.UTF-8
+</code></pre>
+
+<p>И перелегониваемся.</p>
+
+
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/ubuntu/">ubuntu</a>
+                    <a href="http://alpha6.ru/blog/tag/lc_all/">lc_all</a>
+                </p>
+
+        ]]></content>
+        <updated>2015-04-09T00:00:00Z</updated>
+        <category term="ubuntu" />
+        <category term="lc_all" />
+    </entry>
+</feed>
+

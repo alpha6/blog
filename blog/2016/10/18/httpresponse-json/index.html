@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Корректное получение JSON ответа с помощью Apache.HttpClient - Just another blog</title>
+        <meta content="Statocles 0.081" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">Just another blog</a>
+                    <ul>
+                        <li>
+                            <a href="/">Blog</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+                <div class="nine columns">
+                    <main>
+                        <header>
+    <h1>Корректное получение JSON ответа с помощью Apache.HttpClient</h1>
+
+    <aside>
+        <time datetime="2016-10-18">
+            Posted on 2016-10-18
+        </time>
+    </aside>
+
+    <p class="tags">Tags:
+        <a href="/blog/tag/java/" rel="tag">java</a>
+        <a href="/blog/tag/json/" rel="tag">json</a>
+        <a href="/blog/tag/apache-http/" rel="tag">apache.http</a>
+        <a href="/blog/tag/confluence/" rel="tag">confluence</a>
+    </p>
+
+
+</header>
+<section id="section-1">
+    <p>У Apache HttpClient есть небольшая, но неприятная бага. Всплыла она при работе с REST API Confluence (вообще очень много баг всплывает при работе с API  продуктов Atlassian, но это все лирика).</p>
+
+<p>В чем, собственно, проблема? Проблема в том, что Confluence при запросе у него данных с Accept: application/json (собственно все JSON REST API) не выставляет заголовок content-encoding для отдаваемых данных. В целом, его можно понять т.к. по стандарту JSON всегда должен быть UTF-8, но HttpClient не понимает и потому разбирает входящие данные как ISO.</p>
+
+<p>Соответственно, дальше JSONObject при парсинге Entity превращает русский текст в совершенно непотребное.</p>
+
+<p>Лечится это элементарно, просто при работае с Entity принудительно указываем ей что кодировка у нас UTF-8.</p>
+
+<p>Вот так:</p>
+
+<pre><code>JSONObject jsonObj = new JSONObject(EntityUtils.toString(response.getEntity, &quot;UTF-8&quot;));
+</code></pre>
+
+<p>После этого русский текст внутри JSON будет в нормальном UTF-8 и с ним можно спокойно работать.</p>
+
+</section>
+
+<ul class="pager">
+    <li class="prev">
+            <a class="button button-primary" href="/blog/2016/10/09/orange-pi-armbian-kodi/index.html" rel="prev">
+                ← Older
+            </a>
+    </li>
+    <li class="next">
+            <button disabled>
+                Newer →
+            </button>
+    </li>
+</ul>
+
+<h1>Comments</h1>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'alpha6sblog';
+    var disqus_identifier = '/2016/10/18/httpresponse-json/index.markdown';
+    var disqus_url = 'http://alpha6.ru/blog/2016/10/18/httpresponse-json/';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+                    </main>
+                </div>
+
+                <div class="three columns sidebar">
+                    
+                        <nav id="tags">
+        <h1>Tags</h1>
+        <ul class="list-inline">
+            <li><a href="/blog/tag/3dprinting/">3dprinting</a></li>
+            <li><a href="/blog/tag/airplay/">airplay</a></li>
+            <li><a href="/blog/tag/apache-http/">apache.http</a></li>
+            <li><a href="/blog/tag/armbian/">armbian</a></li>
+            <li><a href="/blog/tag/automation/">automation</a></li>
+            <li><a href="/blog/tag/bugs/">bugs</a></li>
+            <li><a href="/blog/tag/confluence/">confluence</a></li>
+            <li><a href="/blog/tag/data/">data</a></li>
+            <li><a href="/blog/tag/dbd-pg/">dbd::pg</a></li>
+            <li><a href="/blog/tag/debian/">debian</a></li>
+            <li><a href="/blog/tag/diy/">diy</a></li>
+            <li><a href="/blog/tag/elasticsearch/">elasticsearch</a></li>
+            <li><a href="/blog/tag/elcapitan/">elcapitan</a></li>
+            <li><a href="/blog/tag/email/">email</a></li>
+            <li><a href="/blog/tag/gearman/">gearman</a></li>
+            <li><a href="/blog/tag/git/">git</a></li>
+            <li><a href="/blog/tag/graylog/">graylog</a></li>
+            <li><a href="/blog/tag/graylog2/">graylog2</a></li>
+            <li><a href="/blog/tag/io/">io</a></li>
+            <li><a href="/blog/tag/java/">java</a></li>
+            <li><a href="/blog/tag/jcifs/">jcifs</a></li>
+            <li><a href="/blog/tag/json/">json</a></li>
+            <li><a href="/blog/tag/kodi/">kodi</a></li>
+            <li><a href="/blog/tag/lc_all/">lc_all</a></li>
+            <li><a href="/blog/tag/linux/">linux</a></li>
+            <li><a href="/blog/tag/macos/">macos</a></li>
+            <li><a href="/blog/tag/marlin/">marlin</a></li>
+            <li><a href="/blog/tag/net-smtp/">net::smtp</a></li>
+            <li><a href="/blog/tag/nginx/">nginx</a></li>
+            <li><a href="/blog/tag/note/">note</a></li>
+            <li><a href="/blog/tag/orange-pi/">orange pi</a></li>
+            <li><a href="/blog/tag/orangepi/">orangepi</a></li>
+            <li><a href="/blog/tag/package/">package</a></li>
+            <li><a href="/blog/tag/perl/">perl</a></li>
+            <li><a href="/blog/tag/postgresql/">postgresql</a></li>
+            <li><a href="/blog/tag/power/">power</a></li>
+            <li><a href="/blog/tag/prusai3/">prusai3</a></li>
+            <li><a href="/blog/tag/ramps/">ramps</a></li>
+            <li><a href="/blog/tag/redmine/">redmine</a></li>
+            <li><a href="/blog/tag/rex/">rex</a></li>
+            <li><a href="/blog/tag/samba/">samba</a></li>
+            <li><a href="/blog/tag/shairport/">shairport</a></li>
+            <li><a href="/blog/tag/slic3r/">slic3r</a></li>
+            <li><a href="/blog/tag/snippet/">snippet</a></li>
+            <li><a href="/blog/tag/spotlight/">spotlight</a></li>
+            <li><a href="/blog/tag/state/">state</a></li>
+            <li><a href="/blog/tag/timestamp/">timestamp</a></li>
+            <li><a href="/blog/tag/trap/">trap</a></li>
+            <li><a href="/blog/tag/ubuntu/">ubuntu</a></li>
+            <li><a href="/blog/tag/windows/">windows</a></li>
+        </ul>
+    </nav>
+
+                    
+                </div>
+            </div>
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,347 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/</link>
+        <atom:link href="http://alpha6.ru/blog/index.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.081</generator>
+        <item>
+            <title>Корректное получение JSON ответа с помощью Apache.HttpClient</title>
+            <link>http://alpha6.ru/blog/2016/10/18/httpresponse-json/</link>
+            <guid>http://alpha6.ru/blog/2016/10/18/httpresponse-json/</guid>
+            <description><![CDATA[
+                <p>У Apache HttpClient есть небольшая, но неприятная бага. Всплыла она при работе с REST API Confluence (вообще очень много баг всплывает при работе с API  продуктов Atlassian, но это все лирика).</p>
+
+<p>В чем, собственно, проблема? Проблема в том, что Confluence при запросе у него данных с Accept: application/json (собственно все JSON REST API) не выставляет заголовок content-encoding для отдаваемых данных. В целом, его можно понять т.к. по стандарту JSON всегда должен быть UTF-8, но HttpClient не понимает и потому разбирает входящие данные как ISO.</p>
+
+<p>Соответственно, дальше JSONObject при парсинге Entity превращает русский текст в совершенно непотребное.</p>
+
+<p>Лечится это элементарно, просто при работае с Entity принудительно указываем ей что кодировка у нас UTF-8.</p>
+
+<p>Вот так:</p>
+
+<pre><code>JSONObject jsonObj = new JSONObject(EntityUtils.toString(response.getEntity, &quot;UTF-8&quot;));
+</code></pre>
+
+<p>После этого русский текст внутри JSON будет в нормальном UTF-8 и с ним можно спокойно работать.</p>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/java/">java</a>
+                        <a href="http://alpha6.ru/blog/tag/json/">json</a>
+                        <a href="http://alpha6.ru/blog/tag/apache-http/">apache.http</a>
+                        <a href="http://alpha6.ru/blog/tag/confluence/">confluence</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Tue, 18 Oct 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>How to fix sound issue with KODI on the orange pi</title>
+            <link>http://alpha6.ru/blog/2016/10/09/orange-pi-armbian-kodi/</link>
+            <guid>http://alpha6.ru/blog/2016/10/09/orange-pi-armbian-kodi/</guid>
+            <description><![CDATA[
+                <p>I have Orange Pi One board. It&#39;s a great product, it is faster, cheaper and smaller then Raspberry Pi, but it uses AllWinner H3 SOC and it is its main disadvantage.</p>
+
+<p>If you want to use this board as a media center with KODI, you face the problem with sound. The sound works in Armbian applications but doesn&#39;t work in KODI. It happens because KODI uses S24_LE sampling format which is not supported by Orange Pi hardware.</p>
+
+<pre><code>root@orangepione:~# speaker-test  -D hw:1 -c2 --format S24_LE
+
+speaker-test 1.0.28
+
+Format S24_LE is not supported...
+</code></pre>
+
+<p>Ok, we found out the root of the problem, time to fix it!</p>
+
+<p>Now we need to set sampling format which is supported by Orange Pi hardware. One of supported sample formats is S32_LE.
+Check if it is correct:</p>
+
+<pre><code>root@orangepione:~# speaker-test  -D hw:1 -c2 --format S32_LE
+
+speaker-test 1.0.28
+
+Playback device is hw:1
+Stream parameters are 48000Hz, S32_LE, 2 channels
+Using 16 octaves of pink noise
+Rate set to 48000Hz (requested 48000Hz)
+Buffer size range from 64 to 131072
+Period size range from 32 to 16384
+Using max buffer size 131072
+Periods = 4
+</code></pre>
+
+<p>Now check soundcards, we need to get the device number which plays over HDMI output.</p>
+
+<pre><code>root@orangepione:~# cat /proc/asound/cards
+ 0 [audiocodec     ]: audiocodec - audiocodec
+                      audiocodec
+ 1 [sndhdmi        ]: sndhdmi - sndhdmi
+                      sndhdmi
+</code></pre>
+
+<p>The <code>sndhdmi</code> is a soundcard which attracts our interest. Remember the number of this one.</p>
+
+<p>Now we can edit the Alsa config:</p>
+
+<pre><code>vim /etc/asound.conf
+</code></pre>
+
+<p>Delete old content and paste the following one:</p>
+
+<pre><code>pcm.snd_card {
+        type hw
+        card 1
+        device 0
+}
+
+ctl.snd_card {
+        type hw
+        card 1
+        device 0
+}
+
+pcm.dmixer {
+    type dmix
+    ipc_key 1024
+    ipc_perm 0666
+    slave.pcm &quot;snd_card&quot;
+    slave {
+        period_time 0
+        period_size 1024
+        buffer_size 4096
+        rate 48000
+        format S32_LE
+        channels 2
+    }
+    bindings {
+        0 0
+        1 1
+    }
+}
+</code></pre>
+
+<p>Save the file and reboot.</p>
+
+<p>After that the KODI will play sound.
+If it doesn&#39;t play, check the number in <code>card</code> fields of the config, it must be the number from <code>sndhdmi</code> card, and samplerate and samplerate format in <code>slave</code> section. The samplerate should be equal with one from the <code>speaker-test</code> command output.</p>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/orange-pi/">orange pi</a>
+                        <a href="http://alpha6.ru/blog/tag/kodi/">kodi</a>
+                        <a href="http://alpha6.ru/blog/tag/armbian/">armbian</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Sun, 09 Oct 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Orange Pi power connector</title>
+            <link>http://alpha6.ru/blog/2016/10/08/orange-pi-power-connector/</link>
+            <guid>http://alpha6.ru/blog/2016/10/08/orange-pi-power-connector/</guid>
+            <description><![CDATA[
+                <p>Orange Pi can&#39;t work with USB power. It needs power from power connector or GPIO.</p>
+
+<p>If you need a fast and dirty way, use the GPIO pins. You may use standard smartphone charger with USB connector and 1A current.
+If you want to use external HDD with Orange Pi, you need power supply with 2+ A current.
+After you have found a charger, just connect +5V from USB to GPIO pin 2 (or pin 4, they are similar) and USB ground with pin 6.</p>
+
+<p><img alt="GPIO pinout diagram" src="http://cs5-3.4pda.to/8498940.png"></p>
+
+<p>The first pin is marked with white triangle near the GPIO connector.</p>
+
+<p>The right way is to use the power plug. But Orange Pi uses power connector which is not common.
+You need the connector with 4.0x1.7 mm diameter and 8mm long (or longer). In the shop where I bought the connector it was being sold as connector for Compaq notebooks.
+You need to solder +5V from the USB to the central contact of the connector and USB ground to the external contact.</p>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/orangepi/">orangepi</a>
+                        <a href="http://alpha6.ru/blog/tag/diy/">diy</a>
+                        <a href="http://alpha6.ru/blog/tag/power/">power</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Sat, 08 Oct 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Отправляем емейл из Perl с авторизацией и html</title>
+            <link>http://alpha6.ru/blog/2016/09/08/send-html-email-with-perl/</link>
+            <guid>http://alpha6.ru/blog/2016/09/08/send-html-email-with-perl/</guid>
+            <description><![CDATA[
+                <p>Отправляем письмо в html с авторизацией из Perl.</p>
+
+<pre><code>use strict;
+use Net::SMTP;
+use Authen::SASL; #нужен для авторизации
+
+use utf8;
+use Encode;
+use MIME::Base64
+
+
+  my $message = &quot;&lt;html&gt;&lt;body&gt;Тестовое письмо&lt;/body&gt;&lt;/html&gt;&quot;;
+
+# авторизационные данные
+my $smtp_host = &#39;smtp.server.address&#39;;
+my $smtp_user = &#39;user_name&#39;;
+my $smtp_pass = &#39;password&#39;;
+
+
+my $debug = 1; # рассматриваем процесс подключения в деталях
+
+# mail properties
+my $mail_from = &#39;user@example.com&#39;;
+my $mail_to = &#39;recipient@example.com&#39;;
+my $mail_subject = &#39;Тестовое письмо&#39;;
+
+# Выставляем заголовки. Сюда можно добавить еще всякого при необходимости
+my $mail_headers = &quot;From: $mail_from\n&quot;.
+&quot;To: $mail_to\n&quot;.
+&quot;Subject: &quot;.encode(&#39;MIME-Header&#39;,$mail_subject).&quot;\n&quot;.
+&quot;MIME-Version: 1.0\n&quot;.
+&quot;Content-type: text/html; charset=UTF-8\n&quot;.
+&quot;Content-Transfer-Encoding: base64\n\n&quot;;
+
+my $mail_body = $message;
+
+# Отправляем письмо
+my $smtp = Net::SMTP-&gt;new($smtp_host, Debug =&gt; $debug) or die &quot;cannot connect to server&quot;;
+$smtp-&gt;auth($smtp_user,$smtp_pass) or die &quot;could not authenticate&quot;;
+$smtp-&gt;mail($mail_from);
+$smtp-&gt;to($mail_to);
+$smtp-&gt;data();
+$smtp-&gt;datasend($mail_headers);
+$smtp-&gt;datasend(encode_base64(encode(&#39;UTF-8&#39;, $mail_body)));
+$smtp-&gt;dataend();
+$smtp-&gt;quit;
+</code></pre>
+
+<p>При необходимости можно добавить файлы, PGP подписи и так далее.</p>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                        <a href="http://alpha6.ru/blog/tag/net-smtp/">net::smtp</a>
+                        <a href="http://alpha6.ru/blog/tag/email/">email</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Thu, 08 Sep 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Добавляем второй экструдер к RAMPS 1.4/Marlin</title>
+            <link>http://alpha6.ru/blog/2016/09/04/marlin-adding-second-extruder/</link>
+            <guid>http://alpha6.ru/blog/2016/09/04/marlin-adding-second-extruder/</guid>
+            <description><![CDATA[
+                <p>В <a href="http://alpha6.ru/blog/2016/08/23/marlin-setup/">прошлой серии</a> мы установили прошивку Marin на Arduino Mega+RAMPS 1.4 и откалибровали все это дело. Теперь пришло время добавить второй экструдер.</p>
+
+<p>Для этого нам понадобится:</p>
+
+<ul>
+<li>второй экструдер</li>
+<li>второй хот-энд в сборе и все прилегающие детали, типа трубки боудена</li>
+<li>каретка на два экструдера. Я использую <a href="http://www.thingiverse.com/thing:1749633">такую</a>.</li>
+</ul>
+
+<p>В общем случае все просто идем в Arduino IDE и правим конфигурацию.</p>
+
+<p>Меняем конфигурацию платы управления на RAMPS 1.4 c 2 экструдерами и подогреваемым столом</p>
+
+<pre><code>#ifndef MOTHERBOARD
+  #define MOTHERBOARD BOARD_RAMPS_14_EEB
+#endif
+</code></pre>
+
+<p>Указываем кол-во экструдеров:</p>
+
+<pre><code>#define EXTRUDERS 2
+</code></pre>
+
+<p>Указываем тип датчика температуры для второго экструдера:</p>
+
+<pre><code>#define TEMP_SENSOR_1 1
+</code></pre>
+
+<p>Максимальную температуру:</p>
+
+<pre><code>#define HEATER_1_MAXTEMP 250
+</code></pre>
+
+<p>Если надо, устанавливаем направление вращения мотора:</p>
+
+<pre><code>#define INVERT_E1_DIR true
+</code></pre>
+
+<p>В целом, если у вас одинаковые моторы на обоих экструдерах, то на этом настройка закончена.</p>
+
+<p>Но если у моторы разные или  на одном экструдере у меня мотор с шестерней подачи диаметром 10мм, а на втором - 7мм, то тут начинаются проблемы с калибровкой.</p>
+
+<p>Как откалибровать второй экструдер?
+Идем в пронтерфейс и говорим:</p>
+
+<pre><code>T1
+</code></pre>
+
+<p>Эта команда указывает что сейчас активен экструдер номер 2 (отсчет начинается с 0). Включаем подачу филамента, для подачи будет использоваться число шагов из прошивки, т.е. для первого экструдера. Смотрим разницу и с помощью пропорции получаем кол-во шагов для активного экструдера. У меня из-за разницы в подающих шестернях получилось 80 шагов на мм.</p>
+
+<p>Говорим:</p>
+
+<pre><code>M92 E80
+</code></pre>
+
+<p>Этим мы устанавливаем новое кол-во шагов для текущего экструдера. Проверяем, при необходимости подгоняем значение.</p>
+
+<p>После калибровки вылезает проблема - Marlin не поддерживает установку разного числа шагов для разных экструдеров, соответственно в прошивке нам эти данные не сохранить. Придется этот вопрос решать програмно.</p>
+
+<p>Напишем небольшой фильтр которым будем обрабатывать готовый g-code файл.</p>
+
+<pre><code>#!/usr/bin/env perl
+
+use strict;
+
+my $T0 = &#39;M92 E95&#39;;
+my $T1 = &#39;M92 E80&#39;;
+
+local $^I = &#39;.bak&#39;;
+while (&lt;&gt;) {
+    s/^T0/T0\n$T0/;
+    s/^T1/T1\n$T1/;
+    print;
+}
+</code></pre>
+
+<p>Этот скрипт ищет команду T<num> и заменяет ее нужным нам значением. В данном случае добавляет команду M92 E<steps>.
+Скрипт получает на вход имя файла, перебирает его построчно и в каждой строке заменяет совпадения на то что мы указали. Оригинальный файл сохраняется с расширением <code>.bak</code>.</steps></num></p>
+
+<p>Дальше нам надо задать смещение экструдеров</p>
+
+<p>Для Slic3r идем в <code>Printer Settings</code> -&gt; <code>Extruder 2</code> и выставляем смещение. Примерное смещение можно получить если измерив расстояние между соплами, однако программое расстояние может отличаться от физического расстояния, так что все равно придется заняться калибровкой.</p>
+
+<p>Для этого печатаем деталь для <a href="http://www.thingiverse.com/thing:124450">калибровки 2х экструдеров</a> и точно подгоняем все для идеальной работы.</p>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/prusai3/">prusai3</a>
+                        <a href="http://alpha6.ru/blog/tag/marlin/">marlin</a>
+                        <a href="http://alpha6.ru/blog/tag/slic3r/">slic3r</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Sun, 04 Sep 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+
