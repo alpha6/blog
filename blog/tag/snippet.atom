@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/snippet/</id>
+    <title>Just another blog</title>
+    <updated>2015-04-25T00:00:00Z</updated>
+    <link href="http://alpha6.ru/blog/tag/snippet.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/snippet/" rel="alternate" />
+    <generator version="0.081">Statocles</generator>
+
+    <entry>
+        <id>http://alpha6.ru/blog/2015/04/25/stdout-autoflush/</id>
+        <title>stdout autoflush</title>
+        <link href="http://alpha6.ru/blog/2015/04/25/stdout-autoflush/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Классический метод:</p>
+
+<pre><code>$oldfh = select(STDERR); $| = 1; select($oldfh);
+</code></pre>
+
+<p>ООП:</p>
+
+<pre><code>use IO::Handle;
+STDERR-&gt;autoflush(1);
+</code></pre>
+
+
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/snippet/">snippet</a>
+                    <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                    <a href="http://alpha6.ru/blog/tag/io/">io</a>
+                </p>
+
+        ]]></content>
+        <updated>2015-04-25T00:00:00Z</updated>
+        <category term="snippet" />
+        <category term="perl" />
+        <category term="io" />
+    </entry>
+</feed>
+
