@@ -1,6 +1,6 @@
 ---
 tags: java, json, apache.http, confluence
-title: Корректное получение JSON ответа через Apache.HttpClient
+title: Корректное получение JSON ответа с помощью Apache.HttpClient
 ---
 
 У Apache HttpClient есть небольшая, но неприятная бага. Всплыла она при работе с REST API Confluence (вообще очень много баг всплывает при работе с API  продуктов Atlassian, но это все лирика).
@@ -14,3 +14,5 @@ title: Корректное получение JSON ответа через Apac
 Вот так:
 
     JSONObject jsonObj = new JSONObject(EntityUtils.toString(response.getEntity, "UTF-8"));
+
+После этого русский текст внутри JSON будет в нормальном UTF-8 и с ним можно спокойно работать.
