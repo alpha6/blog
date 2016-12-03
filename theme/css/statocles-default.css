@@ -9,23 +9,23 @@ body {
 }
 
 h1 {
-    font-size: 3.5em;
+    font-size: 2.0em;
 }
 
 h2 {
-    font-size: 2.75em;
+    font-size: 1.45em;
 }
 
 h3 {
-    font-size: 2.25em;
+    font-size: 1.35em;
 }
 
 h4 {
-    font-size: 1.75em;
+    font-size: 1.15em;
 }
 
 h5 {
-    font-size: 1.3em;
+    font-size: 1.0em;
 }
 
 code {
@@ -64,6 +64,7 @@ main header {
 main header h1 {
     border-bottom: 1px solid #045578;
     margin-bottom: 0.2em;
+    padding-bottom: 0.4em;
 }
 
 main header h1 a {
@@ -80,6 +81,10 @@ header aside * {
     display: inline-block;
     margin-right: 0.5em;
     margin-bottom: 0;
+}
+
+article {
+  padding-bottom: 1.4em;
 }
 
 /** Add a line when using the "Continue reading..." link */
