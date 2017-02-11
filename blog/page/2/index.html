@@ -36,6 +36,114 @@
 
 <article>
     <header>
+        <h1><a href="/blog/2016/09/04/marlin-adding-second-extruder/">Добавляем второй экструдер к RAMPS 1.4/Marlin</a></h1>
+
+        <aside>
+            <time datetime="2016-09-04">
+                Posted on 2016-09-04
+            </time>
+            <a data-disqus-identifier="/2016/09/04/marlin-adding-second-extruder/index.markdown" href="/blog/2016/09/04/marlin-adding-second-extruder/#disqus_thread">0 comments</a>
+        </aside>
+
+        <p class="tags">Tags:
+            <a href="/blog/tag/prusai3/" rel="tag">prusai3</a>
+            <a href="/blog/tag/marlin/" rel="tag">marlin</a>
+            <a href="/blog/tag/slic3r/" rel="tag">slic3r</a>
+        </p>
+
+    </header>
+
+    <p>В <a href="http://alpha6.ru/blog/2016/08/23/marlin-setup/">прошлой серии</a> мы установили прошивку Marin на Arduino Mega+RAMPS 1.4 и откалибровали все это дело. Теперь пришло время добавить второй экструдер.</p>
+
+<p>Для этого нам понадобится:</p>
+
+<ul>
+<li>второй экструдер</li>
+<li>второй хот-энд в сборе и все прилегающие детали, типа трубки боудена</li>
+<li>каретка на два экструдера. Я использую <a href="http://www.thingiverse.com/thing:1749633">такую</a>.</li>
+</ul>
+
+<p>В общем случае все просто идем в Arduino IDE и правим конфигурацию.</p>
+
+<p>Меняем конфигурацию платы управления на RAMPS 1.4 c 2 экструдерами и подогреваемым столом</p>
+
+<pre><code>#ifndef MOTHERBOARD
+  #define MOTHERBOARD BOARD_RAMPS_14_EEB
+#endif
+</code></pre>
+
+<p>Указываем кол-во экструдеров:</p>
+
+<pre><code>#define EXTRUDERS 2
+</code></pre>
+
+<p>Указываем тип датчика температуры для второго экструдера:</p>
+
+<pre><code>#define TEMP_SENSOR_1 1
+</code></pre>
+
+<p>Максимальную температуру:</p>
+
+<pre><code>#define HEATER_1_MAXTEMP 250
+</code></pre>
+
+<p>Если надо, устанавливаем направление вращения мотора:</p>
+
+<pre><code>#define INVERT_E1_DIR true
+</code></pre>
+
+<p>В целом, если у вас одинаковые моторы на обоих экструдерах, то на этом настройка закончена.</p>
+
+<p>Но если у моторы разные или  на одном экструдере у меня мотор с шестерней подачи диаметром 10мм, а на втором - 7мм, то тут начинаются проблемы с калибровкой.</p>
+
+<p>Как откалибровать второй экструдер?
+Идем в пронтерфейс и говорим:</p>
+
+<pre><code>T1
+</code></pre>
+
+<p>Эта команда указывает что сейчас активен экструдер номер 2 (отсчет начинается с 0). Включаем подачу филамента, для подачи будет использоваться число шагов из прошивки, т.е. для первого экструдера. Смотрим разницу и с помощью пропорции получаем кол-во шагов для активного экструдера. У меня из-за разницы в подающих шестернях получилось 80 шагов на мм.</p>
+
+<p>Говорим:</p>
+
+<pre><code>M92 E80
+</code></pre>
+
+<p>Этим мы устанавливаем новое кол-во шагов для текущего экструдера. Проверяем, при необходимости подгоняем значение.</p>
+
+<p>После калибровки вылезает проблема - Marlin не поддерживает установку разного числа шагов для разных экструдеров, соответственно в прошивке нам эти данные не сохранить. Придется этот вопрос решать програмно.</p>
+
+<p>Напишем небольшой фильтр которым будем обрабатывать готовый g-code файл.</p>
+
+<pre><code>#!/usr/bin/env perl
+
+use strict;
+
+my $T0 = &#39;M92 E95&#39;;
+my $T1 = &#39;M92 E80&#39;;
+
+local $^I = &#39;.bak&#39;;
+while (&lt;&gt;) {
+    s/^T0/T0\n$T0/;
+    s/^T1/T1\n$T1/;
+    print;
+}
+</code></pre>
+
+<p>Этот скрипт ищет команду T<num> и заменяет ее нужным нам значением. В данном случае добавляет команду M92 E<steps>.
+Скрипт получает на вход имя файла, перебирает его построчно и в каждой строке заменяет совпадения на то что мы указали. Оригинальный файл сохраняется с расширением <code>.bak</code>.</steps></num></p>
+
+<p>Дальше нам надо задать смещение экструдеров</p>
+
+<p>Для Slic3r идем в <code>Printer Settings</code> -&gt; <code>Extruder 2</code> и выставляем смещение. Примерное смещение можно получить если измерив расстояние между соплами, однако программое расстояние может отличаться от физического расстояния, так что все равно придется заняться калибровкой.</p>
+
+<p>Для этого печатаем деталь для <a href="http://www.thingiverse.com/thing:124450">калибровки 2х экструдеров</a> и точно подгоняем все для идеальной работы.</p>
+
+
+
+</article>
+<article>
+    <header>
         <h1><a href="/blog/2016/08/23/marlin-setup/">Настраиваем прошивку Marlin для Arduino + RAMPS 1.4</a></h1>
 
         <aside>
@@ -434,120 +542,6 @@ git submodule foreach --recursive git submodule update --init
 
 
 </article>
-<article>
-    <header>
-        <h1><a href="/blog/2015/12/26/state-variabes-in-perl/">State переменные в Perl</a></h1>
-
-        <aside>
-            <time datetime="2015-12-26">
-                Posted on 2015-12-26
-            </time>
-            <a data-disqus-identifier="/2015/12/26/state-variabes-in-perl/index.markdown" href="/blog/2015/12/26/state-variabes-in-perl/#disqus_thread">0 comments</a>
-        </aside>
-
-        <p class="tags">Tags:
-            <a href="/blog/tag/perl/" rel="tag">perl</a>
-            <a href="/blog/tag/state/" rel="tag">state</a>
-            <a href="/blog/tag/trap/" rel="tag">trap</a>
-        </p>
-
-    </header>
-
-    <p>В Perl существует особый тип переменных под названием state.</p>
-
-<p>В <a href="http://perldoc.perl.org/functions/state.html">доке</a> про них написано:</p>
-
-<blockquote>
-  <p>state declares a lexically scoped variable, just like my. However, those variables will never be reinitialized ...</p>
-</blockquote>
-
-<p>На первый взгляд это дает нам возможность очень просто реализовывать счетчики и иже с ними:</p>
-
-<pre><code>sub count {
-  state $count = 0;
-  $count++;
-}
-</code></pre>
-
-<p>Однако, есть нюанс - фраза <em>will never be reinitialized</em> означает что переменная действительно никогда не будет переинициализирована пока существует родительский скрипт. И это дает нам вот такую замечательную граблю на которую можно ненароком наступить:</p>
-
-<p>Объявляем пакет:</p>
-
-<pre><code>package MyTestState;
-
-use strict;
-use feature &#39;state&#39;;
-
-sub new {
-  bless {}, shift;
-}
-
-sub count {
-  state $count = 0;
-  $count++;
-}
-
-1;
-</code></pre>
-
-<p>И саму программу:</p>
-
-<pre><code>use lib &#39;lib&#39;;
-use v5.18;
-use MyTestState;
-
-my $mystate =  MyTestState-&gt;new();
-
-for (0..10) {
-  my $counter = $mystate-&gt;count();
-  say &quot;Counter [$counter]&quot;;
-}
-</code></pre>
-
-<p>Вывод ожидаем:</p>
-
-<pre><code>Counter [0]
-Counter [1]
-Counter [2]
-...
-Counter [10]
-</code></pre>
-
-<p>А теперь добавляем такой код:</p>
-
-<pre><code>undef $mystate;
-
-say &quot;next object!=======&quot;;
-
-my $mystate1 = MyTestState-&gt;new();
-for (0..10) {
-  my $counter = $mystate1-&gt;count();
-  say &quot;Counter [$counter]&quot;;
-
-}
-</code></pre>
-
-<p>Здесь мы удаляем старый объект со счетчиком и создаем новый. Логично предположить что счетчик пойдет заново, но на самом деле нет. Не смотря на то что мы удалили старый объект и создали новый, переменная со счетчиком никуда не делась и не была переиницализирована! И при запуске программы мы увидим:</p>
-
-<pre><code>Counter [0]
-Counter [1]
-Counter [2]
-...
-Counter [10]
-next object!
-Counter [11]
-Counter [12]
-Counter [13]
-...
-Counter [20]
-Counter [21]
-</code></pre>
-
-<p>Так что слово <code>newer</code> в документации действительно значит &quot;никогда пока жив инстанс интерпретатора запустивший скрипт&quot;.</p>
-
-
-
-</article>
 
 <ul class="pager">
     <li class="prev">
@@ -582,10 +576,12 @@ Counter [21]
                         <nav id="tags">
         <h1>Tags</h1>
         <ul class="list-inline">
+            <li><a href="/blog/tag/3d-printer/">3d-printer</a></li>
             <li><a href="/blog/tag/3dprinting/">3dprinting</a></li>
             <li><a href="/blog/tag/airplay/">airplay</a></li>
             <li><a href="/blog/tag/apache-http/">apache.http</a></li>
             <li><a href="/blog/tag/armbian/">armbian</a></li>
+            <li><a href="/blog/tag/autolevel/">autolevel</a></li>
             <li><a href="/blog/tag/automation/">automation</a></li>
             <li><a href="/blog/tag/bugs/">bugs</a></li>
             <li><a href="/blog/tag/confluence/">confluence</a></li>
@@ -609,6 +605,7 @@ Counter [21]
             <li><a href="/blog/tag/linux/">linux</a></li>
             <li><a href="/blog/tag/macos/">macos</a></li>
             <li><a href="/blog/tag/marlin/">marlin</a></li>
+            <li><a href="/blog/tag/melzi/">melzi</a></li>
             <li><a href="/blog/tag/net-smtp/">net::smtp</a></li>
             <li><a href="/blog/tag/nginx/">nginx</a></li>
             <li><a href="/blog/tag/note/">note</a></li>
@@ -622,6 +619,7 @@ Counter [21]
             <li><a href="/blog/tag/ramps/">ramps</a></li>
             <li><a href="/blog/tag/redmine/">redmine</a></li>
             <li><a href="/blog/tag/rex/">rex</a></li>
+            <li><a href="/blog/tag/rostock/">rostock</a></li>
             <li><a href="/blog/tag/samba/">samba</a></li>
             <li><a href="/blog/tag/shairport/">shairport</a></li>
             <li><a href="/blog/tag/slic3r/">slic3r</a></li>
@@ -631,6 +629,7 @@ Counter [21]
             <li><a href="/blog/tag/timestamp/">timestamp</a></li>
             <li><a href="/blog/tag/trap/">trap</a></li>
             <li><a href="/blog/tag/ubuntu/">ubuntu</a></li>
+            <li><a href="/blog/tag/weight-sensor/">weight sensor</a></li>
             <li><a href="/blog/tag/windows/">windows</a></li>
         </ul>
     </nav>
