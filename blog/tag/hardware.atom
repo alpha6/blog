@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://alpha6.ru/blog/tag/hardware/</id>
+    <title>Just another blog</title>
+    <updated>2017-05-28T00:00:00Z</updated>
+    <link href="http://alpha6.ru/blog/tag/hardware.atom" rel="self" />
+    <link href="http://alpha6.ru/blog/tag/hardware/" rel="alternate" />
+    <generator version="0.083">Statocles</generator>
+
+    <entry>
+        <id>http://alpha6.ru/blog/2017/05/28/async-serial-port/</id>
+        <title>Асинхронная работа с COM-портом в Perl</title>
+        <link href="http://alpha6.ru/blog/2017/05/28/async-serial-port/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Понадобилось мне тут поработать с 3d принтером из Perl. Принтер подключается к компьютеру через USB-COM переходник и прикидывается обычным COM портом со всеми вытекающими способами работы.</p>
+
+<p>Для работы с ком-портом в Perl есть отличный модуль - <a href="https://metacpan.org/pod/Device::SerialPort">Device::SerialPort</a>. А для асинхронности используем классический AnyEvent. Ну и долго сказка сказывается, да быстро код пишется - пример кода:</p>
+
+<pre><code>#!/usr/bin/env perl
+
+use v5.20;
+use strict;
+
+use AnyEvent;
+use AnyEvent::Handle;
+
+use Device::SerialPort;
+
+my $cv = AE::cv;
+
+# Базовые параметры подключения к порту
+my $device_port = &#39;/dev/ttyUSB0&#39;;
+my $port_speed  = 115200;
+
+say &quot;Connecting.. [$device_port] [$port_speed]&quot;;
+my $port = Device::SerialPort-&gt;new($device_port);
+$port-&gt;baudrate($port_speed); #Устанавливаем скорость соединения
+
+# Чуть более продвинутые настройки
+$port-&gt;handshake(&quot;none&quot;); #Не используем handshake иначе подключение будет устанавливаться только в момент перезагрузки принтера
+
+# Режим коммуникации 8N1
+$port-&gt;databits(8);
+$port-&gt;parity(&quot;none&quot;);
+$port-&gt;stopbits(1);
+
+$port-&gt;stty_echo(0); # Выключаем эхо
+$port-&gt;error_msg(&#39;ON&#39;); # Включаем выдачу ошибок от порта
+
+# Получаем чистый хэндлер порта и с ним создаем объект AE::Handle
+my $fh = $port-&gt;{&#39;HANDLE&#39;};
+
+my $handle;
+$handle = AnyEvent::Handle-&gt;new(
+fh       =&gt; $fh,
+on_error =&gt; sub {
+    my ( $handle, $fatal, $message ) = @_;
+    $handle-&gt;destroy;
+    undef $handle;
+    say STDERR &quot;$fatal : $message\n&quot;;
+},
+on_read =&gt; sub {
+    my $printer_handle = shift;
+    $handle-&gt;push_read(
+        line =&gt; sub {
+            my ( $printer_handle, $line ) = @_;
+            say sprintf( &quot;Reply: [%s]&quot;, $line );
+        }
+    );
+}
+);
+
+# Отправляем команду принтеру
+$port-&gt;write(&quot;M105\n&quot;);
+
+$cv-&gt;recv;
+</code></pre>
+
+<p>После запуска (если все параметры указаны верно) получим такой вывод:</p>
+
+<pre><code>Connecting.. [/dev/ttyUSB0] [115200]
+Reply: [ok T:26.6 /0.0 @:0]
+</code></pre>
+
+<p>Подключение к принтеру и передача данных в обе стороны прошли успешно!</p>
+
+<p><strong>Важный нюанс!</strong></p>
+
+<p>Хэндлер порта полученный тут <code>my $fh = $port-&gt;{&#39;HANDLE&#39;};</code> <strong>однонаправленный на чтение</strong>! Если попытаться туда что-то записать силами AE то получим ошибку. Писать надо напрямую в объект порта, что и происходит в предпоследней строке.</p>
+
+
+                <p>Tags:
+                    <a href="http://alpha6.ru/blog/tag/anyevent/">AnyEvent</a>
+                    <a href="http://alpha6.ru/blog/tag/perl/">perl</a>
+                    <a href="http://alpha6.ru/blog/tag/serial-port/">serial port</a>
+                    <a href="http://alpha6.ru/blog/tag/hardware/">hardware</a>
+                </p>
+
+        ]]></content>
+        <updated>2017-05-28T00:00:00Z</updated>
+        <category term="AnyEvent" />
+        <category term="perl" />
+        <category term="serial port" />
+        <category term="hardware" />
+    </entry>
+</feed>
+

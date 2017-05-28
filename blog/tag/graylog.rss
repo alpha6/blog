@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/graylog/</link>
         <atom:link href="http://alpha6.ru/blog/tag/graylog.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.081</generator>
+        <generator>Statocles 0.083</generator>
         <item>
             <title>Используем Graylog с Perl</title>
             <link>http://alpha6.ru/blog/2015/04/30/using-perl-and-graylog/</link>

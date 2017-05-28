@@ -8,7 +8,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
-        <meta content="Statocles 0.081" name="generator">
+        <meta content="Statocles 0.083" name="generator">
         <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
         <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
@@ -34,6 +34,78 @@
                     <main>
                         
 
+<article>
+    <header>
+        <h1><a href="/blog/2016/09/08/send-html-email-with-perl/">Отправляем емейл из Perl с авторизацией и html</a></h1>
+
+        <aside>
+            <time datetime="2016-09-08">
+                Posted on 2016-09-08
+            </time>
+            <a data-disqus-identifier="/2016/09/08/send-html-email-with-perl/index.markdown" href="/blog/2016/09/08/send-html-email-with-perl/#disqus_thread">0 comments</a>
+        </aside>
+
+        <p class="tags">Tags:
+            <a href="/blog/tag/perl/" rel="tag">perl</a>
+            <a href="/blog/tag/net-smtp/" rel="tag">net::smtp</a>
+            <a href="/blog/tag/email/" rel="tag">email</a>
+        </p>
+
+    </header>
+
+    <p>Отправляем письмо в html с авторизацией из Perl.</p>
+
+<pre><code>use strict;
+use Net::SMTP;
+use Authen::SASL; #нужен для авторизации
+
+use utf8;
+use Encode;
+use MIME::Base64
+
+
+  my $message = &quot;&lt;html&gt;&lt;body&gt;Тестовое письмо&lt;/body&gt;&lt;/html&gt;&quot;;
+
+# авторизационные данные
+my $smtp_host = &#39;smtp.server.address&#39;;
+my $smtp_user = &#39;user_name&#39;;
+my $smtp_pass = &#39;password&#39;;
+
+
+my $debug = 1; # рассматриваем процесс подключения в деталях
+
+# mail properties
+my $mail_from = &#39;user@example.com&#39;;
+my $mail_to = &#39;recipient@example.com&#39;;
+my $mail_subject = &#39;Тестовое письмо&#39;;
+
+# Выставляем заголовки. Сюда можно добавить еще всякого при необходимости
+my $mail_headers = &quot;From: $mail_from\n&quot;.
+&quot;To: $mail_to\n&quot;.
+&quot;Subject: &quot;.encode(&#39;MIME-Header&#39;,$mail_subject).&quot;\n&quot;.
+&quot;MIME-Version: 1.0\n&quot;.
+&quot;Content-type: text/html; charset=UTF-8\n&quot;.
+&quot;Content-Transfer-Encoding: base64\n\n&quot;;
+
+my $mail_body = $message;
+
+# Отправляем письмо
+my $smtp = Net::SMTP-&gt;new($smtp_host, Debug =&gt; $debug) or die &quot;cannot connect to server&quot;;
+$smtp-&gt;auth($smtp_user,$smtp_pass) or die &quot;could not authenticate&quot;;
+$smtp-&gt;mail($mail_from);
+$smtp-&gt;to($mail_to);
+$smtp-&gt;data();
+$smtp-&gt;datasend($mail_headers);
+$smtp-&gt;datasend(encode_base64(encode(&#39;UTF-8&#39;, $mail_body)));
+$smtp-&gt;dataend();
+$smtp-&gt;quit;
+</code></pre>
+
+<p>При необходимости можно добавить файлы, PGP подписи и так далее.</p>
+
+
+
+</article>
 <article>
     <header>
         <h1><a href="/blog/2016/09/04/marlin-adding-second-extruder/">Добавляем второй экструдер к RAMPS 1.4/Marlin</a></h1>
@@ -508,40 +580,6 @@ postgres=# CREATE USER db_user_name WITH PASSWORD &#39;secret_password&#39;;
 
 
 </article>
-<article>
-    <header>
-        <h1><a href="/blog/2015/12/28/git-clone-recursive/">git clone recursive</a></h1>
-
-        <aside>
-            <time datetime="2015-12-28">
-                Posted on 2015-12-28
-            </time>
-            <a data-disqus-identifier="/2015/12/28/git-clone-recursive/index.markdown" href="/blog/2015/12/28/git-clone-recursive/#disqus_thread">0 comments</a>
-        </aside>
-
-        <p class="tags">Tags:
-            <a href="/blog/tag/git/" rel="tag">git</a>
-            <a href="/blog/tag/windows/" rel="tag">windows</a>
-        </p>
-
-    </header>
-
-    <p>В Git 2.6 для Windows появилась неприятная бага - если уровень вложенности сабмодулей больше 3х, то команда <code>git clone --recursive</code> падает с ошибкой при клонировании глубоко вложенных сабмодулей.</p>
-
-<p>Как бороться - разбить клонирование на 3 этапа:</p>
-
-<pre><code>git clone &lt;repo_addr&gt;
-cd &lt;repo_dir&gt;
-git submodule update --init
-git submodule foreach --recursive git submodule update --init
-</code></pre>
-
-<p>Здесь мы просто клонируем репозиторий, при необходимости можно сделать чекаут на нужную ветку.
-Затем инициализируем и загружаем сабмодули первого уровня. И последняя команда проходит рекурсивно по всем сабмодулям рекурсивно и загружает их на неограниченном (наверное) уровне вложенности.</p>
-
-
-
-</article>
 
 <ul class="pager">
     <li class="prev">
@@ -579,6 +617,7 @@ git submodule foreach --recursive git submodule update --init
             <li><a href="/blog/tag/3d-printer/">3d-printer</a></li>
             <li><a href="/blog/tag/3dprinting/">3dprinting</a></li>
             <li><a href="/blog/tag/airplay/">airplay</a></li>
+            <li><a href="/blog/tag/anyevent/">AnyEvent</a></li>
             <li><a href="/blog/tag/apache-http/">apache.http</a></li>
             <li><a href="/blog/tag/armbian/">armbian</a></li>
             <li><a href="/blog/tag/autolevel/">autolevel</a></li>
@@ -596,6 +635,7 @@ git submodule foreach --recursive git submodule update --init
             <li><a href="/blog/tag/git/">git</a></li>
             <li><a href="/blog/tag/graylog/">graylog</a></li>
             <li><a href="/blog/tag/graylog2/">graylog2</a></li>
+            <li><a href="/blog/tag/hardware/">hardware</a></li>
             <li><a href="/blog/tag/io/">io</a></li>
             <li><a href="/blog/tag/java/">java</a></li>
             <li><a href="/blog/tag/jcifs/">jcifs</a></li>
@@ -621,6 +661,7 @@ git submodule foreach --recursive git submodule update --init
             <li><a href="/blog/tag/rex/">rex</a></li>
             <li><a href="/blog/tag/rostock/">rostock</a></li>
             <li><a href="/blog/tag/samba/">samba</a></li>
+            <li><a href="/blog/tag/serial-port/">serial port</a></li>
             <li><a href="/blog/tag/shairport/">shairport</a></li>
             <li><a href="/blog/tag/slic3r/">slic3r</a></li>
             <li><a href="/blog/tag/snippet/">snippet</a></li>

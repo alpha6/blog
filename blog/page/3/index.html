@@ -8,7 +8,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
-        <meta content="Statocles 0.081" name="generator">
+        <meta content="Statocles 0.083" name="generator">
         <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
         <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
@@ -34,6 +34,40 @@
                     <main>
                         
 
+<article>
+    <header>
+        <h1><a href="/blog/2015/12/28/git-clone-recursive/">git clone recursive</a></h1>
+
+        <aside>
+            <time datetime="2015-12-28">
+                Posted on 2015-12-28
+            </time>
+            <a data-disqus-identifier="/2015/12/28/git-clone-recursive/index.markdown" href="/blog/2015/12/28/git-clone-recursive/#disqus_thread">0 comments</a>
+        </aside>
+
+        <p class="tags">Tags:
+            <a href="/blog/tag/git/" rel="tag">git</a>
+            <a href="/blog/tag/windows/" rel="tag">windows</a>
+        </p>
+
+    </header>
+
+    <p>В Git 2.6 для Windows появилась неприятная бага - если уровень вложенности сабмодулей больше 3х, то команда <code>git clone --recursive</code> падает с ошибкой при клонировании глубоко вложенных сабмодулей.</p>
+
+<p>Как бороться - разбить клонирование на 3 этапа:</p>
+
+<pre><code>git clone &lt;repo_addr&gt;
+cd &lt;repo_dir&gt;
+git submodule update --init
+git submodule foreach --recursive git submodule update --init
+</code></pre>
+
+<p>Здесь мы просто клонируем репозиторий, при необходимости можно сделать чекаут на нужную ветку.
+Затем инициализируем и загружаем сабмодули первого уровня. И последняя команда проходит рекурсивно по всем сабмодулям рекурсивно и загружает их на неограниченном (наверное) уровне вложенности.</p>
+
+
+
+</article>
 <article>
     <header>
         <h1><a href="/blog/2015/12/26/state-variabes-in-perl/">State переменные в Perl</a></h1>
@@ -346,35 +380,6 @@ SELECT NOW() + &#39;5 days&#39;::interval;
 
 
 </article>
-<article>
-    <header>
-        <h1><a href="/blog/2015/09/19/dbd-pg-install/">DBD::Pg install</a></h1>
-
-        <aside>
-            <time datetime="2015-09-19">
-                Posted on 2015-09-19
-            </time>
-            <a data-disqus-identifier="/2015/09/19/dbd-pg-install/index.markdown" href="/blog/2015/09/19/dbd-pg-install/#disqus_thread">0 comments</a>
-        </aside>
-
-        <p class="tags">Tags:
-            <a href="/blog/tag/ubuntu/" rel="tag">ubuntu</a>
-            <a href="/blog/tag/postgresql/" rel="tag">postgresql</a>
-            <a href="/blog/tag/perl/" rel="tag">perl</a>
-            <a href="/blog/tag/dbd-pg/" rel="tag">dbd::pg</a>
-        </p>
-
-    </header>
-
-    <p>Markdown content goes here.</p>
-
-<p>Если при установке <code>DBD::Pg</code> через <code>CPAN</code> у вас начинают спрашивать какие-то странные слова про номер версии и расположение директорий Postgresql - проверьте что у вас установлен пакет <code>postgresql-server-dev-X.X</code> (<code>postgresql-server-dev-all</code>).</p>
-
-<p>После его установки проблема магическим (на самом деле нет) образом исчезает.</p>
-
-
-
-</article>
 
 <ul class="pager">
     <li class="prev">
@@ -412,6 +417,7 @@ SELECT NOW() + &#39;5 days&#39;::interval;
             <li><a href="/blog/tag/3d-printer/">3d-printer</a></li>
             <li><a href="/blog/tag/3dprinting/">3dprinting</a></li>
             <li><a href="/blog/tag/airplay/">airplay</a></li>
+            <li><a href="/blog/tag/anyevent/">AnyEvent</a></li>
             <li><a href="/blog/tag/apache-http/">apache.http</a></li>
             <li><a href="/blog/tag/armbian/">armbian</a></li>
             <li><a href="/blog/tag/autolevel/">autolevel</a></li>
@@ -429,6 +435,7 @@ SELECT NOW() + &#39;5 days&#39;::interval;
             <li><a href="/blog/tag/git/">git</a></li>
             <li><a href="/blog/tag/graylog/">graylog</a></li>
             <li><a href="/blog/tag/graylog2/">graylog2</a></li>
+            <li><a href="/blog/tag/hardware/">hardware</a></li>
             <li><a href="/blog/tag/io/">io</a></li>
             <li><a href="/blog/tag/java/">java</a></li>
             <li><a href="/blog/tag/jcifs/">jcifs</a></li>
@@ -454,6 +461,7 @@ SELECT NOW() + &#39;5 days&#39;::interval;
             <li><a href="/blog/tag/rex/">rex</a></li>
             <li><a href="/blog/tag/rostock/">rostock</a></li>
             <li><a href="/blog/tag/samba/">samba</a></li>
+            <li><a href="/blog/tag/serial-port/">serial port</a></li>
             <li><a href="/blog/tag/shairport/">shairport</a></li>
             <li><a href="/blog/tag/slic3r/">slic3r</a></li>
             <li><a href="/blog/tag/snippet/">snippet</a></li>

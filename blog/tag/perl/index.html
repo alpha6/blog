@@ -8,7 +8,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Just another blog</title>
-        <meta content="Statocles 0.081" name="generator">
+        <meta content="Statocles 0.083" name="generator">
         <link href="/blog/tag/perl.atom" rel="alternate" type="application/atom+xml">
         <link href="/blog/tag/perl.rss" rel="alternate" type="application/rss+xml">
         
@@ -34,6 +34,105 @@
                     <main>
                         
 
+<article>
+    <header>
+        <h1><a href="/blog/2017/05/28/async-serial-port/">Асинхронная работа с COM-портом в Perl</a></h1>
+
+        <aside>
+            <time datetime="2017-05-28">
+                Posted on 2017-05-28
+            </time>
+            <a data-disqus-identifier="/2017/05/28/async-serial-port/index.markdown" href="/blog/2017/05/28/async-serial-port/#disqus_thread">0 comments</a>
+        </aside>
+
+        <p class="tags">Tags:
+            <a href="/blog/tag/anyevent/" rel="tag">AnyEvent</a>
+            <a href="/blog/tag/perl/" rel="tag">perl</a>
+            <a href="/blog/tag/serial-port/" rel="tag">serial port</a>
+            <a href="/blog/tag/hardware/" rel="tag">hardware</a>
+        </p>
+
+    </header>
+
+    <p>Понадобилось мне тут поработать с 3d принтером из Perl. Принтер подключается к компьютеру через USB-COM переходник и прикидывается обычным COM портом со всеми вытекающими способами работы.</p>
+
+<p>Для работы с ком-портом в Perl есть отличный модуль - <a href="https://metacpan.org/pod/Device::SerialPort">Device::SerialPort</a>. А для асинхронности используем классический AnyEvent. Ну и долго сказка сказывается, да быстро код пишется - пример кода:</p>
+
+<pre><code>#!/usr/bin/env perl
+
+use v5.20;
+use strict;
+
+use AnyEvent;
+use AnyEvent::Handle;
+
+use Device::SerialPort;
+
+my $cv = AE::cv;
+
+# Базовые параметры подключения к порту
+my $device_port = &#39;/dev/ttyUSB0&#39;;
+my $port_speed  = 115200;
+
+say &quot;Connecting.. [$device_port] [$port_speed]&quot;;
+my $port = Device::SerialPort-&gt;new($device_port);
+$port-&gt;baudrate($port_speed); #Устанавливаем скорость соединения
+
+# Чуть более продвинутые настройки
+$port-&gt;handshake(&quot;none&quot;); #Не используем handshake иначе подключение будет устанавливаться только в момент перезагрузки принтера
+
+# Режим коммуникации 8N1
+$port-&gt;databits(8);
+$port-&gt;parity(&quot;none&quot;);
+$port-&gt;stopbits(1);
+
+$port-&gt;stty_echo(0); # Выключаем эхо
+$port-&gt;error_msg(&#39;ON&#39;); # Включаем выдачу ошибок от порта
+
+# Получаем чистый хэндлер порта и с ним создаем объект AE::Handle
+my $fh = $port-&gt;{&#39;HANDLE&#39;};
+
+my $handle;
+$handle = AnyEvent::Handle-&gt;new(
+fh       =&gt; $fh,
+on_error =&gt; sub {
+    my ( $handle, $fatal, $message ) = @_;
+    $handle-&gt;destroy;
+    undef $handle;
+    say STDERR &quot;$fatal : $message\n&quot;;
+},
+on_read =&gt; sub {
+    my $printer_handle = shift;
+    $handle-&gt;push_read(
+        line =&gt; sub {
+            my ( $printer_handle, $line ) = @_;
+            say sprintf( &quot;Reply: [%s]&quot;, $line );
+        }
+    );
+}
+);
+
+# Отправляем команду принтеру
+$port-&gt;write(&quot;M105\n&quot;);
+
+$cv-&gt;recv;
+</code></pre>
+
+<p>После запуска (если все параметры указаны верно) получим такой вывод:</p>
+
+<pre><code>Connecting.. [/dev/ttyUSB0] [115200]
+Reply: [ok T:26.6 /0.0 @:0]
+</code></pre>
+
+<p>Подключение к принтеру и передача данных в обе стороны прошли успешно!</p>
+
+<p><strong>Важный нюанс!</strong></p>
+
+<p>Хэндлер порта полученный тут <code>my $fh = $port-&gt;{&#39;HANDLE&#39;};</code> <strong>однонаправленный на чтение</strong>! Если попытаться туда что-то записать силами AE то получим ошибку. Писать надо напрямую в объект порта, что и происходит в предпоследней строке.</p>
+
+
+
+</article>
 <article>
     <header>
         <h1><a href="/blog/2016/09/08/send-html-email-with-perl/">Отправляем емейл из Perl с авторизацией и html</a></h1>
@@ -292,89 +391,6 @@ Counter [21]
 
 
 </article>
-<article>
-    <header>
-        <h1><a href="/blog/2015/04/30/using-perl-and-graylog/">Используем Graylog с Perl</a></h1>
-
-        <aside>
-            <time datetime="2015-04-30">
-                Posted on 2015-04-30
-            </time>
-            <a data-disqus-identifier="/2015/04/30/using-perl-and-graylog/index.markdown" href="/blog/2015/04/30/using-perl-and-graylog/#disqus_thread">0 comments</a>
-        </aside>
-
-        <p class="tags">Tags:
-            <a href="/blog/tag/perl/" rel="tag">perl</a>
-            <a href="/blog/tag/graylog/" rel="tag">graylog</a>
-        </p>
-
-    </header>
-
-    <p>Устанавливаем Graylog. Для опытов я использовал преднастроенную VM для VirtualBox http://docs.graylog.org/en/1.0/pages/installation.html#virtual-machine-appliances</p>
-
-<p>! На момент написания статьи в VM идет версия Graylog-web с багом - при создании dashboard на нее нельзя добавить виджет т.к. JS-скрипт ответственный за разблокировку dashboard падает с ошибкой. Что-бы что-то сделать с дэшбордом на него надо добавить любой виджет с любой страницы. Это делается по клику на иконку возле названия виджета и выбором нужного дэшборда.</p>
-
-<p>Первым делом надо создать Input для логов.
-Мы будем использовать GELF формат через Log::Log4perl.
-Идем System-&gt;Inputs в выпадающем списке выбираем GELF UDP и жмем Launch Input.
-В открывшемся окне выбираем ноды на которых будет работать этот инпут, описание, адрес на котором он будет слушать.
-Жмем launch, убеждаемся что он стартанул и на этом пока все работы с Graylog закончены.</p>
-
-<p>Теперь устанавливаем пакет <a href="https://metacpan.org/pod/Log::Log4perl::Layout::GELF">Log::Log4perl::Layout::GELF</a>.</p>
-
-<p>Создаем файл конфигурации логгера:</p>
-
-<pre><code>log4perl.logger.graylog                     = INFO, Screen, Graylog
-
-log4perl.appender.Screen                = Log::Log4perl::Appender::Screen
-log4perl.appender.Screen.stderr         = 0
-log4perl.appender.Screen.layout         = Log::Log4perl::Layout::PatternLayout
-log4perl.appender.Screen.layout.ConversionPattern = [%d] [%p] %m%n
-log4perl.appender.Screen.utf8           = 1
-
-log4perl.appender.Graylog          = Log::Log4perl::Appender::Socket
-log4perl.appender.Graylog.PeerAddr = graylog.host
-log4perl.appender.Graylog.PeerPort = 12201
-log4perl.appender.Graylog.Proto    = udp
-log4perl.appender.Graylog.layout   = GELF
-</code></pre>
-
-<p>Создаем тестовый скрипт:</p>
-
-<pre><code>#!/usr/bin/env perl
-
-use utf8;
-use strict;
-use Log::Log4perl;
-
-#Загружаем конфигурацию 
-Log::Log4perl::init(&#39;logger.conf&#39;);
-
-#Получаем логгер
-my $logger = Log::Log4perl-&gt;get_logger(&#39;graylog&#39;);
-
-$logger-&gt;info(&#39;hello graylog&#39;);
-$logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
-</code></pre>
-
-<p>В теории, этого достаточно для того что бы нужные логи вашего приложения начали идти в Graylog. Но, как обычно, есть нюанс - этот модуль совершенно не представляет что есть более чем однобайтные кодировки и при попытке что-то записать в лог что-то с utf8 мы получим ошибку <code>Wide character in IO::Compress::Gzip::write</code> и в Graylog сообщение не придет.</p>
-
-<p>Для обычных аппендеров, например Screen, эта проблема решается просто - дописываем в конфигурацию флаг включения utf8:</p>
-
-<pre><code>log4perl.appender.FileAppndr.utf8     = 1
-</code></pre>
-
-<p>Но в данном случае проблема на уровне layout и этот модуль не обрабатывает такую ситуацию.</p>
-
-<p>Для себя я эту проблему решил просто - сделал форк модуля с названием <a href="https://github.com/alpha6/Log-Log4perl-Layout-GELFUtf">GELFUtf</a> и использую его.</p>
-
-<p>Таким образом в конфиге вместо <code>log4perl.appender.Graylog.layout   = GELF</code> пишу <code>log4perl.appender.Graylog.layout   = GELFUtf</code>.</p>
-
-<p>Подменить фунцию на лету у меня не получилось, скорее всего из-за хитрой архитектуры Log4perl. А лезть патчить в рантайм - овчинка выделки не стоит. Так что пока пользуюсь патченым модулем и коплю силы на создание полноценного патча для оригинального модуля.</p>
-
-
-
-</article>
 
 <ul class="pager">
     <li class="prev">
@@ -412,6 +428,7 @@ $logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
             <li><a href="/blog/tag/3d-printer/">3d-printer</a></li>
             <li><a href="/blog/tag/3dprinting/">3dprinting</a></li>
             <li><a href="/blog/tag/airplay/">airplay</a></li>
+            <li><a href="/blog/tag/anyevent/">AnyEvent</a></li>
             <li><a href="/blog/tag/apache-http/">apache.http</a></li>
             <li><a href="/blog/tag/armbian/">armbian</a></li>
             <li><a href="/blog/tag/autolevel/">autolevel</a></li>
@@ -429,6 +446,7 @@ $logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
             <li><a href="/blog/tag/git/">git</a></li>
             <li><a href="/blog/tag/graylog/">graylog</a></li>
             <li><a href="/blog/tag/graylog2/">graylog2</a></li>
+            <li><a href="/blog/tag/hardware/">hardware</a></li>
             <li><a href="/blog/tag/io/">io</a></li>
             <li><a href="/blog/tag/java/">java</a></li>
             <li><a href="/blog/tag/jcifs/">jcifs</a></li>
@@ -454,6 +472,7 @@ $logger-&gt;info(&#39;Тестовое сообщение UTF8&#39;);
             <li><a href="/blog/tag/rex/">rex</a></li>
             <li><a href="/blog/tag/rostock/">rostock</a></li>
             <li><a href="/blog/tag/samba/">samba</a></li>
+            <li><a href="/blog/tag/serial-port/">serial port</a></li>
             <li><a href="/blog/tag/shairport/">shairport</a></li>
             <li><a href="/blog/tag/slic3r/">slic3r</a></li>
             <li><a href="/blog/tag/snippet/">snippet</a></li>
