@@ -36,6 +36,49 @@
 
 <article>
     <header>
+        <h1><a href="/blog/2015/09/14/get-package-methods/">Получение методов пакета</a></h1>
+
+        <aside>
+            <time datetime="2015-09-14">
+                Posted on 2015-09-14
+            </time>
+            <a data-disqus-identifier="/2015/09/14/get-package-methods/index.markdown" href="/blog/2015/09/14/get-package-methods/#disqus_thread">0 comments</a>
+        </aside>
+
+        <p class="tags">Tags:
+            <a href="/blog/tag/perl/" rel="tag">perl</a>
+            <a href="/blog/tag/note/" rel="tag">note</a>
+            <a href="/blog/tag/package/" rel="tag">package</a>
+        </p>
+
+    </header>
+
+    <p>Для получения методов пакета Foo::Bar делаем:</p>
+
+<pre><code>print Dumper(\%Foo::Bar::);
+</code></pre>
+
+<p>Для проверки существования метода:</p>
+
+<pre><code>if (Foo::Bar::.$method_name) {
+    #some stuff
+}
+</code></pre>
+
+<p>Для получения методов текущего пакета:</p>
+
+<pre><code>print Dumper(\%main::)
+</code></pre>
+
+<p>Но если подключены дополнительные библиотеки - в выводе будут методы всех подключенных библиотек.</p>
+
+<p><a href="http://perldoc.perl.org/perlmod.html#Symbol-Tables">Подробнее в документации</a></p>
+
+
+
+</article>
+<article>
+    <header>
         <h1><a href="/blog/2015/04/30/using-perl-and-graylog/">Используем Graylog с Perl</a></h1>
 
         <aside>
@@ -284,6 +327,7 @@ STDERR-&gt;autoflush(1);
             <li><a href="/blog/tag/automation/">automation</a></li>
             <li><a href="/blog/tag/bugs/">bugs</a></li>
             <li><a href="/blog/tag/confluence/">confluence</a></li>
+            <li><a href="/blog/tag/convos/">convos</a></li>
             <li><a href="/blog/tag/data/">data</a></li>
             <li><a href="/blog/tag/dbd-pg/">dbd::pg</a></li>
             <li><a href="/blog/tag/debian/">debian</a></li>
@@ -297,6 +341,7 @@ STDERR-&gt;autoflush(1);
             <li><a href="/blog/tag/graylog2/">graylog2</a></li>
             <li><a href="/blog/tag/hardware/">hardware</a></li>
             <li><a href="/blog/tag/io/">io</a></li>
+            <li><a href="/blog/tag/irc/">irc</a></li>
             <li><a href="/blog/tag/java/">java</a></li>
             <li><a href="/blog/tag/jcifs/">jcifs</a></li>
             <li><a href="/blog/tag/json/">json</a></li>

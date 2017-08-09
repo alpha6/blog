@@ -4,7 +4,7 @@
         <loc>http://alpha6.ru/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-05-28</lastmod>
+        <lastmod>2017-07-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</loc>
@@ -157,28 +157,40 @@
         <lastmod>2017-05-28</lastmod>
     </url>
     <url>
+        <loc>http://alpha6.ru/blog/2017/07/04/installing-convos/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2017-07-04</lastmod>
+    </url>
+    <url>
         <loc>http://alpha6.ru/blog/page/2/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-05-28</lastmod>
+        <lastmod>2017-07-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/3/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-05-28</lastmod>
+        <lastmod>2017-07-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/4/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-05-28</lastmod>
+        <lastmod>2017-07-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/5/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-05-28</lastmod>
+        <lastmod>2017-07-04</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/page/6/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2017-07-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/3d-printer/</loc>
@@ -239,6 +251,12 @@
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2016-10-18</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/convos/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2017-07-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/data/</loc>
@@ -317,6 +335,12 @@
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2015-04-25</lastmod>
+    </url>
+    <url>
+        <loc>http://alpha6.ru/blog/tag/irc/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2017-07-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/java/</loc>
@@ -412,13 +436,13 @@
         <loc>http://alpha6.ru/blog/tag/perl/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-05-28</lastmod>
+        <lastmod>2017-07-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/perl/page/2/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-05-28</lastmod>
+        <lastmod>2017-07-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/postgresql/</loc>
