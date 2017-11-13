@@ -36,6 +36,125 @@
 
 <article>
     <header>
+        <h1><a href="/blog/2015/10/02/installing-redmine-from-ubuntu-package/">Installing Redmine from Ubuntu package</a></h1>
+
+        <aside>
+            <time datetime="2015-10-02">
+                Posted on 2015-10-02
+            </time>
+            <a data-disqus-identifier="/2015/10/02/installing-redmine-from-ubuntu-package/index.markdown" href="/blog/2015/10/02/installing-redmine-from-ubuntu-package/#disqus_thread">0 comments</a>
+        </aside>
+
+        <p class="tags">Tags:
+            <a href="/blog/tag/redmine/" rel="tag">redmine</a>
+            <a href="/blog/tag/postgresql/" rel="tag">postgresql</a>
+            <a href="/blog/tag/nginx/" rel="tag">nginx</a>
+            <a href="/blog/tag/ubuntu/" rel="tag">ubuntu</a>
+        </p>
+
+    </header>
+
+    <p>Устанавливаем Redmine из пакетов в Ubuntu. Версия в пакетах не самая свежая, зато никаких заморочек с настройкой руби и интеграцией с БД.</p>
+
+<p>В качестве БД будем использовать Postgresql, на фронтенде Nginx, все совершенно стандартно.</p>
+
+<p>Устанавливаем все нужные пакеты:</p>
+
+<pre><code>sudo apt install redmine redmine-psql postgresql nginx thin
+</code></pre>
+
+<p>В вопросах инсталятора <code>redmine</code> выбираем бэкэнд <code>psql</code>, в следующем диалоге на запрос автоматической конфигурации БД говорим <code>yes</code>, оставляем поле пароля пустым. Пароль будет сгенерирован автоматически и данные зальются в схему <code>redmine_default</code>.</p>
+
+<p><code>Redmine</code> установится в <code>/usr/share/redmine</code>, его конфигурация будет лежать в <code>/etc/redmine</code> но сейчас там нет ничего интересного для нас.</p>
+
+<p>Проверим что все работает корректно. Идем в <code>/usr/share/redmine</code> и запускаем <code>Redmine</code> с помощью <code>webrick</code></p>
+
+<pre><code> ruby script/rails server webrick -e production
+</code></pre>
+
+<p>Демон запустится на <code>0.0.0.0:3000</code> заходим, проверяем что все работает, гасим демона.</p>
+
+<p>Теперь настроим <code>thin</code> для запуска <code>Redmine</code>. Создадим конфиг файл:</p>
+
+<pre><code>sudo thin config --config /etc/thin1.9.1/redmine.yml --chdir YOUR_REDMINE_DIRECTORY     --environment production --address 0.0.0.0 --port 3030     --daemonize --log /var/log/thin/redmine.log --pid /var/run/thin/redmine.pid     --user www-data --group www-data --servers 1 --prefix YOUR_PREFIX
+</code></pre>
+
+<p><code>YOUR_REDMINE_DIRECTORY</code> - путь к директории куда установлен <code>Redmine</code>, в нашем случае <code>/usr/share/redmine</code>.
+<code>YOUR_PREFIX</code> - префикс в адресе по которому будет доступен <code>Redmine</code>, для установки в <code>http://your_redmine.domain/</code> пишем <code>/</code>. Если хотим чтобы доступ был через <code>http://your_redmine.domain/redmine</code> пишем <code>redmine</code>.</p>
+
+<p>Команда для установки в корень по умолчанию будет выглядеть как-то так:</p>
+
+<pre><code>sudo thin config --config /etc/thin1.9.1/redmine.yml --chdir /usr/share/redmine --environment production --address 0.0.0.0 --port 3030 --daemonize --log /var/log/thin/redmine.log --pid /var/run/thin/redmine.pid --user www-data --group www-data --servers 1 --prefix /
+</code></pre>
+
+<p>Теперь настроим <code>Nginx</code>.</p>
+
+<p>Создадим файл <code>/etc/nginx/sites-available/redmine</code> со следующим содержимым:</p>
+
+<pre><code>upstream redmine_thin_servers {
+    server 0.0.0.0:3030;
+}
+
+server {
+
+  listen   80; ## listen for ipv4
+
+  server_name your_redmine.domain;
+  server_name_in_redirect off;
+
+  proxy_set_header        Host $http_host;
+  proxy_set_header        X-Real-IP $remote_addr;
+  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header        X-Forwarded-Proto $scheme;
+  proxy_redirect off;
+
+  location / {
+    root   /usr/share/redmine/public;
+
+    error_page 404  404.html;
+    error_page 500 502 503 504  500.html;
+
+    try_files $uri/index.html $uri.html $uri @redmine_thin_servers;
+  }
+
+  location @redmine_thin_servers {
+    proxy_pass http://redmine_thin_servers;
+  }
+}
+</code></pre>
+
+<p>Создадим на него ссылку в <code>/etc/nginx/sites-enabled</code></p>
+
+<pre><code>cd /etc/nginx/sites-enabled
+sudo ln -s ../sites-available/redmine
+</code></pre>
+
+<p>Запустим <code>thin</code> и <code>nginx</code></p>
+
+<pre><code>sudo service thin start
+sudo service nginx start
+</code></pre>
+
+<p>После этого <code>redmine</code> должен быть доступен на 80м порту вашего домена. Если там 502 или еще чего - значит конфигурация отличается и надо смотреть какую ошибку пишут в логах <code>thin</code> и <code>redmine</code>.</p>
+
+<p>Теперь закроем все это дело firewall. Так как никаких творческих решений нам не нужно, а нужно чтобы работало - то будем использовать <code>ufw</code></p>
+
+<p>Оставим открытыми только ssh и http(80) порты</p>
+
+<p>sudo apt install ufw
+  ufw allow ssh
+  ufw allow http
+  ufw enable</p>
+
+<p>Это установит ufw, добавит ssh и http в список разрешенных портов, заблокирует все остальные и добавит правил firewall в автозагрузку при старте системы.</p>
+
+<p>Enjoy.</p>
+
+
+
+</article>
+<article>
+    <header>
         <h1><a href="/blog/2015/09/29/prostgresql-interval-in-future/">postgresql interval in future</a></h1>
 
         <aside>
@@ -184,69 +303,6 @@ SELECT NOW() + &#39;5 days&#39;::interval;
 
 
 </article>
-<article>
-    <header>
-        <h1><a href="/blog/2015/05/20/airport-linux/">Превращаем Linux компьютер в AirPlay приемник</a></h1>
-
-        <aside>
-            <time datetime="2015-05-20">
-                Posted on 2015-05-20
-            </time>
-            <a data-disqus-identifier="/2015/05/20/airport-linux/index.markdown" href="/blog/2015/05/20/airport-linux/#disqus_thread">0 comments</a>
-        </aside>
-
-        <p class="tags">Tags:
-            <a href="/blog/tag/airplay/" rel="tag">airplay</a>
-            <a href="/blog/tag/linux/" rel="tag">linux</a>
-            <a href="/blog/tag/shairport/" rel="tag">shairport</a>
-        </p>
-
-    </header>
-
-    <p>Захотелось мне как-то играть музыку с мака на колонки без проводов. Раньше для этого я пользовался AirPort Express, куда были воткнуты колонки. Но сия халява кончилась и теперь надо что-то изобретать.</p>
-
-<p>Быстрый поиск по интернетам показал существование демона shairport, который предствляет собой AirPlay приемник для Linux. Проблема в том, что данный демон уже давно не поддерживается и автор прямо отказался от его поддержки. Но благодаря великой силе форков гитхаба был найден проект <a href="https://github.com/mikebrady/shairport-sync">shairport-sync</a>, который является форком shairport с допилами и поддерживается в настоящее время. То что надо!</p>
-
-<p>Итак, краткий мануал по установке. Я взял старый asus eee 900, на котором стоит xubuntu 14.04LTS. По совместительству он работает у меня домашним сервером.</p>
-
-<ul>
-<li>Клонируем к себе репозиторий <code>git clone https://github.com/mikebrady/shairport-sync.git</code></li>
-<li>Устанавливаем зависимости нужное для сборки <code>apt install build-essential autoconf checkinstall libtool libdaemon-dev libasound2-dev libpopt-dev</code></li>
-<li>Устанавливаем Avahi <code>apt install avahi-daemon libavahi-client-dev</code></li>
-<li>Устанавливаем зависимости для работы с SSL <code>apt install libssl-dev</code>. Демон умеет работать с OpenSSL или PolarSSL, но этот пакет нужен для обеих библиотек.</li>
-<li>Я использовал PolarSSL для сборки, но, в целом, никакой разницы нет. Устанавливаем PolarSSL <code>apt install libpolarssl-dev</code></li>
-<li>Запускаем autoconf <code>autoreconf -i -f</code> после этого будет сгенерирован файл configure.</li>
-<li><code>$ ./configure --with-alsa --with-avahi --with-ssl=polarssl</code></li>
-<li><code>make</code></li>
-<li><code>sudo checkinstall</code>. Checkinstall задаст несколько вопросов, на них можно ответить по умолчанию, единственное что надо задать поле <code>version</code> в виде числа. Т.к. по умолчанию туда попадает значение <code>sync</code> и checkinstall падает с ошибкой создания пакета.</li>
-</ul>
-
-<p>Почему вместо <code>make install</code> лучше использовать <code>checkinstall</code>? Эта утилита перехватит работу make, отследит куда ставятся все файлы приложения и создаст deb пакет для безопасной установки и удаления приложения.</p>
-
-<p>Конфигурируется демон через редактирования файла <code>/etc/init.d/shairport-sync</code>, я там поменял только название сервиса. Обычно больше ничего не требуется для работы.</p>
-
-<h3>Возможные проблемы</h3>
-
-<p>При загрузке компьютера может появляться сообщение:</p>
-
-<pre><code>Avahi detected that your currently configured local DNS server serves a domain .local. This is inherently incompatible with Avahi and thus Avahi disabled itself. If you want to use Avahi in this network, please contact your administrator and convince him to use a different DNS domain, since .local should be used exclusively for Zeroconf technology.
-</code></pre>
-
-<p>Работа Avahi будет останавливаться, соответственно и shairport не запустится. Обычно эта проблема связана с тем, что в DNS сервере есть записи для зоны local.</p>
-
-<p>Проверяется это командой: <code>host -t SOA local.</code> (обратите внимание на точку в конце!). В нормальной ситуации вывод должен быть около такого:</p>
-
-<pre><code>bash-3.2$ host -t SOA local.
-Host local. not found: 3(NXDOMAIN)
-</code></pre>
-
-<p>Если же в выводе написано: <code>local has SOA record XXX</code>, то ваш DNS транслирует зону local. Обычно это делают провайдеры для работы сервисов типа retracker.local. Если вы этим не пользуетесь - можно просто указать днс Yandex (77.88.8.8/77.88.8.1) или Google(8.8.8.8/8.8.4.4).</p>
-
-<p>После этих настроек и рестарта служб - все должно работать, а на устройствах Apple появится ваше устройство для вывода звука.</p>
-
-
-
-</article>
 
 <ul class="pager">
     <li class="prev">
@@ -290,6 +346,7 @@ Host local. not found: 3(NXDOMAIN)
             <li><a href="/blog/tag/autolevel/">autolevel</a></li>
             <li><a href="/blog/tag/automation/">automation</a></li>
             <li><a href="/blog/tag/bugs/">bugs</a></li>
+            <li><a href="/blog/tag/cheat-sheet/">cheat sheet</a></li>
             <li><a href="/blog/tag/confluence/">confluence</a></li>
             <li><a href="/blog/tag/convos/">convos</a></li>
             <li><a href="/blog/tag/data/">data</a></li>
@@ -339,6 +396,7 @@ Host local. not found: 3(NXDOMAIN)
             <li><a href="/blog/tag/timestamp/">timestamp</a></li>
             <li><a href="/blog/tag/trap/">trap</a></li>
             <li><a href="/blog/tag/ubuntu/">ubuntu</a></li>
+            <li><a href="/blog/tag/vim/">vim</a></li>
             <li><a href="/blog/tag/weight-sensor/">weight sensor</a></li>
             <li><a href="/blog/tag/windows/">windows</a></li>
         </ul>

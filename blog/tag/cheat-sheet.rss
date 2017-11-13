@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Just another blog</title>
+        <link>http://alpha6.ru/blog/tag/cheat-sheet/</link>
+        <atom:link href="http://alpha6.ru/blog/tag/cheat-sheet.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of Just another blog</description>
+        <generator>Statocles 0.083</generator>
+        <item>
+            <title>vim шпаргалка</title>
+            <link>http://alpha6.ru/blog/2017/11/13/vim-cheat-sheet/</link>
+            <guid>http://alpha6.ru/blog/2017/11/13/vim-cheat-sheet/</guid>
+            <description><![CDATA[
+                <p>Небольшая шпаргалка по используемым мной функциям</p>
+
+<ul>
+<li>:q - выход :)</li>
+<li>:pwd - pwd</li>
+<li>:lcd <path> - установить путь для текущего окна/сплита</path></li>
+<li>:e. - открыть файловый менеджер в текущей директории</li>
+<li><p>:e. d - создать директорию в текущем каталоге</p></li>
+<li><p>:sp - создать горизонтальный сплит. :10sp высота в строках для нового сплита.</p></li>
+<li>:vsp - вертикальный сплит</li>
+<li>ctrl+w j - перейти в сплит внизу. Аналогично для k l w</li>
+<li>ctrl+w = - нормализовать все сплиты.</li>
+<li>ctrl+w _ - расширить текущий сплит на максимальную высоту</li>
+<li>ctrl+w | - расширить текущий сприл на максимальную ширину</li>
+<li><p>ctrl+w r - поменять местами текущий сплит с соседним</p></li>
+<li><p>u - undo</p></li>
+<li>crtl+r - redo</li>
+<li><p>. - Повторяет предыдущее изменение </p></li>
+<li><p>\cc - комментировать/раскомментировать строку</p></li>
+<li>\sf - for {}</li>
+<li>\si - if {}</li>
+<li>\sie - if {} else {}</li>
+<li>\ip - print &quot;...\n&quot;;</li>
+<li><p>\is - $ =~ s///xm</p></li>
+<li><p>\ry - perltidy</p></li>
+<li>\rr - обновить файл на диске и запустить</li>
+<li>\rs - обновить файл на диске и проверить синтакс</li>
+</ul>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/vim/">vim</a>
+                        <a href="http://alpha6.ru/blog/tag/cheat-sheet/">cheat sheet</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Mon, 13 Nov 2017 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

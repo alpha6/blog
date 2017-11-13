@@ -7,6 +7,51 @@
         <description>Blog feed of Just another blog</description>
         <generator>Statocles 0.083</generator>
         <item>
+            <title>vim шпаргалка</title>
+            <link>http://alpha6.ru/blog/2017/11/13/vim-cheat-sheet/</link>
+            <guid>http://alpha6.ru/blog/2017/11/13/vim-cheat-sheet/</guid>
+            <description><![CDATA[
+                <p>Небольшая шпаргалка по используемым мной функциям</p>
+
+<ul>
+<li>:q - выход :)</li>
+<li>:pwd - pwd</li>
+<li>:lcd <path> - установить путь для текущего окна/сплита</path></li>
+<li>:e. - открыть файловый менеджер в текущей директории</li>
+<li><p>:e. d - создать директорию в текущем каталоге</p></li>
+<li><p>:sp - создать горизонтальный сплит. :10sp высота в строках для нового сплита.</p></li>
+<li>:vsp - вертикальный сплит</li>
+<li>ctrl+w j - перейти в сплит внизу. Аналогично для k l w</li>
+<li>ctrl+w = - нормализовать все сплиты.</li>
+<li>ctrl+w _ - расширить текущий сплит на максимальную высоту</li>
+<li>ctrl+w | - расширить текущий сприл на максимальную ширину</li>
+<li><p>ctrl+w r - поменять местами текущий сплит с соседним</p></li>
+<li><p>u - undo</p></li>
+<li>crtl+r - redo</li>
+<li><p>. - Повторяет предыдущее изменение </p></li>
+<li><p>\cc - комментировать/раскомментировать строку</p></li>
+<li>\sf - for {}</li>
+<li>\si - if {}</li>
+<li>\sie - if {} else {}</li>
+<li>\ip - print &quot;...\n&quot;;</li>
+<li><p>\is - $ =~ s///xm</p></li>
+<li><p>\ry - perltidy</p></li>
+<li>\rr - обновить файл на диске и запустить</li>
+<li>\rs - обновить файл на диске и проверить синтакс</li>
+</ul>
+
+
+                    <p>Tags:
+                        <a href="http://alpha6.ru/blog/tag/vim/">vim</a>
+                        <a href="http://alpha6.ru/blog/tag/cheat-sheet/">cheat sheet</a>
+                    </p>
+
+            ]]></description>
+            <pubDate>
+                Mon, 13 Nov 2017 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Installing Convos</title>
             <link>http://alpha6.ru/blog/2017/07/04/installing-convos/</link>
             <guid>http://alpha6.ru/blog/2017/07/04/installing-convos/</guid>
@@ -745,108 +790,6 @@ git checkout -b RcBugFix
             ]]></description>
             <pubDate>
                 Tue, 18 Oct 2016 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>How to fix sound issue with KODI on the orange pi</title>
-            <link>http://alpha6.ru/blog/2016/10/09/orange-pi-armbian-kodi/</link>
-            <guid>http://alpha6.ru/blog/2016/10/09/orange-pi-armbian-kodi/</guid>
-            <description><![CDATA[
-                <p>I have Orange Pi One board. It&#39;s a great product, it is faster, cheaper and smaller then Raspberry Pi, but it uses AllWinner H3 SOC and it is its main disadvantage.</p>
-
-<p>If you want to use this board as a media center with KODI, you face the problem with sound. The sound works in Armbian applications but doesn&#39;t work in KODI. It happens because KODI uses S24_LE sampling format which is not supported by Orange Pi hardware.</p>
-
-<pre><code>root@orangepione:~# speaker-test  -D hw:1 -c2 --format S24_LE
-
-speaker-test 1.0.28
-
-Format S24_LE is not supported...
-</code></pre>
-
-<p>Ok, we found out the root of the problem, time to fix it!</p>
-
-<p>Now we need to set sampling format which is supported by Orange Pi hardware. One of supported sample formats is S32_LE.
-Check if it is correct:</p>
-
-<pre><code>root@orangepione:~# speaker-test  -D hw:1 -c2 --format S32_LE
-
-speaker-test 1.0.28
-
-Playback device is hw:1
-Stream parameters are 48000Hz, S32_LE, 2 channels
-Using 16 octaves of pink noise
-Rate set to 48000Hz (requested 48000Hz)
-Buffer size range from 64 to 131072
-Period size range from 32 to 16384
-Using max buffer size 131072
-Periods = 4
-</code></pre>
-
-<p>Now check soundcards, we need to get the device number which plays over HDMI output.</p>
-
-<pre><code>root@orangepione:~# cat /proc/asound/cards
- 0 [audiocodec     ]: audiocodec - audiocodec
-                      audiocodec
- 1 [sndhdmi        ]: sndhdmi - sndhdmi
-                      sndhdmi
-</code></pre>
-
-<p>The <code>sndhdmi</code> is a soundcard which attracts our interest. Remember the number of this one.</p>
-
-<p>Now we can edit the Alsa config:</p>
-
-<pre><code>vim /etc/asound.conf
-</code></pre>
-
-<p>Delete old content and paste the following one:</p>
-
-<pre><code>pcm.snd_card {
-        type hw
-        card 1
-        device 0
-}
-
-ctl.snd_card {
-        type hw
-        card 1
-        device 0
-}
-
-pcm.dmixer {
-    type dmix
-    ipc_key 1024
-    ipc_perm 0666
-    slave.pcm &quot;snd_card&quot;
-    slave {
-        period_time 0
-        period_size 1024
-        buffer_size 4096
-        rate 48000
-        format S32_LE
-        channels 2
-    }
-    bindings {
-        0 0
-        1 1
-    }
-}
-</code></pre>
-
-<p>Save the file and reboot.</p>
-
-<p>After that the KODI will play sound.
-If it doesn&#39;t play, check the number in <code>card</code> fields of the config, it must be the number from <code>sndhdmi</code> card, and samplerate and samplerate format in <code>slave</code> section. The samplerate should be equal with one from the <code>speaker-test</code> command output.</p>
-
-
-                    <p>Tags:
-                        <a href="http://alpha6.ru/blog/tag/orange-pi/">orange pi</a>
-                        <a href="http://alpha6.ru/blog/tag/kodi/">kodi</a>
-                        <a href="http://alpha6.ru/blog/tag/armbian/">armbian</a>
-                    </p>
-
-            ]]></description>
-            <pubDate>
-                Sun, 09 Oct 2016 00:00:00 +0000
             </pubDate>
         </item>
     </channel>
