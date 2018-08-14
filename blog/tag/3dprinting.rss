@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/3dprinting/</link>
         <atom:link href="http://alpha6.ru/blog/tag/3dprinting.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.083</generator>
+        <generator>Statocles 0.093</generator>
         <item>
             <title>Настраиваем прошивку Marlin для Arduino + RAMPS 1.4</title>
             <link>http://alpha6.ru/blog/2016/08/23/marlin-setup/</link>

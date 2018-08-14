@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/armbian/</link>
         <atom:link href="http://alpha6.ru/blog/tag/armbian.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.083</generator>
+        <generator>Statocles 0.093</generator>
         <item>
             <title>How to fix sound issue with KODI on the orange pi</title>
             <link>http://alpha6.ru/blog/2016/10/09/orange-pi-armbian-kodi/</link>

@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/diy/</link>
         <atom:link href="http://alpha6.ru/blog/tag/diy.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.083</generator>
+        <generator>Statocles 0.093</generator>
         <item>
             <title>Orange Pi power connector</title>
             <link>http://alpha6.ru/blog/2016/10/08/orange-pi-power-connector/</link>

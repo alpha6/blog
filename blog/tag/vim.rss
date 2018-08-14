@@ -5,7 +5,7 @@
         <link>http://alpha6.ru/blog/tag/vim/</link>
         <atom:link href="http://alpha6.ru/blog/tag/vim.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of Just another blog</description>
-        <generator>Statocles 0.083</generator>
+        <generator>Statocles 0.093</generator>
         <item>
             <title>vim шпаргалка</title>
             <link>http://alpha6.ru/blog/2017/11/13/vim-cheat-sheet/</link>

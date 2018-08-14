@@ -5,7 +5,7 @@
     <updated>2015-05-02T00:00:00Z</updated>
     <link href="http://alpha6.ru/blog/tag/graylog2.atom" rel="self" />
     <link href="http://alpha6.ru/blog/tag/graylog2/" rel="alternate" />
-    <generator version="0.083">Statocles</generator>
+    <generator version="0.093">Statocles</generator>
 
     <entry>
         <id>http://alpha6.ru/blog/2015/05/02/elasticsearch-remove-messages/</id>
