@@ -76,10 +76,10 @@ __DATA__
 <html>
   <head><title>Upload</title></head>
   <body>
-    %= form_for upload => (enctype => 'multipart/form-data') => begin
-      %= file_field 'image'
-      %= submit_button 'Upload'
-    % end
+    %%= form_for upload => (enctype => 'multipart/form-data') => begin
+      %%= file_field 'image'
+      %%= submit_button 'Upload'
+    %% end
   </body>
 </html>
 ```
@@ -424,10 +424,10 @@ __DATA__
 <html>
   <head><title>Upload</title></head>
   <body>
-    %= form_for upload => (enctype => 'multipart/form-data') => begin
-      %= file_field 'image'
-      %= submit_button 'Upload'
-    % end
+    %%= form_for upload => (enctype => 'multipart/form-data') => begin
+      %%= file_field 'image'
+      %%= submit_button 'Upload'
+    %% end
   </body>
 </html>
 ```
