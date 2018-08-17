@@ -16,88 +16,83 @@
 
 <p>Для решения этой проблемы в приложениях на Mojolicious можно использовать комбинацию Promise и Subprocess в виде модулей <a href="https://mojolicious.org/perldoc/Mojo/Promise">Mojo::Promise</a> и <a href="https://mojolicious.org/perldoc/Mojo/IOLoop/Subprocess">Mojo::IOLoop</a>.</p>
 
-<p>Важный нюанс, если ваше длительное действие инзначально асинхронное и не нагружает процессор, то смысла в использовании subprocess нет, т.к. subprocess спавнится через fork, а это достаточно дорогое удовольствие. Так же у subprocess нет встроенных методов для ограничения нагрузки. Так что если CPU-Bound задачи вам надо решать часто, в больших количествах и, желательно, не устраивая DOS-атаку свой сервер, то лучше использовать очереди и воркеров. Хотя, конечно никто не мешает накидать очередь на промисах и вот это всё.</p>
+<p>Важный нюанс, если ваше длительное действие инзначально асинхронное и не нагружает процессор, то смысла в использовании subprocess нет, т.к. subprocess спавнится через fork, а это может быть относительно дорогим удовольствим. Так же у subprocess нет встроенных методов для ограничения нагрузки. Так что если CPU-Bound задачи вам надо решать часто, в больших количествах и, желательно, не устраивая DOS-атаку свой сервер, то лучше использовать очереди и воркеров. Хотя, конечно никто не мешает накидать очередь на промисах и вот это всё.</p>
 
 <p>Итак, для примера создадим простейшее приложение на Mojo::Lite которое будет принимать картинку от пользователя и делать из нее набор картинок в разных разрешениях. </p>
 
-<p>```</p>
+<pre><code>#!/usr/bin/env perl
 
-<h1>!/usr/bin/env perl</h1>
-
-<p>use strict;
+use strict;
 use warnings;
 use utf8;
-use feature &#39;:5.10&#39;;</p>
+use feature &#39;:5.10&#39;;
 
-<p>use Mojolicious::Lite;</p>
+use Mojolicious::Lite;
 
-<p>use Imager;
-use File::Spec;</p>
+use Imager;
+use File::Spec;
 
-<p>my $log = Mojo::Log-&gt;new;</p>
+my $log = Mojo::Log-&gt;new;
 
-<p>my @scales     = qw/640 800 1024 2048/;
-my $static_dir = app-&gt;static-&gt;paths-&gt;[0];</p>
+my @scales     = qw/640 800 1024 2048/;
+my $static_dir = app-&gt;static-&gt;paths-&gt;[0];
 
-<p>my %scales_paths = map { $_ =&gt; File::Spec-&gt;catfile( $static_dir, $_ ) } @scales;</p>
+my %scales_paths = map { $_ =&gt; File::Spec-&gt;catfile( $static_dir, $_ ) } @scales;
 
-<h1>Upload form in DATA section</h1>
+# Upload form in DATA section
+get &#39;/&#39; =&gt; &#39;form&#39;;
 
-<p>get &#39;/&#39; =&gt; &#39;form&#39;;</p>
+# Multipart upload handler
+post &#39;/upload&#39; =&gt; sub {
+    my $c = shift;
 
-<h1>Multipart upload handler</h1>
+    # Process uploaded file
+    return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
+    my $size = $image-&gt;size;
+    my $name = $image-&gt;filename;
 
-<p>post &#39;/upload&#39; =&gt; sub {
-    my $c = shift;</p>
+    mkdir $static_dir unless -e $static_dir;
 
-<pre><code># Process uploaded file
-return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
-my $size = $image-&gt;size;
-my $name = $image-&gt;filename;
+    my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
 
-mkdir $static_dir unless -e $static_dir;
+    $image-&gt;move_to($image_path);
 
-my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
+    my $imager = Imager-&gt;new();
+    $imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;
 
-$image-&gt;move_to($image_path);
+    for my $scale (@scales) {
 
-my $imager = Imager-&gt;new();
-$imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;
+        mkdir $scales_paths{$scale}
+        unless -e $scales_paths{$scale};    #check that folder is exists
 
-for my $scale (@scales) {
+        my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
 
-    mkdir $scales_paths{$scale}
-      unless -e $scales_paths{$scale};    #check that folder is exists
+        $scaled-&gt;write(
+            file =&gt; File::Spec-&gt;catfile( $scales_paths{$scale}, $name ) )
+        or die $scaled-&gt;errstr;
 
-    my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
+    }
 
-    $scaled-&gt;write(
-        file =&gt; File::Spec-&gt;catfile( $scales_paths{$scale}, $name ) )
-      or die $scaled-&gt;errstr;
+    $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+};
 
-}
+app-&gt;start;
+__DATA__
 
-$c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+@@ form.html.ep
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Upload&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+    %= form_for upload =&gt; (enctype =&gt; &#39;multipart/form-data&#39;) =&gt; begin
+    %= file_field &#39;image&#39;
+    %= submit_button &#39;Upload&#39;
+    % end
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 
-<p>};</p>
-
-<p>app-&gt;start;
-<strong>DATA</strong></p>
-
-<p>@@ form.html.ep
-<!DOCTYPE html>
-<html>
-  <head><title>Upload</title></head>
-  <body>
-    %= form_for upload =&gt; (enctype =&gt; &#39;multipart/form-data&#39;) =&gt; begin
-      %= file_field &#39;image&#39;
-      %= submit_button &#39;Upload&#39;
-    % end
-  </body>
-</html>
-<code>``
-Основной код приложения честно сперт из [официального гайда](https://mojolicious.org/perldoc/Mojolicious/Guides/Tutorial#File-uploads). С добавлением кода обработки загруженных картинок. Конечно можно было ограничится банальным</code>sleep 5`, но, на мой взгляд, это скучно. Хоть и дает в разы меньше кода в примере.</p>
+<p>Основной код приложения честно сперт из <a href="https://mojolicious.org/perldoc/Mojolicious/Guides/Tutorial#File-uploads">официального гайда</a>. С добавлением кода обработки загруженных картинок. Конечно можно было ограничится банальным <code>sleep 5</code>, но, на мой взгляд, это скучно. Хоть и дает в разы меньше кода в примере.</p>
 
 <p>Если запустить этот пример и загрузить картинку, то можно заметить что между нажатием кнопки Upload и получением результата проходит достаточно существенное время (на моем i5 около двух секунд для картинки в 12Mpix). Все это время приложение не отвечает на запросы снаружи, что может быть довольно неприятно. </p>
 
@@ -105,66 +100,62 @@ $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot
 
 <p>Изменим метод для аплоада картинок чтобы он выглядел следующим образом:</p>
 
-<p>```
-post &#39;/upload&#39; =&gt; sub {
-    my $c = shift;</p>
+<pre><code>post &#39;/upload&#39; =&gt; sub {
+    my $c = shift;
 
-<pre><code># Process uploaded file
-return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
-my $size = $image-&gt;size;
-my $name = $image-&gt;filename;
+    # Process uploaded file
+    return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
+    my $size = $image-&gt;size;
+    my $name = $image-&gt;filename;
 
-mkdir $static_dir unless -e $static_dir;
+    mkdir $static_dir unless -e $static_dir;
 
-my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
+    my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
 
-$image-&gt;move_to($image_path);
+    $image-&gt;move_to($image_path);
 
-save_image($name, $image_path);  
+    save_image($name, $image_path);  
 
-$c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
-</code></pre>
+    $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+};
 
-<p>};</p>
+Mojo::IOLoop-&gt;start;
+app-&gt;start;
 
-<p>Mojo::IOLoop-&gt;start;
-app-&gt;start;</p>
+sub save_image {
+my $image_name = shift;
+my $image_path = shift;
 
-<p>sub save_image {
-  my $image_name = shift;
-  my $image_path = shift;</p>
 
-<p>my $imager = Imager-&gt;new();
-    $imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;</p>
+my $imager = Imager-&gt;new();
+    $imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;
 
-<pre><code>Mojo::IOLoop-&gt;subprocess(
-    sub {
-        my $subprocess = shift;
+    Mojo::IOLoop-&gt;subprocess(
+        sub {
+            my $subprocess = shift;
 
-        for my $scale (@scales) {
+            for my $scale (@scales) {
 
-            mkdir $scales_paths{$scale}
-              unless -e $scales_paths{$scale};  #check that folder is exists
+                mkdir $scales_paths{$scale}
+                unless -e $scales_paths{$scale};  #check that folder is exists
 
-            my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
+                my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
 
-            $scaled-&gt;write(
-                file =&gt; File::Spec-&gt;catfile( $scales_paths{$scale}, $image_name )
-            ) or die $scaled-&gt;errstr;
+                $scaled-&gt;write(
+                    file =&gt; File::Spec-&gt;catfile( $scales_paths{$scale}, $image_name )
+                ) or die $scaled-&gt;errstr;
 
+            }
+            $log-&gt;debug(&quot;done&quot;);
+            return 1;
+        },
+        sub {
+            my ( $subprocess, $err, @results ) = @_;
+            $log-&gt;error(&quot;Subprocess error: $err&quot;) and return if $err;
         }
-        $log-&gt;debug(&quot;done&quot;);
-        return 1;
-    },
-    sub {
-        my ( $subprocess, $err, @results ) = @_;
-        $log-&gt;error(&quot;Subprocess error: $err&quot;) and return if $err;
-    }
-);
+    );
+}
 </code></pre>
-
-<p>}
-```</p>
 
 <p>Здесь мы вынесли код сохранения картинки в отдельную подпрограмму, а заодно обернули в subprocess. Кстати, сохранять вотчер сабпроцесса не требуется. При создании он сам прописывается в IOLoop и живет там.</p>
 
@@ -174,71 +165,66 @@ app-&gt;start;</p>
 
 <p>Приведем код к виду:</p>
 
-<p>```
-post &#39;/upload&#39; =&gt; sub {
-    my $c = shift;</p>
+<pre><code>post &#39;/upload&#39; =&gt; sub {
+    my $c = shift;
 
-<pre><code># Process uploaded file
-return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
-my $size = $image-&gt;size;
-my $name = $image-&gt;filename;
+    # Process uploaded file
+    return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
+    my $size = $image-&gt;size;
+    my $name = $image-&gt;filename;
 
-mkdir $static_dir unless -e $static_dir;
+    mkdir $static_dir unless -e $static_dir;
 
-my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
+    my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
 
-$image-&gt;move_to($image_path);
+    $image-&gt;move_to($image_path);
 
-my $promise = save_image( $name, $image_path );
+    my $promise = save_image( $name, $image_path );
 
-$promise-&gt;then(
-    sub {
-        $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
-    }
-)-&gt;wait;
-</code></pre>
+    $promise-&gt;then(
+        sub {
+            $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+        }
+    )-&gt;wait;
+};
 
-<p>};
-<code>
-</code>
+
 sub save_image {
     my $image_name = shift;
-    my $image_path = shift;</p>
+    my $image_path = shift;
 
-<pre><code>my $imager = Imager-&gt;new();
-$imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;
+    my $imager = Imager-&gt;new();
+    $imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;
 
-my $promise = Mojo::Promise-&gt;new;
-Mojo::IOLoop-&gt;subprocess(
-    sub {
-        my $subprocess = shift;
+    my $promise = Mojo::Promise-&gt;new;
+    Mojo::IOLoop-&gt;subprocess(
+        sub {
+            my $subprocess = shift;
 
-        for my $scale (@scales) {
+            for my $scale (@scales) {
 
-            mkdir $scales_paths{$scale}
-              unless -e $scales_paths{$scale};  #check that folder is exists
+                mkdir $scales_paths{$scale}
+                unless -e $scales_paths{$scale};  #check that folder is exists
 
-            my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
+                my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
 
-            $scaled-&gt;write( file =&gt;
-                  File::Spec-&gt;catfile( $scales_paths{$scale}, $image_name )
-            ) or die $scaled-&gt;errstr;
+                $scaled-&gt;write( file =&gt;
+                    File::Spec-&gt;catfile( $scales_paths{$scale}, $image_name )
+                ) or die $scaled-&gt;errstr;
 
+            }
+            $log-&gt;debug(&quot;done&quot;);
+            return 1;
+        },
+        sub {
+            my ( $subprocess, $err, @results ) = @_;
+            $promise-&gt;reject(&quot;Subprocess error: $err @results&quot;) if $err;
+            $promise-&gt;resolve( 1, &quot;done&quot; );
         }
-        $log-&gt;debug(&quot;done&quot;);
-        return 1;
-    },
-    sub {
-        my ( $subprocess, $err, @results ) = @_;
-        $promise-&gt;reject(&quot;Subprocess error: $err @results&quot;) if $err;
-        $promise-&gt;resolve( 1, &quot;done&quot; );
-    }
-);
-return $promise;
+    );
+    return $promise;
+}
 </code></pre>
-
-<p>}
-```</p>
 
 <p>По сравнению с прошлым вариантом тут добавилось создание объекта Promise в save_image и данные клиенту мы возвращаем уже из Promise, а не напрямую из контроллера. Так же при возникновении ошибки в subprocess мы не возвращаем undef, а режектим promise. В результате работы этого кода мы спавним сабпроцесс, но ответ клиенту не выдаем пока он не отработает. При этом наше приложение продолжает обслуживать других клиентов. </p>
 
@@ -247,57 +233,50 @@ return $promise;
 <p>Что же делать если нам надо гарантированно быстро положить сервер? :) Ведь в таком варианте мы создаем только один subprocess на запрос. Конечно же создавать несколько! 
 Выглядеть это будет так:</p>
 
-<p>```
-post &#39;/upload&#39; =&gt; sub {
-    my $c = shift;</p>
+<pre><code>post &#39;/upload&#39; =&gt; sub {
+    my $c = shift;
 
-<pre><code># Process uploaded file
-return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
-my $size = $image-&gt;size;
-my $name = $image-&gt;filename;
+    # Process uploaded file
+    return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
+    my $size = $image-&gt;size;
+    my $name = $image-&gt;filename;
 
-mkdir $static_dir unless -e $static_dir;
+    mkdir $static_dir unless -e $static_dir;
 
-my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
+    my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
 
-$image-&gt;move_to($image_path);
+    $image-&gt;move_to($image_path);
 
-my $promise_first = save_image( $name, $image_path, @scales[0..$#scales/2] );
-my $promise_second = save_image( $name, $image_path, @scales[$#scales/2..$#scales]);
+    my $promise_first = save_image( $name, $image_path, @scales[0..$#scales/2] );
+    my $promise_second = save_image( $name, $image_path, @scales[$#scales/2..$#scales]);
 
-Mojo::Promise-&gt;all($promise_first, $promise_second)-&gt;then(
-    sub {
-        $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
-    }
-)-&gt;wait;
-</code></pre>
+    Mojo::Promise-&gt;all($promise_first, $promise_second)-&gt;then(
+        sub {
+            $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+        }
+    )-&gt;wait;
+};
 
-<p>};
-<code>
-</code>
+
 sub save_image {
     my $image_name = shift;
     my $image_path = shift;
-    my @scales = @_;</p>
+    my @scales = @_;
 
-<pre><code>...
+    ...
+}
 </code></pre>
-
-<p>}</p>
-
-<p>```</p>
 
 <p>Здесь мы делаем два вызова метода <code>save_image</code> с разным набором размеров для ресайза, каждый из которыйх возвращает свой promise.
 Затем дожидаемся когда они оба отработают в <code>Mojo::Promise-&gt;all($promise_first, $promise_second)</code> и после этого выдаем ответ клиенту. </p>
 
 <p>В примерах выше мы не ждали никаких результатов от subprocess, в реальной жизни это относительно редкое явление. В данном случае все вообще элементарно.</p>
 
-<p>```
-    Mojo::IOLoop-&gt;subprocess(
-        sub {
-            my $subprocess = shift;</p>
+<pre><code>Mojo::IOLoop-&gt;subprocess(
+    sub {
+        my $subprocess = shift;
 
-<pre><code>        ...
+        ...
 
         return $work_results;
     },
@@ -309,38 +288,35 @@ sub save_image {
 );
 </code></pre>
 
-<p>```</p>
-
 <p>И в коде обработки promise:</p>
 
-<p><code>
-    Mojo::Promise-&gt;all(@promises_list)-&gt;then(
-        sub {
-          for my $prom( @_) {
-            $log-&gt;debug(&quot;promise result: $prom-&gt;[1]&quot;) 
-          }
-        }
-    )-&gt;wait;
-</code>
-На вход сабы приходит массив результатов работ промисов.
+<pre><code>Mojo::Promise-&gt;all(@promises_list)-&gt;then(
+    sub {
+      for my $prom( @_) {
+        $log-&gt;debug(&quot;promise result: $prom-&gt;[1]&quot;) 
+      }
+    }
+)-&gt;wait;
+</code></pre>
+
+<p>На вход сабы приходит массив результатов работ промисов.
 Соответственно, что вернули в <code>$promise-&gt;resolve( @results );</code>, то и будет лежать. Ну помноженное на кол-во промисов.</p>
 
 <p>Еще один момент - обработка ошибок. В целом тут все просто. Если промис был режектнут или в нем возникло исключение, то promise попадает в блок <code>catch</code> где происходит обработка ошибки.</p>
 
-<p><code>
-Mojo::Promise-&gt;all(@promises_list)-&gt;then(
-        sub {
-          for my $prom( @_) {
-            $log-&gt;debug(&quot;promise result: $prom-&gt;[1]&quot;) 
-          }
-        }
-    )-&gt;catch(
-        sub {
-            my $err = shift;
-            $log-&gt;error(&quot;promise error: $err);
-        }
-    )-&gt;wait;
-</code></p>
+<pre><code>Mojo::Promise-&gt;all(@promises_list)-&gt;then(
+    sub {
+      for my $prom( @_) {
+        $log-&gt;debug(&quot;promise result: $prom-&gt;[1]&quot;) 
+      }
+    }
+)-&gt;catch(
+    sub {
+        my $err = shift;
+        $log-&gt;error(&quot;promise error: $err);
+    }
+)-&gt;wait;
+</code></pre>
 
 <p>Важный момент, если мы попадаем в catch, то в then мы уже не попадем. То есть, например, запустить десяток запросов к разным серверам, а потом показать только успешные не получится. Для таких кейсов придется использовать другие механизмы.</p>
 
@@ -350,118 +326,110 @@ Mojo::Promise-&gt;all(@promises_list)-&gt;then(
 
 <p>Ну и напоследок финальный код приложения:</p>
 
-<p>```</p>
+<pre><code>#!/usr/bin/env perl
 
-<h1>!/usr/bin/env perl</h1>
-
-<p>use strict;
+use strict;
 use warnings;
 use utf8;
-use feature &#39;:5.10&#39;;</p>
+use feature &#39;:5.10&#39;;
 
-<p>use Mojolicious::Lite;</p>
+use Mojolicious::Lite;
 
-<p>use Imager;
-use File::Spec;</p>
+use Imager;
+use File::Spec;
 
-<p>my @scales     = qw/640 800 1024 2048/;
-my $static_dir = app-&gt;static-&gt;paths-&gt;[0];</p>
+my @scales     = qw/640 800 1024 2048/;
+my $static_dir = app-&gt;static-&gt;paths-&gt;[0];
 
-<p>my %scales_paths = map { $_ =&gt; File::Spec-&gt;catfile( $static_dir, $_ ) } @scales;</p>
+my %scales_paths = map { $_ =&gt; File::Spec-&gt;catfile( $static_dir, $_ ) } @scales;
 
-<p>my $log = Mojo::Log-&gt;new;</p>
+my $log = Mojo::Log-&gt;new;
 
-<h1>Upload form in DATA section</h1>
+# Upload form in DATA section
+get &#39;/&#39; =&gt; &#39;form&#39;;
 
-<p>get &#39;/&#39; =&gt; &#39;form&#39;;</p>
+# Multipart upload handler
+post &#39;/upload&#39; =&gt; sub {
+    my $c = shift;
 
-<h1>Multipart upload handler</h1>
+    return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
+    my $size = $image-&gt;size;
+    my $name = $image-&gt;filename;
 
-<p>post &#39;/upload&#39; =&gt; sub {
-    my $c = shift;</p>
+    mkdir $static_dir unless -e $static_dir;
 
-<pre><code>return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
-my $size = $image-&gt;size;
-my $name = $image-&gt;filename;
+    my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
 
-mkdir $static_dir unless -e $static_dir;
+    $image-&gt;move_to($image_path);
 
-my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
+    my $promise_first = save_image( $name, $image_path, @scales[0..$#scales/2] );
+    my $promise_second = save_image( $name, $image_path, @scales[$#scales/2..$#scales]);
 
-$image-&gt;move_to($image_path);
+    Mojo::Promise-&gt;all($promise_first, $promise_second)-&gt;then(
+        sub {
+            $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+        }
+    )-&gt;catch(
+        sub {
+            my $err = shift;
+            $c-&gt;render( text =&gt; &quot;One of promises died :( $err&quot; );
+        }
+    )-&gt;wait;
+};
 
-my $promise_first = save_image( $name, $image_path, @scales[0..$#scales/2] );
-my $promise_second = save_image( $name, $image_path, @scales[$#scales/2..$#scales]);
+Mojo::IOLoop-&gt;start;
+app-&gt;start;
 
-Mojo::Promise-&gt;all($promise_first, $promise_second)-&gt;then(
-    sub {
-        $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
-    }
-)-&gt;catch(
-    sub {
-        my $err = shift;
-        $c-&gt;render( text =&gt; &quot;One of promises died :( $err&quot; );
-    }
-)-&gt;wait;
-</code></pre>
-
-<p>};</p>
-
-<p>Mojo::IOLoop-&gt;start;
-app-&gt;start;</p>
-
-<p>sub save_image {
+sub save_image {
     my $image_name = shift;
     my $image_path = shift;
-    my @scales = @_;</p>
+    my @scales = @_;
 
-<pre><code>my $imager = Imager-&gt;new();
-$imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;
+    my $imager = Imager-&gt;new();
+    $imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;
 
-my $promise = Mojo::Promise-&gt;new;
-Mojo::IOLoop-&gt;subprocess(
-    sub {
-        my $subprocess = shift;
+    my $promise = Mojo::Promise-&gt;new;
+    Mojo::IOLoop-&gt;subprocess(
+        sub {
+            my $subprocess = shift;
 
-        for my $scale (@scales) {
+            for my $scale (@scales) {
 
-            mkdir $scales_paths{$scale}
-              unless -e $scales_paths{$scale};  #check that folder is exists
+                mkdir $scales_paths{$scale}
+                unless -e $scales_paths{$scale};  #check that folder is exists
 
-            my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
+                my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
 
-            $scaled-&gt;write( file =&gt;
-                  File::Spec-&gt;catfile( $scales_paths{$scale}, $image_name )
-            ) or die $scaled-&gt;errstr;
+                $scaled-&gt;write( file =&gt;
+                    File::Spec-&gt;catfile( $scales_paths{$scale}, $image_name )
+                ) or die $scaled-&gt;errstr;
 
+            }
+            $log-&gt;debug(&quot;done @scales&quot;);
+            return 1;
+        },
+        sub {
+            my ( $subprocess, $err, @results ) = @_;
+            $promise-&gt;reject(&quot;Subprocess error: $err @results&quot;) if $err;
+            $promise-&gt;resolve( 1, &quot;done&quot; );
         }
-        $log-&gt;debug(&quot;done @scales&quot;);
-        return 1;
-    },
-    sub {
-        my ( $subprocess, $err, @results ) = @_;
-        $promise-&gt;reject(&quot;Subprocess error: $err @results&quot;) if $err;
-        $promise-&gt;resolve( 1, &quot;done&quot; );
-    }
-);
-return $promise;
-</code></pre>
+    );
+    return $promise;
+}
+__DATA__
 
-<p>}
-<strong>DATA</strong></p>
-
-<p>@@ form.html.ep
-<!DOCTYPE html>
-<html>
-  <head><title>Upload</title></head>
-  <body>
+@@ form.html.ep
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Upload&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
     %= form_for upload =&gt; (enctype =&gt; &#39;multipart/form-data&#39;) =&gt; begin
-      %= file_field &#39;image&#39;
-      %= submit_button &#39;Upload&#39;
+    %= file_field &#39;image&#39;
+    %= submit_button &#39;Upload&#39;
     % end
-  </body>
-</html>
-```</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
 
 
