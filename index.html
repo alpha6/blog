@@ -36,6 +36,476 @@
 
 <article>
     <header>
+        <h1><a href="/blog/2018/08/04/mojolicios-promise-subprocess/">Mojolicios+Promise+Subprocess</a></h1>
+
+        <aside>
+            <time datetime="2018-08-04">
+                Posted on 2018-08-04
+            </time>
+            <a data-disqus-identifier="2018/08/04/mojolicios-promise-subprocess/index.markdown" href="/blog/2018/08/04/mojolicios-promise-subprocess/#disqus_thread">0 comments</a>
+        </aside>
+
+        <p class="tags">Tags:
+        </p>
+
+    </header>
+
+    <p>Иногда в веб-приложениях возникает необходимость сделать какое-то длительное действие, которое может привести к остановке эвент-лупа и, соответственно, отказу в обслуживании на время обработки запросов.</p>
+
+<p>Для решения этой проблемы в приложениях на Mojolicious можно использовать комбинацию Promise и Subprocess в виде модулей <a href="https://mojolicious.org/perldoc/Mojo/Promise">Mojo::Promise</a> и <a href="https://mojolicious.org/perldoc/Mojo/IOLoop/Subprocess">Mojo::IOLoop</a>.</p>
+
+<p>Важный нюанс, если ваше длительное действие инзначально асинхронное и не нагружает процессор, то смысла в использовании subprocess нет, т.к. subprocess спавнится через fork, а это достаточно дорогое удовольствие. Так же у subprocess нет встроенных методов для ограничения нагрузки. Так что если CPU-Bound задачи вам надо решать часто, в больших количествах и, желательно, не устраивая DOS-атаку свой сервер, то лучше использовать очереди и воркеров. Хотя, конечно никто не мешает накидать очередь на промисах и вот это всё.</p>
+
+<p>Итак, для примера создадим простейшее приложение на Mojo::Lite которое будет принимать картинку от пользователя и делать из нее набор картинок в разных разрешениях. </p>
+
+<p>```</p>
+
+<h1>!/usr/bin/env perl</h1>
+
+<p>use strict;
+use warnings;
+use utf8;
+use feature &#39;:5.10&#39;;</p>
+
+<p>use Mojolicious::Lite;</p>
+
+<p>use Imager;
+use File::Spec;</p>
+
+<p>my $log = Mojo::Log-&gt;new;</p>
+
+<p>my @scales     = qw/640 800 1024 2048/;
+my $static_dir = app-&gt;static-&gt;paths-&gt;[0];</p>
+
+<p>my %scales_paths = map { $_ =&gt; File::Spec-&gt;catfile( $static_dir, $_ ) } @scales;</p>
+
+<h1>Upload form in DATA section</h1>
+
+<p>get &#39;/&#39; =&gt; &#39;form&#39;;</p>
+
+<h1>Multipart upload handler</h1>
+
+<p>post &#39;/upload&#39; =&gt; sub {
+    my $c = shift;</p>
+
+<pre><code># Process uploaded file
+return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
+my $size = $image-&gt;size;
+my $name = $image-&gt;filename;
+
+mkdir $static_dir unless -e $static_dir;
+
+my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
+
+$image-&gt;move_to($image_path);
+
+my $imager = Imager-&gt;new();
+$imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;
+
+for my $scale (@scales) {
+
+    mkdir $scales_paths{$scale}
+      unless -e $scales_paths{$scale};    #check that folder is exists
+
+    my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
+
+    $scaled-&gt;write(
+        file =&gt; File::Spec-&gt;catfile( $scales_paths{$scale}, $name ) )
+      or die $scaled-&gt;errstr;
+
+}
+
+$c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+</code></pre>
+
+<p>};</p>
+
+<p>app-&gt;start;
+<strong>DATA</strong></p>
+
+<p>@@ form.html.ep
+<!DOCTYPE html>
+<html>
+  <head><title>Upload</title></head>
+  <body>
+    %= form_for upload =&gt; (enctype =&gt; &#39;multipart/form-data&#39;) =&gt; begin
+      %= file_field &#39;image&#39;
+      %= submit_button &#39;Upload&#39;
+    % end
+  </body>
+</html>
+<code>``
+Основной код приложения честно сперт из [официального гайда](https://mojolicious.org/perldoc/Mojolicious/Guides/Tutorial#File-uploads). С добавлением кода обработки загруженных картинок. Конечно можно было ограничится банальным</code>sleep 5`, но, на мой взгляд, это скучно. Хоть и дает в разы меньше кода в примере.</p>
+
+<p>Если запустить этот пример и загрузить картинку, то можно заметить что между нажатием кнопки Upload и получением результата проходит достаточно существенное время (на моем i5 около двух секунд для картинки в 12Mpix). Все это время приложение не отвечает на запросы снаружи, что может быть довольно неприятно. </p>
+
+<p>Первое и самое простое что можно сделать, если нам нет необходимости возвращать результат работы прямо сейчас, это просто обернуть ресурсоемкий код в subprocess.</p>
+
+<p>Изменим метод для аплоада картинок чтобы он выглядел следующим образом:</p>
+
+<p>```
+post &#39;/upload&#39; =&gt; sub {
+    my $c = shift;</p>
+
+<pre><code># Process uploaded file
+return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
+my $size = $image-&gt;size;
+my $name = $image-&gt;filename;
+
+mkdir $static_dir unless -e $static_dir;
+
+my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
+
+$image-&gt;move_to($image_path);
+
+save_image($name, $image_path);  
+
+$c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+</code></pre>
+
+<p>};</p>
+
+<p>Mojo::IOLoop-&gt;start;
+app-&gt;start;</p>
+
+<p>sub save_image {
+  my $image_name = shift;
+  my $image_path = shift;</p>
+
+<p>my $imager = Imager-&gt;new();
+    $imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;</p>
+
+<pre><code>Mojo::IOLoop-&gt;subprocess(
+    sub {
+        my $subprocess = shift;
+
+        for my $scale (@scales) {
+
+            mkdir $scales_paths{$scale}
+              unless -e $scales_paths{$scale};  #check that folder is exists
+
+            my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
+
+            $scaled-&gt;write(
+                file =&gt; File::Spec-&gt;catfile( $scales_paths{$scale}, $image_name )
+            ) or die $scaled-&gt;errstr;
+
+        }
+        $log-&gt;debug(&quot;done&quot;);
+        return 1;
+    },
+    sub {
+        my ( $subprocess, $err, @results ) = @_;
+        $log-&gt;error(&quot;Subprocess error: $err&quot;) and return if $err;
+    }
+);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Здесь мы вынесли код сохранения картинки в отдельную подпрограмму, а заодно обернули в subprocess. Кстати, сохранять вотчер сабпроцесса не требуется. При создании он сам прописывается в IOLoop и живет там.</p>
+
+<p>Теперь можно заметить, что ответ в браузер выдается практически сразу, а строчка <code>done</code> в логе появляется позже ответа <code>[debug] 200 OK (0.201017s, 4.975/s)</code>. В списке процессов тоже можно будет наблюдать появление чайлда у нашего процесса приложения. Так работает subprocess.</p>
+
+<p>Ок, с простым запуском разобрались, теперь посмотрим что делать если мы хотим выдать клиенту ответ по результату работы, но при этом хотим обслуживать других клиентов. Здесь нам поможет Promise в виде модуля <code>Mojo::Promise</code>, который реализует спецификацию <a href="https://promisesaplus.com/">Promise/A+</a>.</p>
+
+<p>Приведем код к виду:</p>
+
+<p>```
+post &#39;/upload&#39; =&gt; sub {
+    my $c = shift;</p>
+
+<pre><code># Process uploaded file
+return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
+my $size = $image-&gt;size;
+my $name = $image-&gt;filename;
+
+mkdir $static_dir unless -e $static_dir;
+
+my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
+
+$image-&gt;move_to($image_path);
+
+my $promise = save_image( $name, $image_path );
+
+$promise-&gt;then(
+    sub {
+        $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+    }
+)-&gt;wait;
+</code></pre>
+
+<p>};
+<code>
+</code>
+sub save_image {
+    my $image_name = shift;
+    my $image_path = shift;</p>
+
+<pre><code>my $imager = Imager-&gt;new();
+$imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;
+
+my $promise = Mojo::Promise-&gt;new;
+Mojo::IOLoop-&gt;subprocess(
+    sub {
+        my $subprocess = shift;
+
+        for my $scale (@scales) {
+
+            mkdir $scales_paths{$scale}
+              unless -e $scales_paths{$scale};  #check that folder is exists
+
+            my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
+
+            $scaled-&gt;write( file =&gt;
+                  File::Spec-&gt;catfile( $scales_paths{$scale}, $image_name )
+            ) or die $scaled-&gt;errstr;
+
+        }
+        $log-&gt;debug(&quot;done&quot;);
+        return 1;
+    },
+    sub {
+        my ( $subprocess, $err, @results ) = @_;
+        $promise-&gt;reject(&quot;Subprocess error: $err @results&quot;) if $err;
+        $promise-&gt;resolve( 1, &quot;done&quot; );
+    }
+);
+return $promise;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>По сравнению с прошлым вариантом тут добавилось создание объекта Promise в save_image и данные клиенту мы возвращаем уже из Promise, а не напрямую из контроллера. Так же при возникновении ошибки в subprocess мы не возвращаем undef, а режектим promise. В результате работы этого кода мы спавним сабпроцесс, но ответ клиенту не выдаем пока он не отработает. При этом наше приложение продолжает обслуживать других клиентов. </p>
+
+<p>И опять я напомню что в таком варианте у нас нет контроля количества запущенных процессов и заДОСить свой сервер легче легкого!</p>
+
+<p>Что же делать если нам надо гарантированно быстро положить сервер? :) Ведь в таком варианте мы создаем только один subprocess на запрос. Конечно же создавать несколько! 
+Выглядеть это будет так:</p>
+
+<p>```
+post &#39;/upload&#39; =&gt; sub {
+    my $c = shift;</p>
+
+<pre><code># Process uploaded file
+return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
+my $size = $image-&gt;size;
+my $name = $image-&gt;filename;
+
+mkdir $static_dir unless -e $static_dir;
+
+my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
+
+$image-&gt;move_to($image_path);
+
+my $promise_first = save_image( $name, $image_path, @scales[0..$#scales/2] );
+my $promise_second = save_image( $name, $image_path, @scales[$#scales/2..$#scales]);
+
+Mojo::Promise-&gt;all($promise_first, $promise_second)-&gt;then(
+    sub {
+        $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+    }
+)-&gt;wait;
+</code></pre>
+
+<p>};
+<code>
+</code>
+sub save_image {
+    my $image_name = shift;
+    my $image_path = shift;
+    my @scales = @_;</p>
+
+<pre><code>...
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>Здесь мы делаем два вызова метода <code>save_image</code> с разным набором размеров для ресайза, каждый из которыйх возвращает свой promise.
+Затем дожидаемся когда они оба отработают в <code>Mojo::Promise-&gt;all($promise_first, $promise_second)</code> и после этого выдаем ответ клиенту. </p>
+
+<p>В примерах выше мы не ждали никаких результатов от subprocess, в реальной жизни это относительно редкое явление. В данном случае все вообще элементарно.</p>
+
+<p>```
+    Mojo::IOLoop-&gt;subprocess(
+        sub {
+            my $subprocess = shift;</p>
+
+<pre><code>        ...
+
+        return $work_results;
+    },
+    sub {
+        my ( $subprocess, $err, @results ) = @_;
+        $promise-&gt;reject(&quot;Subprocess error: $err @results&quot;) if $err;
+        $promise-&gt;resolve( @results );
+    }
+);
+</code></pre>
+
+<p>```</p>
+
+<p>И в коде обработки promise:</p>
+
+<p><code>
+    Mojo::Promise-&gt;all(@promises_list)-&gt;then(
+        sub {
+          for my $prom( @_) {
+            $log-&gt;debug(&quot;promise result: $prom-&gt;[1]&quot;) 
+          }
+        }
+    )-&gt;wait;
+</code>
+На вход сабы приходит массив результатов работ промисов.
+Соответственно, что вернули в <code>$promise-&gt;resolve( @results );</code>, то и будет лежать. Ну помноженное на кол-во промисов.</p>
+
+<p>Еще один момент - обработка ошибок. В целом тут все просто. Если промис был режектнут или в нем возникло исключение, то promise попадает в блок <code>catch</code> где происходит обработка ошибки.</p>
+
+<p><code>
+Mojo::Promise-&gt;all(@promises_list)-&gt;then(
+        sub {
+          for my $prom( @_) {
+            $log-&gt;debug(&quot;promise result: $prom-&gt;[1]&quot;) 
+          }
+        }
+    )-&gt;catch(
+        sub {
+            my $err = shift;
+            $log-&gt;error(&quot;promise error: $err);
+        }
+    )-&gt;wait;
+</code></p>
+
+<p>Важный момент, если мы попадаем в catch, то в then мы уже не попадем. То есть, например, запустить десяток запросов к разным серверам, а потом показать только успешные не получится. Для таких кейсов придется использовать другие механизмы.</p>
+
+<p>Еще нюанс: в случае если блок <code>catch</code> отсутствует и какой-то из промисов будет режектнут, то <code>all()-&gt;then</code> не вызовется никогда! Так что надо не забывать его добавлять.</p>
+
+<p>В общем и целом это достаточно полезная комбинация когда нам надо изредка(!) выполнять тяжелые запросы блокирующие приложение. Если такие запросы будут не редкие, то лучше использовать очереди. Например, тот же Minion, если не хочется заморачиваться со всякими RabbitMQ и прочим кровавым энтерпрайзом.</p>
+
+<p>Ну и напоследок финальный код приложения:</p>
+
+<p>```</p>
+
+<h1>!/usr/bin/env perl</h1>
+
+<p>use strict;
+use warnings;
+use utf8;
+use feature &#39;:5.10&#39;;</p>
+
+<p>use Mojolicious::Lite;</p>
+
+<p>use Imager;
+use File::Spec;</p>
+
+<p>my @scales     = qw/640 800 1024 2048/;
+my $static_dir = app-&gt;static-&gt;paths-&gt;[0];</p>
+
+<p>my %scales_paths = map { $_ =&gt; File::Spec-&gt;catfile( $static_dir, $_ ) } @scales;</p>
+
+<p>my $log = Mojo::Log-&gt;new;</p>
+
+<h1>Upload form in DATA section</h1>
+
+<p>get &#39;/&#39; =&gt; &#39;form&#39;;</p>
+
+<h1>Multipart upload handler</h1>
+
+<p>post &#39;/upload&#39; =&gt; sub {
+    my $c = shift;</p>
+
+<pre><code>return $c-&gt;redirect_to(&#39;form&#39;) unless my $image = $c-&gt;param(&#39;image&#39;);
+my $size = $image-&gt;size;
+my $name = $image-&gt;filename;
+
+mkdir $static_dir unless -e $static_dir;
+
+my $image_path = File::Spec-&gt;catfile( $static_dir, $name );
+
+$image-&gt;move_to($image_path);
+
+my $promise_first = save_image( $name, $image_path, @scales[0..$#scales/2] );
+my $promise_second = save_image( $name, $image_path, @scales[$#scales/2..$#scales]);
+
+Mojo::Promise-&gt;all($promise_first, $promise_second)-&gt;then(
+    sub {
+        $c-&gt;render( text =&gt; &quot;Thanks for uploading $size byte file $name.&quot; );
+    }
+)-&gt;catch(
+    sub {
+        my $err = shift;
+        $c-&gt;render( text =&gt; &quot;One of promises died :( $err&quot; );
+    }
+)-&gt;wait;
+</code></pre>
+
+<p>};</p>
+
+<p>Mojo::IOLoop-&gt;start;
+app-&gt;start;</p>
+
+<p>sub save_image {
+    my $image_name = shift;
+    my $image_path = shift;
+    my @scales = @_;</p>
+
+<pre><code>my $imager = Imager-&gt;new();
+$imager-&gt;read( file =&gt; $image_path ) or die $imager-&gt;errstr;
+
+my $promise = Mojo::Promise-&gt;new;
+Mojo::IOLoop-&gt;subprocess(
+    sub {
+        my $subprocess = shift;
+
+        for my $scale (@scales) {
+
+            mkdir $scales_paths{$scale}
+              unless -e $scales_paths{$scale};  #check that folder is exists
+
+            my $scaled = $imager-&gt;scale( xpixels =&gt; $scale );
+
+            $scaled-&gt;write( file =&gt;
+                  File::Spec-&gt;catfile( $scales_paths{$scale}, $image_name )
+            ) or die $scaled-&gt;errstr;
+
+        }
+        $log-&gt;debug(&quot;done @scales&quot;);
+        return 1;
+    },
+    sub {
+        my ( $subprocess, $err, @results ) = @_;
+        $promise-&gt;reject(&quot;Subprocess error: $err @results&quot;) if $err;
+        $promise-&gt;resolve( 1, &quot;done&quot; );
+    }
+);
+return $promise;
+</code></pre>
+
+<p>}
+<strong>DATA</strong></p>
+
+<p>@@ form.html.ep
+<!DOCTYPE html>
+<html>
+  <head><title>Upload</title></head>
+  <body>
+    %= form_for upload =&gt; (enctype =&gt; &#39;multipart/form-data&#39;) =&gt; begin
+      %= file_field &#39;image&#39;
+      %= submit_button &#39;Upload&#39;
+    % end
+  </body>
+</html>
+```</p>
+
+
+
+</article>
+<article>
+    <header>
         <h1><a href="/blog/2017/11/13/vim-cheat-sheet/">vim шпаргалка</a></h1>
 
         <aside>
@@ -803,44 +1273,6 @@ git checkout -b RcBugFix
 <p>Теперь, когда все проверено, говорим G29. Голова поедет вниз и начнет тыкаться в стол согласно количеству точек, указанных в прошивке. После окончания калибровки будет выдана карта высот. Стоит убедиться, что все значения в ней находятся на одном уровне в переделах погрешности (второй цифры после запятой). Ну, это если стол ровный, без бугров, впадин и перекосов.</p>
 
 <p>Все. На этом процесс настройки автокалибровки завершен, и можно заняться ее тюнигом.</p>
-
-
-
-</article>
-<article>
-    <header>
-        <h1><a href="/blog/2016/10/18/httpresponse-json/">Корректное получение JSON ответа с помощью Apache.HttpClient</a></h1>
-
-        <aside>
-            <time datetime="2016-10-18">
-                Posted on 2016-10-18
-            </time>
-            <a data-disqus-identifier="2016/10/18/httpresponse-json/index.markdown" href="/blog/2016/10/18/httpresponse-json/#disqus_thread">0 comments</a>
-        </aside>
-
-        <p class="tags">Tags:
-            <a href="/blog/tag/java/" rel="tag">java</a>
-            <a href="/blog/tag/json/" rel="tag">json</a>
-            <a href="/blog/tag/apache-http/" rel="tag">apache.http</a>
-            <a href="/blog/tag/confluence/" rel="tag">confluence</a>
-        </p>
-
-    </header>
-
-    <p>У Apache HttpClient есть небольшая, но неприятная бага. Всплыла она при работе с REST API Confluence (вообще очень много баг всплывает при работе с API  продуктов Atlassian, но это все лирика).</p>
-
-<p>В чем, собственно, проблема? Проблема в том, что Confluence при запросе у него данных с Accept: application/json (собственно все JSON REST API) не выставляет заголовок content-encoding для отдаваемых данных. В целом, его можно понять т.к. по стандарту JSON всегда должен быть UTF-8, но HttpClient не понимает и потому разбирает входящие данные как ISO.</p>
-
-<p>Соответственно, дальше JSONObject при парсинге Entity превращает русский текст в совершенно непотребное.</p>
-
-<p>Лечится это элементарно, просто при работае с Entity принудительно указываем ей что кодировка у нас UTF-8.</p>
-
-<p>Вот так:</p>
-
-<pre><code>JSONObject jsonObj = new JSONObject(EntityUtils.toString(response.getEntity, &quot;UTF-8&quot;));
-</code></pre>
-
-<p>После этого русский текст внутри JSON будет в нормальном UTF-8 и с ним можно спокойно работать.</p>
 
 
 

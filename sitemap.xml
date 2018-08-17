@@ -4,7 +4,7 @@
         <loc>http://alpha6.ru/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-11-13</lastmod>
+        <lastmod>2018-08-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/2015/04/09/ubuntu-lc_all=(unset)/</loc>
@@ -169,34 +169,40 @@
         <lastmod>2017-11-13</lastmod>
     </url>
     <url>
+        <loc>http://alpha6.ru/blog/2018/08/04/mojolicios-promise-subprocess/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2018-08-04</lastmod>
+    </url>
+    <url>
         <loc>http://alpha6.ru/blog/page/2/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-11-13</lastmod>
+        <lastmod>2018-08-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/3/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-11-13</lastmod>
+        <lastmod>2018-08-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/4/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-11-13</lastmod>
+        <lastmod>2018-08-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/5/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-11-13</lastmod>
+        <lastmod>2018-08-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/page/6/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-11-13</lastmod>
+        <lastmod>2018-08-04</lastmod>
     </url>
     <url>
         <loc>http://alpha6.ru/blog/tag/3d-printer/</loc>
